@@ -1,7 +1,11 @@
+import "./Content.css";
+
 function Content() {
   return (
     <>
-      <div>This is Content </div>
+      <div className="container">
+        <div>This is Content </div>
+      </div>
     </>
   );
 }

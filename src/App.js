@@ -1,13 +1,7 @@
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { blue, deepOrange } from "@material-ui/core/colors";
+import { Button } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
 import HomePage from "./components/pages/HomePage";
-
-const theme = createMuiTheme({
-  palette: {
-    primary: blue,
-    secondary: deepOrange,
-  },
-});
+import theme from "./components/style/theme";
 
 function App() {
   return (
