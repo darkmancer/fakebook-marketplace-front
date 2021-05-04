@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { blue, deepOrange, indigo } from "@material-ui/core/colors";
+import { blue, deepOrange } from "@material-ui/core/colors";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
@@ -24,11 +24,11 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <ThemeProvider theme={theme} />
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-      <ThemeProvider />
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

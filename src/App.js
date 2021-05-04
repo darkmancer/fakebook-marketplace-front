@@ -2,7 +2,7 @@ import HomePage from "./components/pages/HomePage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContextProvider";
-import LoginRegister from "./components/pages/LoginRegister";
+import LoginRegister from "./components/pages/LoginRegisterPage";
 
 const privateRoutes = [];
 const publicRoutes = [
