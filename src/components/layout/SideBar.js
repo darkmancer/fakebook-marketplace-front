@@ -1,18 +1,17 @@
-import React from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import SearchIcon from "@material-ui/icons/Search";
+import HomeIcon from "@material-ui/icons/Home";
+import InboxIcon from "@material-ui/icons/Inbox";
+import PersonIcon from "@material-ui/icons/Person";
+import AddIcon from "@material-ui/icons/Add";
+import Header from "./Header";
+import FilterLocationModal from "./FilterLocationModal";
 import "./SideBar.css";
 
 const drawerWidth = 240;
@@ -20,13 +19,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    backgroundColor: "black",
     color: "white",
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "white",
-    backgroundColor: "black",
   },
   drawer: {
     width: drawerWidth,
@@ -34,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "#242526",
+    color: "white",
+    borderColor: "gray",
   },
   drawerContainer: {
     overflow: "auto",
@@ -42,61 +38,83 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  dividerLine: {
+    backgroundColor: "gray",
+  },
 }));
 
 function SideBar() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [openPopup, setOpenPopup] = useState(false);
   return (
     <>
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            MarketPlace
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Header />
 
       <Drawer
-        // className="sidebar-container"
         className={classes.drawer}
         variant="permanent"
-        // classes={{
-        //   paper: classes.drawerPaper,
-        // }}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
       >
         <Toolbar />
-        <div /* className={classes.drawerContainer}*/>
+        <div className={classes.drawerContainer}>
           <List>
-            <ListItem>
-              <ListItemIcon>Browse All</ListItemIcon>
+            <ListItem button>
+              <ListItemIcon>
+                <HomeIcon />
+                Browse All
+              </ListItemIcon>
             </ListItem>
 
-            <ListItem>
-              <ListItemIcon>Inbox</ListItemIcon>
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+                Inbox
+              </ListItemIcon>
             </ListItem>
 
-            <ListItem>
-              <ListItemIcon>Your Account</ListItemIcon>
+            <ListItem button>
+              <ListItemIcon>
+                <PersonIcon />
+                Your Account
+              </ListItemIcon>
             </ListItem>
-            <ListItem>Create New Listing</ListItem>
+
+            <Divider className={classes.dividerLine} />
+
+            <ListItem button onClick={() => alert("ok")}>
+              <AddIcon />
+              Create New Listing
+            </ListItem>
           </List>
 
-          <Divider />
+          <Divider className={classes.dividerLine} />
 
           <List>
             <ListItem>Filters</ListItem>
-            <ListItem>bangkok, Thailand within 60 km</ListItem>
+            <ListItem button onClick={() => setOpenPopup(true)}>
+              bangkok, Thailand within 60 km
+            </ListItem>
           </List>
 
-          <Divider />
+          <Divider className={classes.dividerLine} />
 
           <List>
             <ListItem>Categories</ListItem>
-            <ListItem>vehicles</ListItem>
+            <ListItem button>vehicles</ListItem>
           </List>
         </div>
       </Drawer>
+      <FilterLocationModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </>
   );
 }
