@@ -1,4 +1,5 @@
 import { Grid } from "@material-ui/core";
+import { Height } from "@material-ui/icons";
 import React from "react";
 import Login from "../auth/Login";
 import BodyLoginLogo from "../layout/BodyLoginLogo";
@@ -6,7 +7,12 @@ import BodyLoginLogo from "../layout/BodyLoginLogo";
 function LoginRegister() {
   return (
     <>
-      <div style={{ backgroundColor: "#f0f2f5" }}>
+      <div
+        style={{
+          backgroundColor: "#f0f2f5",
+          width: "100%",
+          height: "1000px",
+        }}>
         <Grid
           container
           spacing={0}

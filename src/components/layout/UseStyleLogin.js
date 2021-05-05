@@ -33,6 +33,7 @@ export const useStyle = makeStyles((theme) => ({
   FormTextField: {
     "& .MuiTextField-root": {
       margin: theme.spacing(2),
+
       width: "30ch",
       height: "30px",
       boxShadow: "none",
@@ -45,6 +46,7 @@ export const useStyle = makeStyles((theme) => ({
     border: "1px solid #fafafa",
     borderRadius: theme.shape.borderRadius,
     margin: theme.spacing(1),
+    marginTop: theme.spacing(2),
     "& .MuiInputBase-input": {
       height: "10px",
       backgroundColor: "#fafafa",
@@ -71,6 +73,7 @@ export const useStyle = makeStyles((theme) => ({
     border: "1px solid #fafafa",
     borderRadius: theme.shape.borderRadius,
     margin: theme.spacing(1),
+
     width: "53ch",
     "& .MuiInputBase-input": {
       height: "10px",
@@ -79,6 +82,26 @@ export const useStyle = makeStyles((theme) => ({
 
     "& :focus": {
       border: "1px solid #fafafa",
+    },
+  },
+  inputBirthdate: {
+    border: "1px solid #fafafa",
+    borderRadius: theme.shape.borderRadius,
+    margin: theme.spacing(1),
+    width: "30ch",
+    "& .MuiInputBase-input": {
+      color: "darkgray",
+      height: "10px",
+      backgroundColor: "#fafafa",
+    },
+
+    "& :focus": {
+      border: "1px solid #fafafa",
+    },
+  },
+  labelGender: {
+    "& .MuiFormLabel-root": {
+      fontSize: "6px",
     },
   },
 }));

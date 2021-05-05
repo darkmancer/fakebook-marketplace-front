@@ -1,10 +1,15 @@
 import {
   Button,
   Divider,
+  FormControl,
+  FormLabel,
   IconButton,
   InputAdornment,
-  OutlinedInput,
+  RadioGroup,
+  Radio,
   TextField,
+  FormControlLabel,
+  Grid,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { useStyle } from "../layout/UseStyleLogin";
@@ -14,6 +19,11 @@ function RegisterForm({ getModalStyle }) {
   const classes = useStyle();
   const [modalStyle] = useState(getModalStyle);
   const [typePassword, setTypePassword] = useState(false);
+  const [value, setValue] = useState("");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
   const handleClickShowPassword = () => {
     if (typePassword === true) {
       setTypePassword(false);
@@ -26,7 +36,11 @@ function RegisterForm({ getModalStyle }) {
       <div style={modalStyle} className={classes.paper}>
         <h1 style={{ marginLeft: 16 }}>Sign up</h1>
         <Divider />
-        <form>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}>
           <span>
             <TextField
               placeholder="Firstname"
@@ -105,7 +119,53 @@ function RegisterForm({ getModalStyle }) {
               ),
             }}
           />
-          <Button className={classes.buttonRegister}>SignUp</Button>
+          <Grid container>
+            <Grid item xs={7}>
+              <TextField
+                id="date"
+                label="Date of birth"
+                type="date"
+                variant="outlined"
+                className={classes.inputBirthdate}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <FormControl component="fieldset">
+                <FormLabel className={classes.labelGender}>
+                  Gender
+                </FormLabel>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={value}
+                  onChange={handleChange}>
+                  <FormControlLabel
+                    value="FEMALE"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="MALE"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="OTHER"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Button
+            style={{ marginLeft: "160px" }}
+            className={classes.buttonRegister}>
+            Sign Up
+          </Button>
         </form>
       </div>
     </>
