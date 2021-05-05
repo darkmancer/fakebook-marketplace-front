@@ -11,12 +11,13 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     // height: 100,
   },
-  // paper: {
-  //   padding: theme.spacing(2),
-  //   textAlign: "center",
-  //   backgroundColor: "black",
-  //   height: 100,
-  // },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "left",
+    height: 100,
+    marginTop: 64,
+    color: "white",
+  },
 }));
 
 function SelectProductPage() {
@@ -29,10 +30,10 @@ function SelectProductPage() {
             <Header />
           </Grid>
 
-          <Grid item xs={10}>
+          <Grid item xs={8}>
             <Product />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={4} className={classes.paper}>
             <ProductDetail />
           </Grid>
         </Grid>
