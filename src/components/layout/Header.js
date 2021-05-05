@@ -1,6 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Avatar, Box, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Avatar,
+  Box,
+  Typography,
+  Image,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -16,8 +23,13 @@ function Header(props) {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <Box flexGrow={1}>MarketPlace</Box>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Box flexGrow={1}>
+          <Typography>Market Place</Typography>
+        </Box>
+        <Avatar
+          alt="name"
+          src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
+        />
       </Toolbar>
     </AppBar>
   );

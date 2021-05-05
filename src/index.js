@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { MuiThemeProvider } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./components/style/theme";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MuiThemeProvider theme={theme} />
-    <CssBaseline />
-    <App />
-    <MuiThemeProvider />
+    <Router>
+      <MuiThemeProvider theme={theme} />
+      <CssBaseline />
+      <App />
+      <MuiThemeProvider />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );

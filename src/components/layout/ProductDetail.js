@@ -12,6 +12,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import InboxIcon from "@material-ui/icons/Inbox";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
+import CommerceProfileModal from "./CommerceProfileModal";
 import {
   AppBar,
   Toolbar,
@@ -64,14 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductDetail() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
   const [openPopup, setOpenPopup] = useState(false);
   return (
     <>
@@ -135,10 +129,18 @@ function ProductDetail() {
           <Divider className={classes.dividerLine} />
           <List>
             <ListItem>Seller Information</ListItem>
-            <ListItem>Seller Avatar</ListItem>
+            <ListItem button onClick={() => setOpenPopup(true)}>
+              <Avatar
+                alt="name"
+                src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620209841/GroupProject/nIEli5jE_400x400_yjuvb2.jpg"
+              />
+              Chiba Chiba <br />
+              Joined FaKebookMarketPlace in 2011
+            </ListItem>
           </List>
         </div>
       </Drawer>
+      <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </>
   );
 }

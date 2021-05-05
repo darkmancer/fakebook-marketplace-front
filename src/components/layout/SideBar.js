@@ -12,7 +12,6 @@ import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import Header from "./Header";
 import FilterLocationModal from "./FilterLocationModal";
-import "./SideBar.css";
 
 const drawerWidth = 240;
 

@@ -16,9 +16,16 @@ import SelectProductPage from "./components/pages/SelectProductPage";
 function App() {
   return (
     <>
-      <SelectProductPage />
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/product">
+          <SelectProductPage />
+        </Route>
+      </Switch>
     </>
-
+    //<SelectProductPage />
     // <FilterLocationPage />
     //  <ThemeProvider theme={theme} />
     // <Switch>

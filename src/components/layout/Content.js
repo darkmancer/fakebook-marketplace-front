@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Content() {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className="container-content">
@@ -36,6 +38,7 @@ function Content() {
               <img
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
+                onClick={() => history.push("/product")}
               />
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
