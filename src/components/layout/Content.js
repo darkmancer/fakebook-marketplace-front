@@ -40,6 +40,7 @@ function Content() {
                 src="./pexels-photo-4109111.jpeg"
                 onClick={() => history.push("/product")}
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -49,6 +50,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -57,6 +59,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -65,6 +68,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -73,6 +77,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -81,6 +86,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -89,6 +95,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -97,6 +104,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -105,6 +113,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -113,6 +122,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -121,6 +131,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -129,6 +140,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -137,6 +149,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -145,6 +158,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>
@@ -153,6 +167,7 @@ function Content() {
                 className={classes.paper}
                 src="./pexels-photo-4109111.jpeg"
               />
+              <h3>Product Title</h3>
               <h3>price</h3>
               <h4>Bangkok,Thailand</h4>
             </Grid>

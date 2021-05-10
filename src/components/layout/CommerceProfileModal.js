@@ -71,7 +71,7 @@ function CommerceProfileModal(props) {
   const body = (
     <Box style={modalStyle} className={classes.paper}>
       <Box className={classes.closeButton}>
-        <Box variant="h6" component="h2" justifyItems="space-between">
+        <Box variant="h6" component="h2" flexGrow={1}>
           Commerce Profile
           <IconButton
             className={classes.button}
