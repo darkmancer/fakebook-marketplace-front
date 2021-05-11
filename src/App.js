@@ -5,7 +5,8 @@ import { AuthContext } from "./context/AuthContextProvider";
 import LoginRegisterPage from "./components/pages/LoginRegisterPage";
 import SelectProductPage from "./components/pages/SelectProductPage";
 import InboxPage from "./components/pages/InboxPage";
-
+import MyPage from "./components/pages/MyPage";
+import "./App.css";
 const privateRoutes = [];
 const publicRoutes = [
   {
@@ -13,18 +14,22 @@ const publicRoutes = [
     component: HomePage,
   },
   {
+    path: "/MyPage",
+    component: MyPage,
+  },
+  {
     path: "/login",
     component: LoginRegisterPage,
   },
   {
-    path: "/select",
+    path: "/product",
     component: SelectProductPage,
   },
 ];
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
-
+  console.log(isAuthenticated);
   return (
     <Switch>
       {isAuthenticated &&
@@ -45,6 +50,7 @@ function App() {
             component={route.component}
           />
         ))}
+
       <Redirect to="/login" />
     </Switch>
   );

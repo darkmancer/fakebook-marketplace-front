@@ -3,11 +3,13 @@
   height: 100%;
   color: white;
   margin-top: 80px;
+  padding: 20px;
 }
 
 .catagories-text {
   display: inline;
 }
+
 .location-text {
   color: chocolate;
   text-align: right;

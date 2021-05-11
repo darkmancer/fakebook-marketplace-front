@@ -78,13 +78,15 @@ function SideBar() {
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
-        }}
-      >
+        }}>
         <Toolbar />
         <Box className={classes.drawerContainer}>
           <List>
             <form className={classes.searchInput}>
-              <TextField label="Search Market Place" variant="outlined" />
+              <TextField
+                label="Search Market Place"
+                variant="outlined"
+              />
             </form>
 
             <ListItem button>
@@ -102,7 +104,7 @@ function SideBar() {
             </ListItem>
 
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon onClick={() => history.push("/mypage")}>
                 <PersonIcon />
                 Your Account
               </ListItemIcon>
@@ -141,7 +143,10 @@ function SideBar() {
         </Box>
       </Drawer>
 
-      <FilterLocationModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <FilterLocationModal
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      />
     </>
   );
 }

@@ -87,8 +87,7 @@ function InboxContent() {
       direction="column"
       justify="center"
       alignItems="stretch"
-      height={100}
-    >
+      height={100}>
       <Grid className={classes.root} style={{ minHeight: "100vh" }}>
         <Box className={classes.paper}>
           <Button color="primary" onClick={() => handleShowSell()}>
@@ -101,12 +100,16 @@ function InboxContent() {
             <Box>
               <Divider className={classes.dividerLine} />
               <Box>
-                <Typography variant="body1" className={classes.fontColor}>
+                <Typography
+                  variant="body1"
+                  className={classes.fontColor}>
                   {" "}
                   View Chats
                 </Typography>
 
-                <FormControl variant="filled" className={classes.formControl}>
+                <FormControl
+                  variant="filled"
+                  className={classes.formControl}>
                   <Select
                     value={value}
                     onChange={handleChange}
@@ -118,7 +121,9 @@ function InboxContent() {
                     <MenuItem value={"listing"}>
                       <em>Grouped by listing</em>
                     </MenuItem>
-                    <MenuItem value={"chart"}>Individual Charts</MenuItem>
+                    <MenuItem value={"chart"}>
+                      Individual Charts
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -127,24 +132,34 @@ function InboxContent() {
                 <>
                   <Divider className={classes.dividerLine} />
                   <Box>
-                    <Typography variant="body1" className={classes.fontColor}>
+                    <Typography
+                      variant="body1"
+                      className={classes.fontColor}>
                       {" "}
                       Filter by label
                     </Typography>
 
-                    <Button className={classes.buttonColor}>All</Button>
+                    <Button className={classes.buttonColor}>
+                      All
+                    </Button>
                     <Button className={classes.buttonColor}>
                       Pending Payment
                     </Button>
-                    <Button className={classes.buttonColor}>Paid</Button>
+                    <Button className={classes.buttonColor}>
+                      Paid
+                    </Button>
                     <Button className={classes.buttonColor}>
                       To Be shipped
                     </Button>
-                    <Button className={classes.buttonColor}>Shipped</Button>
+                    <Button className={classes.buttonColor}>
+                      Shipped
+                    </Button>
                     <Button className={classes.buttonColor}>
                       Cash on delivery
                     </Button>
-                    <Button className={classes.buttonColor}>Complete</Button>
+                    <Button className={classes.buttonColor}>
+                      Complete
+                    </Button>
                   </Box>
                 </>
               ) : (
@@ -155,8 +170,7 @@ function InboxContent() {
                       variant="body1"
                       className={classes.fontColor}
                       button
-                      onClick={() => setOpenPopup(true)}
-                    >
+                      onClick={() => setOpenPopup(true)}>
                       ส่ง sell item ที่map
                       <SellItemModal
                         openPopup={openPopup}

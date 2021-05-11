@@ -63,14 +63,17 @@ function SellItemModal(props) {
             aria-label="status"
             name="statusGroup"
             value={value}
-            onChange={handleChange}
-          >
+            onChange={handleChange}>
             <FormControlLabel
               value="pending"
               control={<Radio />}
               label="pending Payment"
             />
-            <FormControlLabel value="paid" control={<Radio />} label="Paid" />
+            <FormControlLabel
+              value="paid"
+              control={<Radio />}
+              label="Paid"
+            />
             <FormControlLabel
               value="toBeShipped"
               control={<Radio />}
@@ -106,8 +109,7 @@ function SellItemModal(props) {
               color="secondary"
               onClick={() => {
                 setOpenPopup(false);
-              }}
-            >
+              }}>
               Clear
             </Button>
           </Box>
