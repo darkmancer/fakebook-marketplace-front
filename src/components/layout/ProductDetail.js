@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     color: "white",
   },
-  drawer: {
-    width: 500,
-    flexShrink: 1,
-  },
+  // drawer: {
+  //   width: 500,
+  //   flexShrink: 1,
+  // },
   drawerPaper: {
-    width: 500,
+    width: 400,
     backgroundColor: "#242526",
     color: "white",
     borderColor: "gray",
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   dividerLine: {
-    backgroundColor: "gray",
+    backgroundColor: "grey",
   },
   button: {
     margin: theme.spacing(1),
@@ -70,7 +70,7 @@ function ProductDetail() {
   return (
     <>
       <Drawer
-        className={classes.drawer}
+        // className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,

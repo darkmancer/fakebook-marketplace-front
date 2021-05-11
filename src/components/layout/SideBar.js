@@ -124,14 +124,11 @@ function SideBar() {
 
           <List>
             <ListItem>Categories</ListItem>
-            <ListItem button>vehicles</ListItem>
+            <ListItem button onClick={() => history.push("/vehicle")}>
+              vehicles
+            </ListItem>
             <ListItem button>Property Rentals</ListItem>
-            <ListItem button>Apparel</ListItem>
-            <ListItem button>Classifieds</ListItem>
-            <ListItem button>Electronics</ListItem>
-            <ListItem button>Entertainment</ListItem>
-            <ListItem button>Family</ListItem>
-            <ListItem button>Garden</ListItem>
+            <ListItem button>Goods</ListItem>
           </List>
         </Box>
       </Drawer>

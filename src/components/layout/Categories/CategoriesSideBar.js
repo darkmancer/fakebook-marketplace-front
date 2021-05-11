@@ -10,6 +10,10 @@ import {
   ListItemIcon,
   Box,
   TextField,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@material-ui/core";
 
 import HomeIcon from "@material-ui/icons/Home";
@@ -60,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 function CategoriesSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [sortBy, setSortBy] = useState("");
   const history = useHistory();
   const handleOpen = () => {
     setOpen(true);
@@ -67,6 +72,9 @@ function CategoriesSideBar() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleChange = (event) => {
+    setSortBy(event.target.value);
   };
 
   const [openPopup, setOpenPopup] = useState(false);
@@ -88,29 +96,6 @@ function CategoriesSideBar() {
               <TextField label="Search Market Place" variant="outlined" />
             </form>
 
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-                Browse All
-              </ListItemIcon>
-            </ListItem>
-
-            <ListItem button onClick={() => history.push("/inbox")}>
-              <ListItemIcon>
-                <InboxIcon />
-                Inbox
-              </ListItemIcon>
-            </ListItem>
-
-            <ListItem button>
-              <ListItemIcon>
-                <PersonIcon />
-                Your Account
-              </ListItemIcon>
-            </ListItem>
-
-            <Divider className={classes.dividerLine} />
-
             <ListItem button onClick={() => alert("ok")}>
               <AddIcon />
               Create New Listing
@@ -125,6 +110,40 @@ function CategoriesSideBar() {
               bangkok, Thailand within 60 km
             </ListItem>
           </List>
+          <List>
+            <FormControl className={classes.searchInput}>
+              <InputLabel id="sort">Sort by</InputLabel>
+              <Select
+                labelId="sort"
+                id="sort-select-filled"
+                value={sortBy}
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={"lowPrice"}>Price: Lowest first</MenuItem>
+                <MenuItem value={"highPrice"}>Price: Highest first</MenuItem>
+                <MenuItem value={"newDate"}>Date: Newest first</MenuItem>
+                <MenuItem value={"oldDate"}>Date: Oldest first</MenuItem>
+                <MenuItem value={"nearDistance"}>
+                  Distance: Nearest first
+                </MenuItem>
+                <MenuItem value={"farDistance"}>
+                  Distance:Farthest first
+                </MenuItem>
+              </Select>
+            </FormControl>
+
+            <ListItem>Price</ListItem>
+            <form className={classes.searchInput}>
+              <TextField label="price" variant="outlined" />{" "}
+            </form>
+            <ListItem>to</ListItem>
+            <form className={classes.searchInput}>
+              <TextField label="price" variant="outlined" />{" "}
+            </form>
+          </List>
 
           <Divider className={classes.dividerLine} />
 
@@ -132,12 +151,7 @@ function CategoriesSideBar() {
             <ListItem>Categories</ListItem>
             <ListItem button>vehicles</ListItem>
             <ListItem button>Property Rentals</ListItem>
-            <ListItem button>Apparel</ListItem>
-            <ListItem button>Classifieds</ListItem>
-            <ListItem button>Electronics</ListItem>
-            <ListItem button>Entertainment</ListItem>
-            <ListItem button>Family</ListItem>
-            <ListItem button>Garden</ListItem>
+            <ListItem button>Goods</ListItem>
           </List>
         </Box>
       </Drawer>
