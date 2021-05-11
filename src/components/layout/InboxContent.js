@@ -155,7 +155,6 @@ function InboxContent() {
                       variant="body1"
                       className={classes.fontColor}
                       button
-                      onClick={() => setOpenPopup(true)}
                     >
                       ส่ง sell item ที่map
                       <SellItemModal

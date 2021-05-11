@@ -13,6 +13,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import { deepOrange, grey } from "@material-ui/core/colors";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 const modalStyle = {
   top: `50%`,
@@ -38,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
+  sellPaper: {
+    backgroundColor: "secondary",
+    borderRadius: 5,
+    width: 200,
+  },
 }));
 
 const theme = createMuiTheme({
@@ -54,9 +60,15 @@ function SellItemModal(props) {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+  const [openLabel, setOpenLabel] = useState(false);
+  const handleClick = (e) => {
+    setOpenLabel(true);
+  };
+
   const body = (
-    <MuiThemeProvider theme={theme}>
-      <Box className={classes.paper} style={modalStyle}>
+    <Box className={classes.paper} style={modalStyle}>
+      <MuiThemeProvider theme={theme}>
+        {" "}
         <FormControl>
           <FormLabel>Label Chat</FormLabel>
           <RadioGroup
@@ -112,12 +124,16 @@ function SellItemModal(props) {
             </Button>
           </Box>
         </FormControl>
-      </Box>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
+    </Box>
   );
 
   return (
-    <div className={classes.paper}>
+    <div>
+      <Box>
+        Sell Item <MoreHorizIcon onClick={alert("ok")} />
+      </Box>
+
       <Modal open={openPopup}>{body}</Modal>
     </div>
   );

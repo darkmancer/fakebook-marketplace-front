@@ -27,7 +27,7 @@ function App() {
 
   return (
     <Switch>
-      {isAuthenticated &&
+      {/* {isAuthenticated &&
         privateRoutes.map((route, index) => (
           <Route
             key={index}
@@ -35,16 +35,18 @@ function App() {
             path={route.path}
             component={route.component}
           />
-        ))}
-      {!isAuthenticated &&
-        publicRoutes.map((route, index) => (
-          <Route
-            key={index}
-            exact
-            path={route.path}
-            component={route.component}
-          />
-        ))}
+        ))} */}
+      {/* {! */}
+      {/* {!isAuthenticated && */}
+      {publicRoutes.map((route, index) => (
+        <Route
+          key={index}
+          exact
+          path={route.path}
+          component={route.component}
+        />
+      ))}
+
       <Redirect to="/login" />
     </Switch>
   );
