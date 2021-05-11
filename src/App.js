@@ -2,7 +2,7 @@ import HomePage from "./components/pages/HomePage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContextProvider";
-import LoginRegister from "./components/pages/LoginRegisterPage";
+import LoginRegisterPage from "./components/pages/LoginRegisterPage";
 import SelectProductPage from "./components/pages/SelectProductPage";
 import InboxPage from "./components/pages/InboxPage";
 
@@ -14,7 +14,7 @@ const publicRoutes = [
   },
   {
     path: "/login",
-    component: LoginRegister,
+    component: LoginRegisterPage,
   },
   {
     path: "/select",
