@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+
 import {
   Drawer,
   Toolbar,
@@ -16,50 +16,9 @@ import {
   Select,
 } from "@material-ui/core";
 
-import HomeIcon from "@material-ui/icons/Home";
-import InboxIcon from "@material-ui/icons/Inbox";
-import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import Header from "../Header";
-
-import SearchIcon from "@material-ui/icons/Search";
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    color: "white",
-  },
-  drawer: {
-    width: drawerWidth,
-    backgroundColor: "red",
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: "#252426",
-    color: "white",
-    borderColor: "grey",
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  dividerLine: {
-    backgroundColor: "grey",
-  },
-  searchInput: {
-    margin: theme.spacing(1),
-    width: "25ch",
-    backgroundColor: "#3A3B3C",
-    borderRadius: 20,
-    color: "white",
-  },
-}));
+import { useStyles } from "./StyleCatSideBar";
 
 function CategoriesSideBar() {
   const classes = useStyles();

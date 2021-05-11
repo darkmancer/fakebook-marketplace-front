@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+
 import MessageIcon from "@material-ui/icons/Message";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import ShareIcon from "@material-ui/icons/Share";
@@ -7,11 +7,8 @@ import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import HomeIcon from "@material-ui/icons/Home";
-import InboxIcon from "@material-ui/icons/Inbox";
-import PersonIcon from "@material-ui/icons/Person";
-import AddIcon from "@material-ui/icons/Add";
+
+import { useStylesProductDetail } from "./UseStyleProductDetail";
 import CommerceProfileModal from "./CommerceProfileModal";
 import {
   AppBar,
@@ -24,48 +21,8 @@ import {
 
 //const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    color: "white",
-  },
-  // drawer: {
-  //   width: 500,
-  //   flexShrink: 1,
-  // },
-  drawerPaper: {
-    width: 400,
-    backgroundColor: "#242526",
-    color: "white",
-    borderColor: "gray",
-    right: 0,
-    left: "auto",
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  dividerLine: {
-    backgroundColor: "grey",
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
-  buttonList: {
-    display: "flex",
-  },
-  buttonSave: {
-    margin: theme.spacing(1),
-    marginLeft: theme.spacing(3),
-  },
-}));
-
 function ProductDetail() {
-  const classes = useStyles();
-
+  const classes = useStylesProductDetail();
   const [openPopup, setOpenPopup] = useState(false);
   return (
     <>

@@ -1,32 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid } from "@material-ui/core";
+import { useStylesContent } from "./UseStyleContent";
 import RoomIcon from "@material-ui/icons/Room";
 
 import "./Content.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    height: 300,
-    width: 300,
-    borderRadius: 5,
-  },
-  containerText: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: theme.spacing(8),
-  },
-  text: {
-    color: "white",
-  },
-}));
-
 function Content() {
-  const classes = useStyles();
+  const classes = useStylesContent();
   const history = useHistory();
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import SideBar from "../layout/SideBar";
-import InboxContent from "../layout/Inbox/InboxContent";
+import InboxContent from "../layout/Inbox/InboxContent/InboxContent";
 import Header from "../layout/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Grid, Box } from "@material-ui/core";

@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   Toolbar,
@@ -9,17 +8,11 @@ import {
   Typography,
   Image,
 } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: "#242526",
-  },
-}));
+import { useStylesHeader } from "./UseStyleHeader";
 
 function Header(props) {
   const { palette } = props;
-  const classes = useStyles(palette);
+  const classes = useStylesHeader(palette);
   const history = useHistory();
 
   return (

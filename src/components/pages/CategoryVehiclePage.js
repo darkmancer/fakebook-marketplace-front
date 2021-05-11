@@ -1,6 +1,6 @@
 import React from "react";
 import CategoriesSideBar from "../layout/Categories/CategoriesSideBar";
-import VehiclesContent from "../layout/Vehicles/VehiclesContent";
+import VehiclesContent from "../layout/Categories/Vehicles/VehiclesContent";
 import Header from "../layout/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Grid } from "@material-ui/core";

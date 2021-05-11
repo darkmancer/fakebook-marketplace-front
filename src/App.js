@@ -27,31 +27,6 @@ function App() {
   const { isAuthenticated } = useContext(AuthContext);
 
   return (
-<<<<<<< HEAD
-    <Switch>
-      {/* {isAuthenticated &&
-        privateRoutes.map((route, index) => (
-          <Route
-            key={index}
-            exact
-            path={route.path}
-            component={route.component}
-          />
-        ))} */}
-      {/* {! */}
-      {/* {!isAuthenticated && */}
-      {publicRoutes.map((route, index) => (
-        <Route
-          key={index}
-          exact
-          path={route.path}
-          component={route.component}
-        />
-      ))}
-
-      <Redirect to="/login" />
-    </Switch>
-=======
     <>
       <Switch>
         <Route exact path="/">
@@ -84,7 +59,6 @@ function App() {
     //   <Redirect to="/" />
     // </Switch>
     // <ThemeProvider />
->>>>>>> inbox
   );
 }
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Drawer,
   Toolbar,
@@ -16,46 +15,11 @@ import HomeIcon from "@material-ui/icons/Home";
 import InboxIcon from "@material-ui/icons/Inbox";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
-import Header from "./Header";
 import FilterLocationModal from "./FilterLocationModal";
-import SearchIcon from "@material-ui/icons/Search";
-import Content from "./Content";
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    color: "white",
-  },
-
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: "#252426",
-    color: "white",
-    borderColor: "grey",
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  dividerLine: {
-    backgroundColor: "grey",
-  },
-  searchInput: {
-    margin: theme.spacing(1),
-    width: "25ch",
-    backgroundColor: "#3A3B3C",
-    borderRadius: 20,
-    color: "white",
-  },
-}));
+import { useStylesSideBar } from "./UseStyleSideBar";
 
 function SideBar() {
-  const classes = useStyles();
+  const classes = useStylesSideBar();
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
   const handleOpen = () => {
