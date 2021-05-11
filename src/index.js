@@ -2,20 +2,34 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { blue, deepOrange } from "@material-ui/core/colors";
 import reportWebVitals from "./reportWebVitals";
-import { MuiThemeProvider } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "./components/style/theme";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import AuthContextProvider from "./context/AuthContextProvider";
+import {
+  ThemeProvider,
+  createMuiTheme,
+} from "@material-ui/core/styles";
+const theme = createMuiTheme({
+  palette: {
+    primary: blue,
+    secondary: deepOrange,
+  },
+  typography: {
+    fontFamily: "sans-serif",
+    fontWeightLight: 400,
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <MuiThemeProvider theme={theme} />
-      <CssBaseline />
-      <App />
-      <MuiThemeProvider />
-    </Router>
+    <AuthContextProvider>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
+    </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
