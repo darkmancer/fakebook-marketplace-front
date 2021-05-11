@@ -74,8 +74,7 @@ function ProductDetail() {
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
-        }}
-      >
+        }}>
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
@@ -94,8 +93,7 @@ function ProductDetail() {
                 variant="contained"
                 color="default"
                 className={classes.button}
-                startIcon={<MessageIcon />}
-              >
+                startIcon={<MessageIcon />}>
                 Message
               </Button>
             </Box>
@@ -104,8 +102,7 @@ function ProductDetail() {
                 variant="contained"
                 color="default"
                 className={classes.buttonSave}
-                startIcon={<BookmarkIcon />}
-              >
+                startIcon={<BookmarkIcon />}>
                 save
               </Button>
             </Box>
@@ -115,8 +112,7 @@ function ProductDetail() {
                 variant="contained"
                 color="default"
                 className={classes.button}
-                startIcon={<ShareIcon />}
-              >
+                startIcon={<ShareIcon />}>
                 share
               </Button>
             </Box>
@@ -140,7 +136,10 @@ function ProductDetail() {
           </List>
         </div>
       </Drawer>
-      <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <CommerceProfileModal
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      />
     </>
   );
 }

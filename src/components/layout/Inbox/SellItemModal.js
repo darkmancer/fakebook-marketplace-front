@@ -40,15 +40,10 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
-<<<<<<< HEAD:src/components/layout/sellProduct/SellItemModal.js
   sellPaper: {
     backgroundColor: "secondary",
     borderRadius: 5,
     width: 200,
-=======
-  button: {
-    margin: theme.spacing(2),
->>>>>>> inbox:src/components/layout/Inbox/SellItemModal.js
   },
 }));
 
@@ -66,16 +61,12 @@ function SellItemModal(props) {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-<<<<<<< HEAD:src/components/layout/sellProduct/SellItemModal.js
+
   const [openLabel, setOpenLabel] = useState(false);
   const handleClick = (e) => {
     setOpenLabel(true);
   };
 
-=======
-  console.log(value);
-  console.log(openPopup);
->>>>>>> inbox:src/components/layout/Inbox/SellItemModal.js
   const body = (
     <Box className={classes.paper} style={modalStyle}>
       <MuiThemeProvider theme={theme}>
@@ -86,14 +77,17 @@ function SellItemModal(props) {
             aria-label="status"
             name="statusGroup"
             value={value}
-            onChange={handleChange}
-          >
+            onChange={handleChange}>
             <FormControlLabel
               value="pending"
               control={<Radio />}
               label="pending Payment"
             />
-            <FormControlLabel value="paid" control={<Radio />} label="Paid" />
+            <FormControlLabel
+              value="paid"
+              control={<Radio />}
+              label="Paid"
+            />
             <FormControlLabel
               value="toBeShipped"
               control={<Radio />}
@@ -120,16 +114,14 @@ function SellItemModal(props) {
             <Button
               variant="contained"
               color="primary"
-              className={classes.button}
-            >
+              className={classes.button}>
               OK
             </Button>
             <Button
               variant="contained"
               color="secondary"
               className={classes.button}
-              onClick={() => setOpenPopup(false)}
-            >
+              onClick={() => setOpenPopup(false)}>
               Clear
             </Button>
           </Box>
@@ -139,7 +131,6 @@ function SellItemModal(props) {
   );
 
   return (
-<<<<<<< HEAD:src/components/layout/sellProduct/SellItemModal.js
     <div>
       <Box>
         Sell Item <MoreHorizIcon onClick={alert("ok")} />
@@ -147,11 +138,6 @@ function SellItemModal(props) {
 
       <Modal open={openPopup}>{body}</Modal>
     </div>
-=======
-    // <div className={classes.paper}>
-    <Modal open={openPopup}>{body}</Modal>
-    // </div>
->>>>>>> inbox:src/components/layout/Inbox/SellItemModal.js
   );
 }
 export default SellItemModal;
