@@ -1,6 +1,7 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import SelectProductPage from "./components/pages/SelectProductPage";
+import InboxPage from "./components/pages/InboxPage";
 
 // const publicRoutes = [
 //   {
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route exact path="/product">
           <SelectProductPage />
+        </Route>
+        <Route exact path="/inbox">
+          <InboxPage />
         </Route>
       </Switch>
     </>

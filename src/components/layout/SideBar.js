@@ -1,17 +1,25 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import {
+  Drawer,
+  Toolbar,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  Box,
+  TextField,
+} from "@material-ui/core";
+
 import HomeIcon from "@material-ui/icons/Home";
 import InboxIcon from "@material-ui/icons/Inbox";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import Header from "./Header";
 import FilterLocationModal from "./FilterLocationModal";
+import SearchIcon from "@material-ui/icons/Search";
+import Content from "./Content";
 
 const drawerWidth = 240;
 
@@ -22,13 +30,14 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
+    backgroundColor: "red",
     flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#242526",
+    backgroundColor: "green",
     color: "white",
-    borderColor: "gray",
+    borderColor: "grey",
   },
   drawerContainer: {
     overflow: "auto",
@@ -38,13 +47,19 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   dividerLine: {
-    backgroundColor: "gray",
+    backgroundColor: "grey",
+  },
+  searchInput: {
+    margin: theme.spacing(1),
+    width: "25ch",
+    backgroundColor: "grey",
   },
 }));
 
 function SideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const history = useHistory();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -52,21 +67,26 @@ function SideBar() {
   const handleClose = () => {
     setOpen(false);
   };
+
   const [openPopup, setOpenPopup] = useState(false);
   return (
     <>
       <Header />
 
       <Drawer
-        className={classes.drawer}
+        // className={classes.root}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <Toolbar />
-        <div className={classes.drawerContainer}>
+        <Box className={classes.drawerContainer}>
           <List>
+            <form className={classes.searchInput}>
+              <TextField label="Search Market Place" variant="outlined" />
+            </form>
+
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon />
@@ -74,7 +94,7 @@ function SideBar() {
               </ListItemIcon>
             </ListItem>
 
-            <ListItem button>
+            <ListItem button onClick={() => history.push("/inbox")}>
               <ListItemIcon>
                 <InboxIcon />
                 Inbox
@@ -110,9 +130,17 @@ function SideBar() {
           <List>
             <ListItem>Categories</ListItem>
             <ListItem button>vehicles</ListItem>
+            <ListItem button>Property Rentals</ListItem>
+            <ListItem button>Apparel</ListItem>
+            <ListItem button>Classifieds</ListItem>
+            <ListItem button>Electronics</ListItem>
+            <ListItem button>Entertainment</ListItem>
+            <ListItem button>Family</ListItem>
+            <ListItem button>Garden</ListItem>
           </List>
-        </div>
+        </Box>
       </Drawer>
+
       <FilterLocationModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </>
   );
