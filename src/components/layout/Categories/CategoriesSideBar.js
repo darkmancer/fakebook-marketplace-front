@@ -16,10 +16,9 @@ import HomeIcon from "@material-ui/icons/Home";
 import InboxIcon from "@material-ui/icons/Inbox";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
-import Header from "./Header";
-import FilterLocationModal from "./FilterLocationModal";
+import Header from "../Header";
+
 import SearchIcon from "@material-ui/icons/Search";
-import Content from "./Content";
 
 const drawerWidth = 240;
 
@@ -28,7 +27,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     color: "white",
   },
-
+  drawer: {
+    width: drawerWidth,
+    backgroundColor: "red",
+    flexShrink: 0,
+  },
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: "#252426",
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SideBar() {
+function CategoriesSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
@@ -69,7 +72,10 @@ function SideBar() {
   const [openPopup, setOpenPopup] = useState(false);
   return (
     <>
+      <Header />
+
       <Drawer
+        // className={classes.root}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
@@ -135,9 +141,7 @@ function SideBar() {
           </List>
         </Box>
       </Drawer>
-
-      <FilterLocationModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </>
   );
 }
-export default SideBar;
+export default CategoriesSideBar;

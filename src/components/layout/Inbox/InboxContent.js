@@ -15,9 +15,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";
-import "./Content.css";
+
 import { Group } from "@material-ui/icons";
-import SellItemModal from "./sellProduct/SellItemModal";
+import SellItemModal from "./SellItemModal";
 import MoreIcon from "@material-ui/icons/More";
 
 const useStyles = makeStyles((theme) => ({

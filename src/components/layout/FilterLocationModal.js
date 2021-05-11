@@ -74,9 +74,9 @@ function FilterLocationModal(props) {
     //     </DialogContent>
 
     // </Dialog>
-    <div className={classes.paper}>
-      <Modal open={openPopup}>{body}</Modal>
-    </div>
+    // <div className={classes.paper}>
+    <Modal open={openPopup}>{body}</Modal>
+    // </div>
   );
 }
 export default FilterLocationModal;

@@ -1,13 +1,12 @@
 import React from "react";
-import SideBar from "../layout/SideBar";
-import InboxContent from "../layout/Inbox/InboxContent";
+import CategoriesSideBar from "../layout/Categories/CategoriesSideBar";
+import Content from "../layout/Content";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Grid, Box } from "@material-ui/core";
+import { Paper, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#18191a",
-    //backgroundColor: "#18191a",
 
     // flexGrow: 1,
     // height: 100,
@@ -20,22 +19,22 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-function InboxPage() {
+function CategoryVehiclePage() {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <Grid container>
+    <div className={classes.root}>
+      <Grid container spacing="2">
         <Grid item xs={2}>
-          <SideBar />
+          <CategoriesSideBar />
         </Grid>
 
         <Grid item xs={10}>
-          <InboxContent />
+          {/* <Content /> */}
         </Grid>
       </Grid>
-    </Box>
+    </div>
   );
 }
 
-export default InboxPage;
+export default CategoryVehiclePage;
