@@ -1,22 +1,41 @@
 import React from "react";
 import CategoriesSideBar from "../layout/Categories/CategoriesSideBar";
-import Content from "../layout/Content";
+import VehiclesContent from "../layout/Vehicles/VehiclesContent";
+import Header from "../layout/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: "flex",
     backgroundColor: "#18191a",
-
-    // flexGrow: 1,
-    // height: 100,
   },
-  // paper: {
-  //   padding: theme.spacing(2),
-  //   textAlign: "center",
-  //   backgroundColor: "black",
-  //   height: 100,
-  // },
+  drawer: {
+    [theme.breakpoints.up("sm")]: {
+      width: 240,
+      flexShrink: 0,
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  //ถ้า sm ขึ้นไปจะทำอะไร
+  content: {
+    [theme.breakpoints.up("sm")]: {
+      width: 240,
+      flexGrow: 1,
+      margin: theme.spacing(3),
+    },
+    [theme.breakpoints.down("sm")]: {
+      flexShrink: 0,
+      padding: theme.spacing(1),
+    },
+  },
+  appBar: {
+    [theme.breakpoints.up("sm")]: {
+      width: `calc(100% - ${240}px)`,
+    },
+  },
 }));
 
 function CategoryVehiclePage() {
@@ -24,15 +43,15 @@ function CategoryVehiclePage() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing="2">
-        <Grid item xs={2}>
-          <CategoriesSideBar />
-        </Grid>
+      <Header className={classes.appBar} position="fixed" />
 
-        <Grid item xs={10}>
-          {/* <Content /> */}
-        </Grid>
-      </Grid>
+      <nav className={classes.drawer}>
+        <CategoriesSideBar />
+      </nav>
+
+      <main className={classes.content}>
+        <VehiclesContent />
+      </main>
     </div>
   );
 }
