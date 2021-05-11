@@ -10,16 +10,19 @@ import {
   ListItemIcon,
   Box,
   TextField,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@material-ui/core";
 
 import HomeIcon from "@material-ui/icons/Home";
 import InboxIcon from "@material-ui/icons/Inbox";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
-import Header from "./Header";
-import FilterLocationModal from "./FilterLocationModal";
+import Header from "../Header";
+
 import SearchIcon from "@material-ui/icons/Search";
-import Content from "./Content";
 
 const drawerWidth = 240;
 
@@ -28,7 +31,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     color: "white",
   },
-
+  drawer: {
+    width: drawerWidth,
+    backgroundColor: "red",
+    flexShrink: 0,
+  },
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: "#252426",
@@ -54,9 +61,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SideBar() {
+function CategoriesSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [sortBy, setSortBy] = useState("");
   const history = useHistory();
   const handleOpen = () => {
     setOpen(true);
@@ -65,11 +73,17 @@ function SideBar() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleChange = (event) => {
+    setSortBy(event.target.value);
+  };
 
   const [openPopup, setOpenPopup] = useState(false);
   return (
     <>
+      <Header />
+
       <Drawer
+        // className={classes.root}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
@@ -81,29 +95,6 @@ function SideBar() {
             <form className={classes.searchInput}>
               <TextField label="Search Market Place" variant="outlined" />
             </form>
-
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-                Browse All
-              </ListItemIcon>
-            </ListItem>
-
-            <ListItem button onClick={() => history.push("/inbox")}>
-              <ListItemIcon>
-                <InboxIcon />
-                Inbox
-              </ListItemIcon>
-            </ListItem>
-
-            <ListItem button>
-              <ListItemIcon>
-                <PersonIcon />
-                Your Account
-              </ListItemIcon>
-            </ListItem>
-
-            <Divider className={classes.dividerLine} />
 
             <ListItem button onClick={() => alert("ok")}>
               <AddIcon />
@@ -119,22 +110,52 @@ function SideBar() {
               bangkok, Thailand within 60 km
             </ListItem>
           </List>
+          <List>
+            <FormControl className={classes.searchInput}>
+              <InputLabel id="sort">Sort by</InputLabel>
+              <Select
+                labelId="sort"
+                id="sort-select-filled"
+                value={sortBy}
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={"lowPrice"}>Price: Lowest first</MenuItem>
+                <MenuItem value={"highPrice"}>Price: Highest first</MenuItem>
+                <MenuItem value={"newDate"}>Date: Newest first</MenuItem>
+                <MenuItem value={"oldDate"}>Date: Oldest first</MenuItem>
+                <MenuItem value={"nearDistance"}>
+                  Distance: Nearest first
+                </MenuItem>
+                <MenuItem value={"farDistance"}>
+                  Distance:Farthest first
+                </MenuItem>
+              </Select>
+            </FormControl>
+
+            <ListItem>Price</ListItem>
+            <form className={classes.searchInput}>
+              <TextField label="price" variant="outlined" />{" "}
+            </form>
+            <ListItem>to</ListItem>
+            <form className={classes.searchInput}>
+              <TextField label="price" variant="outlined" />{" "}
+            </form>
+          </List>
 
           <Divider className={classes.dividerLine} />
 
           <List>
             <ListItem>Categories</ListItem>
-            <ListItem button onClick={() => history.push("/vehicle")}>
-              vehicles
-            </ListItem>
+            <ListItem button>vehicles</ListItem>
             <ListItem button>Property Rentals</ListItem>
             <ListItem button>Goods</ListItem>
           </List>
         </Box>
       </Drawer>
-
-      <FilterLocationModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </>
   );
 }
-export default SideBar;
+export default CategoriesSideBar;

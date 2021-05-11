@@ -1,8 +1,9 @@
 import React from "react";
-import SideBar from "../layout/SideBar";
-import Content from "../layout/Content";
-import { makeStyles } from "@material-ui/core/styles";
+import CategoriesSideBar from "../layout/Categories/CategoriesSideBar";
+import VehiclesContent from "../layout/Vehicles/VehiclesContent";
 import Header from "../layout/Header";
+import { makeStyles } from "@material-ui/core/styles";
+import { Paper, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: 240,
       flexGrow: 1,
-      padding: theme.spacing(2),
+      margin: theme.spacing(3),
     },
     [theme.breakpoints.down("sm")]: {
       flexShrink: 0,
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HomePage() {
+function CategoryVehiclePage() {
   const classes = useStyles();
 
   return (
@@ -45,14 +46,14 @@ function HomePage() {
       <Header className={classes.appBar} position="fixed" />
 
       <nav className={classes.drawer}>
-        <SideBar />
+        <CategoriesSideBar />
       </nav>
 
       <main className={classes.content}>
-        <Content />
+        <VehiclesContent />
       </main>
     </div>
   );
 }
 
-export default HomePage;
+export default CategoryVehiclePage;

@@ -11,6 +11,7 @@ import {
   FormControlLabel,
   Grid,
 } from "@material-ui/core";
+
 import React, { useState } from "react";
 import { useStyle } from "../layout/UseStyleLogin";
 import { MdEmail } from "react-icons/md";
@@ -40,7 +41,8 @@ function RegisterForm({ getModalStyle }) {
           style={{
             display: "flex",
             flexDirection: "column",
-          }}>
+          }}
+        >
           <span>
             <TextField
               placeholder="Firstname"
@@ -61,7 +63,7 @@ function RegisterForm({ getModalStyle }) {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <MdEmail color="grey" size="24px" />
+                  {/* <MdEmail color="grey" size="24px" /> */}
                 </InputAdornment>
               ),
             }}
@@ -82,12 +84,9 @@ function RegisterForm({ getModalStyle }) {
                       position: "absolute",
                       right: "5px",
                     }}
-                    onClick={handleClickShowPassword}>
-                    {typePassword ? (
-                      <Visibility />
-                    ) : (
-                      <VisibilityOff />
-                    )}
+                    onClick={handleClickShowPassword}
+                  >
+                    {typePassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -108,12 +107,9 @@ function RegisterForm({ getModalStyle }) {
                       position: "absolute",
                       right: "5px",
                     }}
-                    onClick={handleClickShowPassword}>
-                    {typePassword ? (
-                      <Visibility />
-                    ) : (
-                      <VisibilityOff />
-                    )}
+                    onClick={handleClickShowPassword}
+                  >
+                    {typePassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -134,14 +130,13 @@ function RegisterForm({ getModalStyle }) {
             </Grid>
             <Grid item xs={5}>
               <FormControl component="fieldset">
-                <FormLabel className={classes.labelGender}>
-                  Gender
-                </FormLabel>
+                <FormLabel className={classes.labelGender}>Gender</FormLabel>
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
                   value={value}
-                  onChange={handleChange}>
+                  onChange={handleChange}
+                >
                   <FormControlLabel
                     value="FEMALE"
                     control={<Radio />}
@@ -163,7 +158,8 @@ function RegisterForm({ getModalStyle }) {
           </Grid>
           <Button
             style={{ marginLeft: "160px" }}
-            className={classes.buttonRegister}>
+            className={classes.buttonRegister}
+          >
             Sign Up
           </Button>
         </form>

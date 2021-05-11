@@ -4,12 +4,9 @@ import "./index.css";
 import App from "./App";
 import { blue, deepOrange } from "@material-ui/core/colors";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Router } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
-import {
-  ThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     primary: blue,

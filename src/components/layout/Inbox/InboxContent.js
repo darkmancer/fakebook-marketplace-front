@@ -15,9 +15,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";
-import "./Content.css";
+
 import { Group } from "@material-ui/icons";
-import SellItemModal from "./sellProduct/SellItemModal";
+import SellItemModal from "./SellItemModal";
+import MoreIcon from "@material-ui/icons/More";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "red",
   },
   dividerLine: {
-    backgroundColor: "gray",
+    backgroundColor: "grey",
   },
   formControl: {
     margin: theme.spacing(0, 1, 1),
@@ -151,21 +152,30 @@ function InboxContent() {
                 <>
                   <Divider className={classes.dividerLine} />
                   <Box>
+<<<<<<< HEAD:src/components/layout/InboxContent.js
                     <Typography
                       variant="body1"
                       className={classes.fontColor}
                       button
-                      onClick={() => setOpenPopup(true)}
                     >
                       ส่ง sell item ที่map
                       <SellItemModal
                         openPopup={openPopup}
                         setOpenPopup={setOpenPopup}
                       />
+=======
+                    <Typography variant="body1" className={classes.fontColor}>
+                      sell item ที่map
+                      <MoreIcon button onClick={() => setOpenPopup(true)} />
+>>>>>>> inbox:src/components/layout/Inbox/InboxContent.js
                     </Typography>
                   </Box>
                 </>
               )}
+              <SellItemModal
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+              />
             </Box>
           )}
           {showBuy && (

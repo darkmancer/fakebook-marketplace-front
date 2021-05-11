@@ -5,18 +5,33 @@ import { Paper, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: "flex",
     backgroundColor: "#18191a",
-    //backgroundColor: "#18191a",
-
-    // flexGrow: 1,
-    // height: 100,
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "left",
-    height: 100,
-    marginTop: 64,
-    color: "white",
+  content: {
+    [theme.breakpoints.up("sm")]: {
+      flexGrow: 1,
+      padding: theme.spacing(2),
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: 410,
+      flexShrink: 0,
+      padding: theme.spacing(1),
+    },
+  },
+  drawer: {
+    [theme.breakpoints.up("sm")]: {
+      width: 410,
+      flexShrink: 0,
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  appBar: {
+    [theme.breakpoints.up("sm")]: {
+      width: `calc(100% - ${400}px)`,
+    },
   },
 }));
 
@@ -25,18 +40,15 @@ function SelectProductPage() {
   return (
     <>
       <div className={classes.root}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Header />
-          </Grid>
+        <Header className={classes.appBar} position="fixed" />
 
-          <Grid item xs={8}>
-            <Product />
-          </Grid>
-          <Grid item xs={4} className={classes.paper}>
-            <ProductDetail />
-          </Grid>
-        </Grid>
+        <main className={classes.content}>
+          <Product />
+        </main>
+
+        <nav className={classes.drawer}>
+          <ProductDetail />
+        </nav>
       </div>
     </>
   );
