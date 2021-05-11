@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     color: "white",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
+    textAlign: "center",
   },
   multilineColor: {
     color: "white",
@@ -39,10 +40,15 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
+<<<<<<< HEAD:src/components/layout/sellProduct/SellItemModal.js
   sellPaper: {
     backgroundColor: "secondary",
     borderRadius: 5,
     width: 200,
+=======
+  button: {
+    margin: theme.spacing(2),
+>>>>>>> inbox:src/components/layout/Inbox/SellItemModal.js
   },
 }));
 
@@ -56,21 +62,26 @@ const theme = createMuiTheme({
 function SellItemModal(props) {
   const classes = useStyles();
   const { openPopup, setOpenPopup } = props;
-  const [value, setValue] = useState("female");
+  const [value, setValue] = useState("");
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+<<<<<<< HEAD:src/components/layout/sellProduct/SellItemModal.js
   const [openLabel, setOpenLabel] = useState(false);
   const handleClick = (e) => {
     setOpenLabel(true);
   };
 
+=======
+  console.log(value);
+  console.log(openPopup);
+>>>>>>> inbox:src/components/layout/Inbox/SellItemModal.js
   const body = (
     <Box className={classes.paper} style={modalStyle}>
       <MuiThemeProvider theme={theme}>
         {" "}
         <FormControl>
-          <FormLabel>Label Chat</FormLabel>
+          <FormLabel style={{ color: "white" }}>Label Chat</FormLabel>
           <RadioGroup
             aria-label="status"
             name="statusGroup"
@@ -88,11 +99,7 @@ function SellItemModal(props) {
               control={<Radio />}
               label="To be shipped"
             />
-            <FormControlLabel
-              value="toBeShipped"
-              control={<Radio />}
-              label="To be shipped"
-            />
+
             <FormControlLabel
               value="shipped"
               control={<Radio />}
@@ -110,15 +117,18 @@ function SellItemModal(props) {
             />
           </RadioGroup>
           <Box>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
               OK
             </Button>
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => {
-                setOpenPopup(false);
-              }}
+              className={classes.button}
+              onClick={() => setOpenPopup(false)}
             >
               Clear
             </Button>
@@ -129,6 +139,7 @@ function SellItemModal(props) {
   );
 
   return (
+<<<<<<< HEAD:src/components/layout/sellProduct/SellItemModal.js
     <div>
       <Box>
         Sell Item <MoreHorizIcon onClick={alert("ok")} />
@@ -136,6 +147,11 @@ function SellItemModal(props) {
 
       <Modal open={openPopup}>{body}</Modal>
     </div>
+=======
+    // <div className={classes.paper}>
+    <Modal open={openPopup}>{body}</Modal>
+    // </div>
+>>>>>>> inbox:src/components/layout/Inbox/SellItemModal.js
   );
 }
 export default SellItemModal;

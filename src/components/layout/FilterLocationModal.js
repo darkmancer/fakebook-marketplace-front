@@ -52,7 +52,7 @@ function FilterLocationModal(props) {
             fullWidth
             id="location"
             label="Location"
-            variant="outlined"
+            variant="filled"
           />
         </MuiThemeProvider>
       </form>
@@ -74,9 +74,9 @@ function FilterLocationModal(props) {
     //     </DialogContent>
 
     // </Dialog>
-    <div className={classes.paper}>
-      <Modal open={openPopup}>{body}</Modal>
-    </div>
+    // <div className={classes.paper}>
+    <Modal open={openPopup}>{body}</Modal>
+    // </div>
   );
 }
 export default FilterLocationModal;
