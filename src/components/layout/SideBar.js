@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "green",
+    backgroundColor: "#252426",
     color: "white",
     borderColor: "grey",
   },
@@ -52,7 +52,9 @@ const useStyles = makeStyles((theme) => ({
   searchInput: {
     margin: theme.spacing(1),
     width: "25ch",
-    backgroundColor: "grey",
+    backgroundColor: "#3A3B3C",
+    borderRadius: 20,
+    color: "white",
   },
 }));
 

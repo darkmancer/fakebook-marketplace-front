@@ -52,7 +52,7 @@ function FilterLocationModal(props) {
             fullWidth
             id="location"
             label="Location"
-            variant="outlined"
+            variant="filled"
           />
         </MuiThemeProvider>
       </form>

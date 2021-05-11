@@ -30,13 +30,17 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     color: "white",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
+    textAlign: "center",
   },
   multilineColor: {
     color: "white",
   },
   margin: {
     margin: theme.spacing(1),
+  },
+  button: {
+    margin: theme.spacing(2),
   },
 }));
 
@@ -50,15 +54,17 @@ const theme = createMuiTheme({
 function SellItemModal(props) {
   const classes = useStyles();
   const { openPopup, setOpenPopup } = props;
-  const [value, setValue] = useState("female");
+  const [value, setValue] = useState("");
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+  console.log(value);
+  console.log(openPopup);
   const body = (
     <MuiThemeProvider theme={theme}>
       <Box className={classes.paper} style={modalStyle}>
         <FormControl>
-          <FormLabel>Label Chat</FormLabel>
+          <FormLabel style={{ color: "white" }}>Label Chat</FormLabel>
           <RadioGroup
             aria-label="status"
             name="statusGroup"
@@ -76,11 +82,7 @@ function SellItemModal(props) {
               control={<Radio />}
               label="To be shipped"
             />
-            <FormControlLabel
-              value="toBeShipped"
-              control={<Radio />}
-              label="To be shipped"
-            />
+
             <FormControlLabel
               value="shipped"
               control={<Radio />}
@@ -98,15 +100,18 @@ function SellItemModal(props) {
             />
           </RadioGroup>
           <Box>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
               OK
             </Button>
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => {
-                setOpenPopup(false);
-              }}
+              className={classes.button}
+              onClick={() => setOpenPopup(false)}
             >
               Clear
             </Button>
@@ -117,9 +122,9 @@ function SellItemModal(props) {
   );
 
   return (
-    <div className={classes.paper}>
-      <Modal open={openPopup}>{body}</Modal>
-    </div>
+    // <div className={classes.paper}>
+    <Modal open={openPopup}>{body}</Modal>
+    // </div>
   );
 }
 export default SellItemModal;

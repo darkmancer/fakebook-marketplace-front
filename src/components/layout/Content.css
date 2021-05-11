@@ -1,14 +1,12 @@
-.container-content {
-  background-color: #18191a;
-  height: 100%;
-  color: white;
-  margin-top: 80px;
-}
-
 .catagories-text {
-  display: inline;
+  color: chocolate;
 }
 .location-text {
   color: chocolate;
-  text-align: right;
+}
+h3 {
+  color: whitesmoke;
+}
+h4 {
+  color: chocolate;
 }
