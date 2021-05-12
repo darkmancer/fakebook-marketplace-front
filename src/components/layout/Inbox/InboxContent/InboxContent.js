@@ -17,6 +17,7 @@ import {
 import SellItemModal from "../SellItemModal/SellItemModal";
 import MoreIcon from "@material-ui/icons/More";
 import { useStyles } from "./StylesInboxContent";
+import SellStep from "./SellStep";
 
 function InboxContent() {
   const classes = useStyles();
@@ -25,6 +26,7 @@ function InboxContent() {
   const [showSell, setShowSell] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
+  const [showStep, setShowStep] = useState(false);
   const [list, setList] = React.useState("");
 
   const handleChange = (e) => {
@@ -124,9 +126,14 @@ function InboxContent() {
           )}
           {showBuy && (
             <Box>
-              <Button variant="body1" className={classes.buttonColor}>
+              <Button
+                variant="body1"
+                className={classes.buttonColor}
+                onClick={() => setShowStep(showStep === true ? false : true)}
+              >
                 Seller's name: Product title
               </Button>
+              <Box>{showStep && <SellStep />}</Box>
             </Box>
           )}
         </Box>
