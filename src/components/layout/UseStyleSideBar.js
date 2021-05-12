@@ -4,8 +4,10 @@ export const useStylesSideBar = makeStyles((theme) => ({
   root: {
     display: "flex",
     color: "white",
+    "&:hover": {
+      backgroundColor: "rgb(97, 95, 95)",
+    },
   },
-
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: "#252426",

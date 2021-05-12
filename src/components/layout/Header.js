@@ -19,11 +19,15 @@ function Header(props) {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Box flexGrow={1}>
-          <Typography onClick={() => history.push("/")}>
+          <Typography
+            className={classes.root}
+            onClick={() => history.push("/")}
+          >
             Market Place
           </Typography>
         </Box>
         <Avatar
+          className={classes.root}
           alt="name"
           src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
         />

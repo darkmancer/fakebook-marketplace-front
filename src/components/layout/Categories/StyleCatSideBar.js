@@ -5,6 +5,9 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     color: "white",
+    "&:hover": {
+      backgroundColor: "rgb(97, 95, 95)",
+    },
   },
   drawer: {
     width: drawerWidth,

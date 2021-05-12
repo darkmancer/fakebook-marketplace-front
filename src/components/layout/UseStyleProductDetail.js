@@ -33,4 +33,13 @@ export const useStylesProductDetail = makeStyles((theme) => ({
     margin: theme.spacing(1),
     marginLeft: theme.spacing(3),
   },
+  closeButton: {
+    display: "flex",
+    justifyContent: "flex-end",
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
+    "&:hover:not(.Mui-disabled)": {
+      cursor: "pointer",
+    },
+  },
 }));

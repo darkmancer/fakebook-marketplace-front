@@ -1,5 +1,5 @@
-import ProductSelected from "../layout/ProductSelected";
-import ProductDetail from "../layout/ProductDetail";
+import ProductHome from "../layout/Categories/Homes/ProductHome";
+import HomeDetail from "../layout/Categories/Homes/HomeDetail";
 import Header from "../layout/Header";
 import { Paper, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SelectProductPage() {
+function SelectVehiclePage() {
   const classes = useStyles();
   return (
     <>
@@ -43,14 +43,14 @@ function SelectProductPage() {
         <Header className={classes.appBar} position="fixed" />
 
         <main className={classes.content}>
-          <ProductSelected />
+          <ProductHome />
         </main>
 
         <nav className={classes.drawer}>
-          <ProductDetail />
+          <HomeDetail />
         </nav>
       </div>
     </>
   );
 }
-export default SelectProductPage;
+export default SelectVehiclePage;

@@ -3,22 +3,22 @@ import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid } from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";
-import { useStyles } from "./StyleVehicle";
+import { useStyles } from "./StyleHome";
 import "../../Content.css";
-function VehiclesCard() {
+function HomeCard() {
   const classes = useStyles();
   const history = useHistory();
   return (
     <>
       <img
         className={classes.paper}
-        src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620736392/GroupProject/e254bc159f318a8abd4cce7ac16a095b_c3tr7v.jpg"
-        onClick={() => history.push("/select/vehicle")}
+        src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620792410/GroupProject/Si-Racha-Thailand_tpj01s.jpg"
+        onClick={() => history.push("/select/home")}
       />
-      <h3>Brand</h3>
-      <h3>Model</h3>
-      <h4>year</h4>
+      <h3>Price</h3>
+      <h3>estate_type</h3>
+      <h4>bangkok</h4>
     </>
   );
 }
-export default VehiclesCard;
+export default HomeCard;

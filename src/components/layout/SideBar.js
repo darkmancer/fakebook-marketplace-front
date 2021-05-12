@@ -46,30 +46,38 @@ function SideBar() {
               <TextField label="Search Market Place" variant="outlined" />
             </form>
 
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-                Browse All
-              </ListItemIcon>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => {
+                history.push("/");
+              }}
+            >
+              <HomeIcon />
+              Browse All
             </ListItem>
 
-            <ListItem button onClick={() => history.push("/inbox")}>
-              <ListItemIcon>
-                <InboxIcon />
-                Inbox
-              </ListItemIcon>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/inbox")}
+            >
+              <InboxIcon />
+              Inbox
             </ListItem>
 
-            <ListItem button>
-              <ListItemIcon>
-                <PersonIcon />
-                Your Account
-              </ListItemIcon>
+            <ListItem button className={classes.root}>
+              <PersonIcon />
+              Your Account
             </ListItem>
 
             <Divider className={classes.dividerLine} />
 
-            <ListItem button onClick={() => alert("ok")}>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => alert("ok")}
+            >
               <AddIcon />
               Create New Listing
             </ListItem>
@@ -79,7 +87,11 @@ function SideBar() {
 
           <List>
             <ListItem>Filters</ListItem>
-            <ListItem button onClick={() => setOpenPopup(true)}>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => setOpenPopup(true)}
+            >
               bangkok, Thailand within 60 km
             </ListItem>
           </List>
@@ -88,11 +100,27 @@ function SideBar() {
 
           <List>
             <ListItem>Categories</ListItem>
-            <ListItem button onClick={() => history.push("/vehicle")}>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/vehicle")}
+            >
               vehicles
             </ListItem>
-            <ListItem button>Property Rentals</ListItem>
-            <ListItem button>Goods</ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/home")}
+            >
+              Property Rentals,Home
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/goods")}
+            >
+              Goods
+            </ListItem>
           </List>
         </Box>
       </Drawer>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
 import {
   Drawer,
   Toolbar,
@@ -15,10 +14,10 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
-
 import AddIcon from "@material-ui/icons/Add";
 import Header from "../Header";
 import { useStyles } from "./StyleCatSideBar";
+import FilterLocationModal from "../FilterLocationModal";
 
 function CategoriesSideBar() {
   const classes = useStyles();
@@ -55,7 +54,11 @@ function CategoriesSideBar() {
               <TextField label="Search Market Place" variant="outlined" />
             </form>
 
-            <ListItem button onClick={() => alert("ok")}>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => alert("ok")}
+            >
               <AddIcon />
               Create New Listing
             </ListItem>
@@ -65,7 +68,11 @@ function CategoriesSideBar() {
 
           <List>
             <ListItem>Filters</ListItem>
-            <ListItem button onClick={() => setOpenPopup(true)}>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => setOpenPopup(true)}
+            >
               bangkok, Thailand within 60 km
             </ListItem>
           </List>
@@ -108,11 +115,33 @@ function CategoriesSideBar() {
 
           <List>
             <ListItem>Categories</ListItem>
-            <ListItem button>vehicles</ListItem>
-            <ListItem button>Property Rentals</ListItem>
-            <ListItem button>Goods</ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/vehicle")}
+            >
+              vehicles
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/home")}
+            >
+              Property Rentals,Home
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/goods")}
+            >
+              Goods
+            </ListItem>
           </List>
         </Box>
+        <FilterLocationModal
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
+        />
       </Drawer>
     </>
   );
