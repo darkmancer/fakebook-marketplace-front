@@ -6,9 +6,9 @@ import {
   Toolbar,
   Avatar,
   Box,
-  //   Typography,
-  //   Image,
-  //   Link,
+  Typography,
+  Image,
+  Link,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,14 +25,14 @@ function HeaderAccount(props) {
   const history = useHistory();
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar className={classes.appBar}>
       <Toolbar>
         <Box flexGrow={1}>
-          {/* <Typography>
+          <Typography>
             <Link onClick={() => history.push("/Homepage")}>
               Market Place
             </Link>
-          </Typography> */}
+          </Typography>
         </Box>
         <Avatar
           style={{ marginRight: 10 }}

@@ -7,7 +7,11 @@ import SelectProductPage from "./components/pages/SelectProductPage";
 import InboxPage from "./components/pages/InboxPage";
 import CategoryVehiclePage from "./components/pages/CategoryVehiclePage";
 import MyPage from "./components/pages/MyPage";
-
+import "./App.css";
+import MyPageListings from "./components/pages/MyPageListings";
+import CreateListingItemPage from "./components/pages/CreateListingItemPage";
+import CreateListingVehiclePage from "./components/pages/CreateListingVehiclePage";
+import CreateListingHomePage from "./components/pages/CreateListingHomePage";
 const privateRoutes = [];
 const publicRoutes = [
   {
@@ -25,6 +29,22 @@ const publicRoutes = [
   {
     path: "/mypage",
     component: MyPage,
+  },
+  {
+    path: "/myListings",
+    component: MyPageListings,
+  },
+  {
+    path: "/item",
+    component: CreateListingItemPage,
+  },
+  {
+    path: "/vehicle",
+    component: CreateListingVehiclePage,
+  },
+  {
+    path: "/home",
+    component: CreateListingHomePage,
   },
 ];
 

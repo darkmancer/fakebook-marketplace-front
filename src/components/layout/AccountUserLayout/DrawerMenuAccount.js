@@ -10,24 +10,41 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemIcon,
+  ListItemSecondaryAction,
   ListItemText,
   TextField,
   Toolbar,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import {
   MdAccessTime,
   MdAdd,
   MdBookmark,
   MdFilterNone,
+  MdLayers,
   MdLocalOffer,
 } from "react-icons/md";
 import { useStyles } from "./UseStyleAccountPage";
+import { RadioStatus, RadioSort } from "./RadioMap";
+import { useHistory } from "react-router-dom";
 function DrawerMenuAccount() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const history = useHistory();
+  const [open, setOpen] = React.useState(false);
+  const [openStatus, setOpenStatus] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState();
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
+  };
+  const handleClickStatus = () => {
+    setOpenStatus((prevOpen) => !prevOpen);
+  };
+  const handleChangeRadio = (event) => {
+    setSelectedValue(event.target.value);
   };
 
   return (
@@ -48,10 +65,12 @@ function DrawerMenuAccount() {
               <ListItem
                 className={classes.buttonListAccount}
                 onClick={() => alert("Listings")}>
-                <ListItemIcon className={classes.ListIcon}>
+                <ListItemIcon
+                  className={classes.ListIcon}
+                  onClick={() => history.push}>
                   <MdLocalOffer />
                 </ListItemIcon>
-                Your Listing
+                Your Listings
               </ListItem>
             </List>
             <List>
@@ -61,7 +80,7 @@ function DrawerMenuAccount() {
                 <ListItemIcon className={classes.ListIcon}>
                   <MdBookmark />
                 </ListItemIcon>
-                Save
+                Saved
               </ListItem>
             </List>
             <List>
@@ -69,7 +88,7 @@ function DrawerMenuAccount() {
                 className={classes.buttonListAccount}
                 onClick={() => alert("Following")}>
                 <ListItemIcon className={classes.ListIcon}>
-                  <MdFilterNone />
+                  <MdLayers />
                 </ListItemIcon>
                 Following
               </ListItem>
@@ -100,7 +119,9 @@ function DrawerMenuAccount() {
           </div>
 
           <List>
-            <Button className={classes.buttonCreateNewList}>
+            <Button
+              className={classes.buttonCreateNewList}
+              onClick={() => history.push("/mylistings")}>
               <MdAdd style={{ marginRight: "10px" }} />
               Create New Listing
             </Button>
@@ -117,20 +138,65 @@ function DrawerMenuAccount() {
                   Filters
                 </ListItem>
               </Grid>
-              <Collapse>
-                <ListItem className={classes.buttonListAccount}>
-                  Sort by
-                </ListItem>
+              <ListItem
+                className={classes.buttonListAccount}
+                onClick={handleClick}>
+                <ListItemText primary="Sort by" />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={open} timeout="auto">
                 <List component="div" disablePadding>
-                  <ListItem button className={classes.nested}>
-                    <ListItemText primary="Starred" />
-                  </ListItem>
+                  <RadioGroup>
+                    {RadioSort.map((radio, idx) => {
+                      return (
+                        <ListItem key={idx}>
+                          <ListItemText primary={radio.primary} />
+                          <ListItemSecondaryAction>
+                            <Radio
+                              className={classes.RadioCheck}
+                              checked={
+                                selectedValue === radio.primary
+                              }
+                              value={radio.primary}
+                              onChange={handleChangeRadio}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })}
+                  </RadioGroup>
                 </List>
               </Collapse>
-
-              <ListItem className={classes.buttonListAccount}>
-                Status
+              {/* //Status */}
+              <ListItem
+                className={classes.buttonListAccount}
+                onClick={handleClickStatus}>
+                <ListItemText primary="Status" />
+                {openStatus ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
+              <Collapse in={openStatus} timeout="auto">
+                <List component="div" disablePadding>
+                  <RadioGroup>
+                    {RadioStatus.map((radio, idx) => {
+                      return (
+                        <ListItem key={idx}>
+                          <ListItemText primary={radio.primary} />
+                          <ListItemSecondaryAction>
+                            <Radio
+                              className={classes.RadioCheck}
+                              checked={
+                                selectedValue === radio.primary
+                              }
+                              value={radio.primary}
+                              onChange={handleChangeRadio}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })}
+                  </RadioGroup>
+                </List>
+              </Collapse>
             </List>
           </div>
         </Box>
