@@ -75,8 +75,7 @@ function CommerceProfileModal(props) {
           Commerce Profile
           <IconButton
             className={classes.button}
-            onClick={() => setOpenPopup(false)}
-          >
+            onClick={() => setOpenPopup(false)}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -93,23 +92,24 @@ function CommerceProfileModal(props) {
         Name Chiba Chiba
       </Typography>
       <Box className={classes.buttonList}>
-        <Button variant="contained" size="small" className={classes.button}>
+        <Button
+          variant="contained"
+          size="small"
+          className={classes.button}>
           Follow
         </Button>
         <Button
           variant="contained"
           size="small"
           className={classes.button}
-          onClick={() => alert("Apply")}
-        >
+          onClick={() => alert("Apply")}>
           View Profile
         </Button>
         <Button
           variant="contained"
           size="small"
           className={classes.button}
-          onClick={() => alert("Apply")}
-        >
+          onClick={() => alert("Apply")}>
           Report
         </Button>
       </Box>
