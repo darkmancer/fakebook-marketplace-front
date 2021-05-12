@@ -7,9 +7,9 @@ import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-
-import { useStylesProductDetail } from "./UseStyleProductDetail";
-import CommerceProfileModal from "./CommerceProfileModal";
+import { useStylesProductDetail } from "../../UseStyleProductDetail";
+import CommerceProfileModal from "../../CommerceProfileModal";
+import CloseIcon from "@material-ui/icons/Close";
 import {
   AppBar,
   Toolbar,
@@ -18,9 +18,10 @@ import {
   Typography,
   Button,
 } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
 
-function ProductDetail() {
+//const drawerWidth = 240;
+
+function GoodsDetail() {
   const classes = useStylesProductDetail();
   const [openPopup, setOpenPopup] = useState(false);
   const history = useHistory();
@@ -35,16 +36,16 @@ function ProductDetail() {
       >
         <Toolbar />
         <div className={classes.closeButton}>
-          <CloseIcon button onClick={() => history.push("/HomePage")} />
+          <CloseIcon button onClick={() => history.push("/category/goods")} />
         </div>
+
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem>Product Title</ListItem>
+            <ListItem>title</ListItem>
           </List>
 
           <List>
-            <ListItem>Price</ListItem>
-            <ListItem>Type</ListItem>
+            <ListItem>price</ListItem>
           </List>
 
           <Box className={classes.buttonList}>
@@ -83,7 +84,7 @@ function ProductDetail() {
           </Box>
           <Divider className={classes.dividerLine} />
           <List>
-            <ListItem>Description</ListItem>
+            <ListItem>Description: condition, optional</ListItem>
             <ListItem>Location</ListItem>
           </List>
           <Divider className={classes.dividerLine} />
@@ -104,4 +105,4 @@ function ProductDetail() {
     </>
   );
 }
-export default ProductDetail;
+export default GoodsDetail;

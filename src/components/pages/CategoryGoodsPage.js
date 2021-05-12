@@ -1,9 +1,9 @@
 import React from "react";
-import SideBar from "../layout/SideBar";
-import InboxContent from "../layout/Inbox/InboxContent/InboxContent";
+import CategoriesSideBar from "../layout/Categories/CategoriesSideBar";
+import GoodsContent from "../layout/Categories/Goods/GoodsContent";
 import Header from "../layout/Header";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Grid, Box } from "@material-ui/core";
+import { Paper, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: 240,
       flexGrow: 1,
-      padding: theme.spacing(2),
+      margin: theme.spacing(3),
     },
     [theme.breakpoints.down("sm")]: {
       flexShrink: 0,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function InboxPage() {
+function CategoryGoodsPage() {
   const classes = useStyles();
 
   return (
@@ -46,14 +46,14 @@ function InboxPage() {
       <Header className={classes.appBar} position="fixed" />
 
       <nav className={classes.drawer}>
-        <SideBar />
+        <CategoriesSideBar />
       </nav>
 
       <main className={classes.content}>
-        <InboxContent />
+        <GoodsContent />
       </main>
     </div>
   );
 }
 
-export default InboxPage;
+export default CategoryGoodsPage;

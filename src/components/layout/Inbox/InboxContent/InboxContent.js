@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
   Paper,
@@ -14,52 +13,10 @@ import {
   Select,
   Typography,
 } from "@material-ui/core";
-import RoomIcon from "@material-ui/icons/Room";
 
-import { Group } from "@material-ui/icons";
-import SellItemModal from "./SellItemModal";
+import SellItemModal from "../SellItemModal/SellItemModal";
 import MoreIcon from "@material-ui/icons/More";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "#18191A",
-  },
-  paper: {
-    margin: theme.spacing(5),
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(1),
-    backgroundColor: "#242526",
-    borderRadius: 5,
-    justifyContent: "center",
-  },
-  Box: {
-    height: 600,
-    width: 800,
-    padding: theme.spacing(2),
-    borderRadius: 5,
-    backgroundColor: "red",
-  },
-  dividerLine: {
-    backgroundColor: "grey",
-  },
-  formControl: {
-    margin: theme.spacing(0, 1, 1),
-    minWidth: 120,
-    // backgroundColor: "pink",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(1),
-  },
-  fontColor: {
-    color: "grey",
-  },
-  buttonColor: {
-    backgroundColor: "grey",
-    color: "white",
-    borderRadius: 15,
-    margin: theme.spacing(1),
-  },
-}));
+import { useStyles } from "./StylesInboxContent";
 
 function InboxContent() {
   const classes = useStyles();
@@ -152,22 +109,9 @@ function InboxContent() {
                 <>
                   <Divider className={classes.dividerLine} />
                   <Box>
-<<<<<<< HEAD:src/components/layout/InboxContent.js
-                    <Typography
-                      variant="body1"
-                      className={classes.fontColor}
-                      button
-                    >
-                      ส่ง sell item ที่map
-                      <SellItemModal
-                        openPopup={openPopup}
-                        setOpenPopup={setOpenPopup}
-                      />
-=======
                     <Typography variant="body1" className={classes.fontColor}>
                       sell item ที่map
                       <MoreIcon button onClick={() => setOpenPopup(true)} />
->>>>>>> inbox:src/components/layout/Inbox/InboxContent.js
                     </Typography>
                   </Box>
                 </>
