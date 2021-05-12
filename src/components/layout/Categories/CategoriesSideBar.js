@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Drawer,
   Toolbar,
@@ -15,51 +14,10 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
-
-import HomeIcon from "@material-ui/icons/Home";
-import InboxIcon from "@material-ui/icons/Inbox";
-import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import Header from "../Header";
-
-import SearchIcon from "@material-ui/icons/Search";
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    color: "white",
-  },
-  drawer: {
-    width: drawerWidth,
-    backgroundColor: "red",
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: "#252426",
-    color: "white",
-    borderColor: "grey",
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  dividerLine: {
-    backgroundColor: "grey",
-  },
-  searchInput: {
-    margin: theme.spacing(1),
-    width: "25ch",
-    backgroundColor: "#3A3B3C",
-    borderRadius: 20,
-    color: "white",
-  },
-}));
+import { useStyles } from "./StyleCatSideBar";
+import FilterLocationModal from "../FilterLocationModal";
 
 function CategoriesSideBar() {
   const classes = useStyles();
@@ -96,7 +54,11 @@ function CategoriesSideBar() {
               <TextField label="Search Market Place" variant="outlined" />
             </form>
 
-            <ListItem button onClick={() => alert("ok")}>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => alert("ok")}
+            >
               <AddIcon />
               Create New Listing
             </ListItem>
@@ -106,7 +68,11 @@ function CategoriesSideBar() {
 
           <List>
             <ListItem>Filters</ListItem>
-            <ListItem button onClick={() => setOpenPopup(true)}>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => setOpenPopup(true)}
+            >
               bangkok, Thailand within 60 km
             </ListItem>
           </List>
@@ -149,11 +115,33 @@ function CategoriesSideBar() {
 
           <List>
             <ListItem>Categories</ListItem>
-            <ListItem button>vehicles</ListItem>
-            <ListItem button>Property Rentals</ListItem>
-            <ListItem button>Goods</ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/vehicle")}
+            >
+              vehicles
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/home")}
+            >
+              Property Rentals,Home
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/goods")}
+            >
+              Goods
+            </ListItem>
           </List>
         </Box>
+        <FilterLocationModal
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
+        />
       </Drawer>
     </>
   );

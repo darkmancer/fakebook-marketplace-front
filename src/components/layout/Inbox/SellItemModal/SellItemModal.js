@@ -10,49 +10,9 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import { deepOrange, grey } from "@material-ui/core/colors";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
-const modalStyle = {
-  top: `50%`,
-  left: `50%`,
-  transform: `translate(-50%, -50%)`,
-};
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "relative",
-    width: 400,
-    backgroundColor: "#242526",
-    border: "1px solid grey",
-    borderRadius: 5,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    color: "white",
-    display: "flex",
-    justifyContent: "space-around",
-    textAlign: "center",
-  },
-  multilineColor: {
-    color: "white",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  sellPaper: {
-    backgroundColor: "secondary",
-    borderRadius: 5,
-    width: 200,
-  },
-}));
-
-const theme = createMuiTheme({
-  palette: {
-    primary: grey,
-    secondary: deepOrange,
-  },
-});
+import { MuiThemeProvider } from "@material-ui/core";
+import { theme, useStyles, modalStyle } from "./StyleSellItem";
 
 function SellItemModal(props) {
   const classes = useStyles();
@@ -61,12 +21,8 @@ function SellItemModal(props) {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
-  const [openLabel, setOpenLabel] = useState(false);
-  const handleClick = (e) => {
-    setOpenLabel(true);
-  };
-
+  console.log(value);
+  console.log(openPopup);
   const body = (
     <Box className={classes.paper} style={modalStyle}>
       <MuiThemeProvider theme={theme}>
@@ -77,17 +33,14 @@ function SellItemModal(props) {
             aria-label="status"
             name="statusGroup"
             value={value}
-            onChange={handleChange}>
+            onChange={handleChange}
+          >
             <FormControlLabel
               value="pending"
               control={<Radio />}
               label="pending Payment"
             />
-            <FormControlLabel
-              value="paid"
-              control={<Radio />}
-              label="Paid"
-            />
+            <FormControlLabel value="paid" control={<Radio />} label="Paid" />
             <FormControlLabel
               value="toBeShipped"
               control={<Radio />}
@@ -114,14 +67,16 @@ function SellItemModal(props) {
             <Button
               variant="contained"
               color="primary"
-              className={classes.button}>
+              className={classes.button}
+            >
               OK
             </Button>
             <Button
               variant="contained"
               color="secondary"
               className={classes.button}
-              onClick={() => setOpenPopup(false)}>
+              onClick={() => setOpenPopup(false)}
+            >
               Clear
             </Button>
           </Box>
@@ -131,13 +86,9 @@ function SellItemModal(props) {
   );
 
   return (
-    <div>
-      <Box>
-        Sell Item <MoreHorizIcon onClick={alert("ok")} />
-      </Box>
-
-      <Modal open={openPopup}>{body}</Modal>
-    </div>
+    // <div className={classes.paper}>
+    <Modal open={openPopup}>{body}</Modal>
+    // </div>
   );
 }
 export default SellItemModal;

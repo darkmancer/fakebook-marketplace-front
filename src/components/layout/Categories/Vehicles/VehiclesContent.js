@@ -1,20 +1,20 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useStyles } from "./StyleVehicle";
 import { Box, Grid } from "@material-ui/core";
-import { useStylesContent } from "./UseStyleContent";
 import RoomIcon from "@material-ui/icons/Room";
-import ProductCard from "./ProductCard";
+import VehiclesCard from "./VehicleCard";
 
-import "./Content.css";
+import "../../Content.css";
 
-function Content() {
-  const classes = useStylesContent();
+function VehiclesContent() {
+  const classes = useStyles();
   const history = useHistory();
 
   return (
     <Box>
       <Box className={classes.containerText}>
-        <h2 className={classes.text}>Today's Pick</h2>
+        <h2 className={classes.text}>Vehicles</h2>
         <h5 className="location-text">
           <RoomIcon />
           bangkok 60km
@@ -25,7 +25,7 @@ function Content() {
         <Grid item xs={15}>
           <Grid container justify="flex-start">
             <Grid item xs={3}>
-              <ProductCard />
+              <VehiclesCard />
             </Grid>
           </Grid>
         </Grid>
@@ -33,4 +33,4 @@ function Content() {
     </Box>
   );
 }
-export default Content;
+export default VehiclesContent;

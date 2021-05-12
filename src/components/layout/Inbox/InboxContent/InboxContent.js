@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
   Paper,
@@ -14,52 +13,11 @@ import {
   Select,
   Typography,
 } from "@material-ui/core";
-import RoomIcon from "@material-ui/icons/Room";
 
-import { Group } from "@material-ui/icons";
-import SellItemModal from "./SellItemModal";
+import SellItemModal from "../SellItemModal/SellItemModal";
 import MoreIcon from "@material-ui/icons/More";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "#18191A",
-  },
-  paper: {
-    margin: theme.spacing(5),
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(1),
-    backgroundColor: "#242526",
-    borderRadius: 5,
-    justifyContent: "center",
-  },
-  Box: {
-    height: 600,
-    width: 800,
-    padding: theme.spacing(2),
-    borderRadius: 5,
-    backgroundColor: "red",
-  },
-  dividerLine: {
-    backgroundColor: "grey",
-  },
-  formControl: {
-    margin: theme.spacing(0, 1, 1),
-    minWidth: 120,
-    // backgroundColor: "pink",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(1),
-  },
-  fontColor: {
-    color: "grey",
-  },
-  buttonColor: {
-    backgroundColor: "grey",
-    color: "white",
-    borderRadius: 15,
-    margin: theme.spacing(1),
-  },
-}));
+import { useStyles } from "./StylesInboxContent";
+import SellStep from "./SellStep";
 
 function InboxContent() {
   const classes = useStyles();
@@ -68,6 +26,7 @@ function InboxContent() {
   const [showSell, setShowSell] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
+  const [showStep, setShowStep] = useState(false);
   const [list, setList] = React.useState("");
 
   const handleChange = (e) => {
@@ -88,7 +47,8 @@ function InboxContent() {
       direction="column"
       justify="center"
       alignItems="stretch"
-      height={100}>
+      height={100}
+    >
       <Grid className={classes.root} style={{ minHeight: "100vh" }}>
         <Box className={classes.paper}>
           <Button color="primary" onClick={() => handleShowSell()}>
@@ -101,16 +61,12 @@ function InboxContent() {
             <Box>
               <Divider className={classes.dividerLine} />
               <Box>
-                <Typography
-                  variant="body1"
-                  className={classes.fontColor}>
+                <Typography variant="body1" className={classes.fontColor}>
                   {" "}
                   View Chats
                 </Typography>
 
-                <FormControl
-                  variant="filled"
-                  className={classes.formControl}>
+                <FormControl variant="filled" className={classes.formControl}>
                   <Select
                     value={value}
                     onChange={handleChange}
@@ -122,9 +78,7 @@ function InboxContent() {
                     <MenuItem value={"listing"}>
                       <em>Grouped by listing</em>
                     </MenuItem>
-                    <MenuItem value={"chart"}>
-                      Individual Charts
-                    </MenuItem>
+                    <MenuItem value={"chart"}>Individual Charts</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -133,50 +87,33 @@ function InboxContent() {
                 <>
                   <Divider className={classes.dividerLine} />
                   <Box>
-                    <Typography
-                      variant="body1"
-                      className={classes.fontColor}>
+                    <Typography variant="body1" className={classes.fontColor}>
                       {" "}
                       Filter by label
                     </Typography>
 
-                    <Button className={classes.buttonColor}>
-                      All
-                    </Button>
+                    <Button className={classes.buttonColor}>All</Button>
                     <Button className={classes.buttonColor}>
                       Pending Payment
                     </Button>
-                    <Button className={classes.buttonColor}>
-                      Paid
-                    </Button>
+                    <Button className={classes.buttonColor}>Paid</Button>
                     <Button className={classes.buttonColor}>
                       To Be shipped
                     </Button>
-                    <Button className={classes.buttonColor}>
-                      Shipped
-                    </Button>
+                    <Button className={classes.buttonColor}>Shipped</Button>
                     <Button className={classes.buttonColor}>
                       Cash on delivery
                     </Button>
-                    <Button className={classes.buttonColor}>
-                      Complete
-                    </Button>
+                    <Button className={classes.buttonColor}>Complete</Button>
                   </Box>
                 </>
               ) : (
                 <>
                   <Divider className={classes.dividerLine} />
                   <Box>
-                    <Typography
-                      variant="body1"
-                      className={classes.fontColor}
-                      button
-                      onClick={() => setOpenPopup(true)}>
-                      ส่ง sell item ที่map
-                      <SellItemModal
-                        openPopup={openPopup}
-                        setOpenPopup={setOpenPopup}
-                      />
+                    <Typography variant="body1" className={classes.fontColor}>
+                      sell item ที่map
+                      <MoreIcon button onClick={() => setOpenPopup(true)} />
                     </Typography>
                   </Box>
                 </>
@@ -189,9 +126,14 @@ function InboxContent() {
           )}
           {showBuy && (
             <Box>
-              <Button variant="body1" className={classes.buttonColor}>
+              <Button
+                variant="body1"
+                className={classes.buttonColor}
+                onClick={() => setShowStep(showStep === true ? false : true)}
+              >
                 Seller's name: Product title
               </Button>
+              <Box>{showStep && <SellStep />}</Box>
             </Box>
           )}
         </Box>
