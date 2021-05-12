@@ -66,11 +66,13 @@ function SideBar() {
               Inbox
             </ListItem>
 
-            <ListItem button>
-              <ListItemIcon onClick={() => history.push("/mypage")}>
-                <PersonIcon />
-                Your Account
-              </ListItemIcon>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/mypage")}
+            >
+              <PersonIcon />
+              Your Account
             </ListItem>
 
             <Divider className={classes.dividerLine} />
