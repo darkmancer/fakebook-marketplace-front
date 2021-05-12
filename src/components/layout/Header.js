@@ -8,13 +8,32 @@ import {
   Typography,
   Image,
   Link,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import { useStylesHeader } from "./UseStyleHeader";
+import * as localStorage from "../../services/localStorageService";
 
 function Header(props) {
   const { palette } = props;
   const classes = useStylesHeader(palette);
   const history = useHistory();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.clearToken();
+    //setAuth({});
+    // role === "admin" ? setIsAdmin(false) : setIsAuthenticated(false);
+    history.push("/login");
+  };
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -30,8 +49,20 @@ function Header(props) {
         <Avatar
           className={classes.root}
           alt="name"
+          onClick={handleClick}
           src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
         />
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={handleClose}>Edit account</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
         Chiwawa
       </Toolbar>
     </AppBar>
