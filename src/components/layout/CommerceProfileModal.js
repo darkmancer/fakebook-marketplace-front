@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Modal,
   TextField,
@@ -14,55 +13,8 @@ import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
 
-const modalStyle = {
-  top: `50%`,
-  left: `50%`,
-  transform: `translate(-50%, -50%)`,
-};
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    width: 400,
-    backgroundColor: "#242526",
-    border: "1px solid grey",
-    borderRadius: 5,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(1),
-    color: "white",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  multilineColor: {
-    color: "white",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  large: {
-    margin: theme.spacing(1),
-    width: theme.spacing(15),
-    height: theme.spacing(15),
-  },
-  dividerLine: {
-    backgroundColor: "#373A3B",
-    width: 400,
-  },
-  buttonList: {
-    display: "flex",
-  },
-  button: {
-    margin: theme.spacing(1),
-    backgroundColor: "#373A3B",
-    color: "white",
-  },
-  closeButton: {
-    display: "flex",
-  },
-}));
+import { useStyles, modalStyle } from "./UseStyleCommerceProfileModal";
 
 function CommerceProfileModal(props) {
   const classes = useStyles();
@@ -70,14 +22,21 @@ function CommerceProfileModal(props) {
 
   const body = (
     <Box style={modalStyle} className={classes.paper}>
-      <Box className={classes.closeButton}>
-        <Box variant="h6" component="h2" flexGrow={1}>
-          Commerce Profile
-          <IconButton
-            className={classes.button}
-            onClick={() => setOpenPopup(false)}>
-            <CloseIcon />
-          </IconButton>
+      <Box>
+        <Box className={classes.closeButton}>
+          <Box variant="h6" component="h2" flexGrow={1}>
+            Commerce Profile
+          </Box>
+          <Box>
+            {" "}
+            <IconButton
+              className={classes.button}
+              IconButton
+              onClick={() => setOpenPopup(false)}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Box>
         </Box>
       </Box>
 
@@ -92,24 +51,23 @@ function CommerceProfileModal(props) {
         Name Chiba Chiba
       </Typography>
       <Box className={classes.buttonList}>
-        <Button
-          variant="contained"
-          size="small"
-          className={classes.button}>
+        <Button variant="contained" size="small" className={classes.button}>
           Follow
         </Button>
         <Button
           variant="contained"
           size="small"
           className={classes.button}
-          onClick={() => alert("Apply")}>
+          onClick={() => alert("Apply")}
+        >
           View Profile
         </Button>
         <Button
           variant="contained"
           size="small"
           className={classes.button}
-          onClick={() => alert("Apply")}>
+          onClick={() => alert("Apply")}
+        >
           Report
         </Button>
       </Box>

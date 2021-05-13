@@ -29,3 +29,20 @@ export const RadioStatus = [
     primary: "Draft",
   },
 ];
+export const RadioCondition = [
+  {
+    primary: "All",
+  },
+  {
+    primary: "New",
+  },
+  {
+    primary: "Used - Like New",
+  },
+  {
+    primary: "Used - Good",
+  },
+  {
+    primary: "Used - Fair",
+  },
+];
