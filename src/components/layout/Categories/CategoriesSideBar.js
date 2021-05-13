@@ -6,35 +6,48 @@ import {
   List,
   Divider,
   ListItem,
-  ListItemIcon,
+  ListItemText,
+  ListItemSecondaryAction,
   Box,
   TextField,
   FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
+  Collapse,
+  Radio,
+  RadioGroup,
+  Input,
 } from "@material-ui/core";
+import HomeWorkIcon from "@material-ui/icons/HomeWork";
+import DriveEtaIcon from "@material-ui/icons/DriveEta";
+import StorefrontIcon from "@material-ui/icons/Storefront";
+import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import AddIcon from "@material-ui/icons/Add";
 import Header from "../Header";
 import { useStyles } from "./StyleCatSideBar";
 import FilterLocationModal from "../FilterLocationModal";
-
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { RadioCondition, RadioSort } from "../AccountUserLayout/RadioMap";
+import { MdSearch } from "react-icons/md";
 function CategoriesSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [openCondition, setOpenCondition] = React.useState(false);
   const [sortBy, setSortBy] = useState("");
+  const [selectedValue, setSelectedValue] = React.useState();
   const history = useHistory();
-  const handleOpen = () => {
-    setOpen(true);
+  const handleClick = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+  const handleClickCondition = () => {
+    setOpenCondition((prevOpen) => !prevOpen);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleChangeRadio = (event) => {
+    setSelectedValue(event.target.value);
   };
   const handleChange = (event) => {
     setSortBy(event.target.value);
   };
-
+  console.log(selectedValue);
   const [openPopup, setOpenPopup] = useState(false);
   return (
     <>
@@ -50,13 +63,21 @@ function CategoriesSideBar() {
         <Toolbar />
         <Box className={classes.drawerContainer}>
           <List>
-            <form className={classes.searchInput}>
-              <TextField label="Search Market Place" variant="outlined" />
-            </form>
-
+            <form>
+              <TextField
+                placeholder="Search Market Place"
+                InputProps={{
+                  startAdornment: (
+                    <MdSearch size="30" className={classes.iconSearch} />
+                  ),
+                  disableUnderline: true,
+                  className: classes.searchInput,
+                }}
+              />
+            </form>{" "}
             <ListItem
               button
-              className={classes.root}
+              className={classes.createList}
               onClick={() => alert("ok")}
             >
               <AddIcon />
@@ -77,38 +98,89 @@ function CategoriesSideBar() {
             </ListItem>
           </List>
           <List>
-            <FormControl className={classes.searchInput}>
-              <InputLabel id="sort">Sort by</InputLabel>
-              <Select
-                labelId="sort"
-                id="sort-select-filled"
-                value={sortBy}
-                onChange={handleChange}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={"lowPrice"}>Price: Lowest first</MenuItem>
-                <MenuItem value={"highPrice"}>Price: Highest first</MenuItem>
-                <MenuItem value={"newDate"}>Date: Newest first</MenuItem>
-                <MenuItem value={"oldDate"}>Date: Oldest first</MenuItem>
-                <MenuItem value={"nearDistance"}>
-                  Distance: Nearest first
-                </MenuItem>
-                <MenuItem value={"farDistance"}>
-                  Distance:Farthest first
-                </MenuItem>
-              </Select>
-            </FormControl>
-
+            <ListItem
+              button
+              className={classes.buttonListAccount}
+              onClick={handleClick}
+            >
+              <ListItemText primary="Sort by" />
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={open} timeout="auto">
+              <List component="div" disablePadding>
+                <RadioGroup>
+                  {RadioSort.map((radio, idx) => {
+                    return (
+                      <ListItem key={idx}>
+                        <ListItemText primary={radio.primary} />
+                        <ListItemSecondaryAction>
+                          <Radio
+                            className={classes.RadioCheck}
+                            checked={selectedValue === radio.primary}
+                            value={radio.primary}
+                            onChange={handleChangeRadio}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    );
+                  })}
+                </RadioGroup>
+              </List>
+            </Collapse>
+            {/* item condition Not show in Vehicle page*/}
+            <ListItem
+              button
+              className={classes.buttonListAccount}
+              onClick={handleClickCondition}
+            >
+              <ListItemText primary="Item Condition" />
+              {openCondition ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openCondition} timeout="auto">
+              <List component="div" disablePadding>
+                <RadioGroup>
+                  {RadioCondition.map((radio, idx) => {
+                    return (
+                      <ListItem key={idx}>
+                        <ListItemText primary={radio.primary} />
+                        <ListItemSecondaryAction>
+                          <Radio
+                            className={classes.RadioCheck}
+                            checked={selectedValue === radio.primary}
+                            value={radio.primary}
+                            onChange={handleChangeRadio}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    );
+                  })}
+                </RadioGroup>
+              </List>
+            </Collapse>
             <ListItem>Price</ListItem>
-            <form className={classes.searchInput}>
-              <TextField label="price" variant="outlined" />{" "}
-            </form>
-            <ListItem>to</ListItem>
-            <form className={classes.searchInput}>
-              <TextField label="price" variant="outlined" />{" "}
-            </form>
+            <Box className={classes.priceMinMax}>
+              <Box>
+                <TextField
+                  placeholder="min"
+                  InputProps={{
+                    disableUnderline: true,
+                    className: classes.searchPrice,
+                  }}
+                />
+              </Box>
+              <Box>
+                <ListItem>to</ListItem>
+              </Box>
+              <Box>
+                <TextField
+                  placeholder="max"
+                  InputProps={{
+                    disableUnderline: true,
+                    className: classes.searchPrice,
+                  }}
+                />
+              </Box>
+            </Box>
           </List>
 
           <Divider className={classes.dividerLine} />
@@ -120,20 +192,21 @@ function CategoriesSideBar() {
               className={classes.root}
               onClick={() => history.push("/category/vehicle")}
             >
-              vehicles
+              <DriveEtaIcon /> vehicles
             </ListItem>
             <ListItem
               button
               className={classes.root}
               onClick={() => history.push("/category/home")}
             >
-              Property Rentals,Home
+              <HomeWorkIcon /> Property Rentals,Home
             </ListItem>
             <ListItem
               button
               className={classes.root}
               onClick={() => history.push("/category/goods")}
             >
+              <LoyaltyIcon />
               Goods
             </ListItem>
           </List>

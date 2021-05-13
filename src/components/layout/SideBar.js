@@ -9,14 +9,18 @@ import {
   ListItemIcon,
   Box,
   TextField,
+  Input,
 } from "@material-ui/core";
-
-import HomeIcon from "@material-ui/icons/Home";
+import HomeWorkIcon from "@material-ui/icons/HomeWork";
+import DriveEtaIcon from "@material-ui/icons/DriveEta";
+import StorefrontIcon from "@material-ui/icons/Storefront";
+import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import InboxIcon from "@material-ui/icons/Inbox";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import FilterLocationModal from "./FilterLocationModal";
 import { useStylesSideBar } from "./UseStyleSideBar";
+import { MdSearch } from "react-icons/md";
 
 function SideBar() {
   const classes = useStylesSideBar();
@@ -42,8 +46,17 @@ function SideBar() {
         <Toolbar />
         <Box className={classes.drawerContainer}>
           <List>
-            <form className={classes.searchInput}>
-              <TextField label="Search Market Place" variant="outlined" />
+            <form>
+              <TextField
+                placeholder="Search Market Place"
+                InputProps={{
+                  startAdornment: (
+                    <MdSearch size="30" className={classes.iconSearch} />
+                  ),
+                  disableUnderline: true,
+                  className: classes.searchInput,
+                }}
+              />
             </form>
 
             <ListItem
@@ -53,7 +66,7 @@ function SideBar() {
                 history.push("/HomePage");
               }}
             >
-              <HomeIcon />
+              <StorefrontIcon />
               Browse All
             </ListItem>
 
@@ -79,7 +92,7 @@ function SideBar() {
 
             <ListItem
               button
-              className={classes.root}
+              className={classes.createList}
               onClick={() => alert("ok")}
             >
               <AddIcon />
@@ -109,13 +122,14 @@ function SideBar() {
               className={classes.root}
               onClick={() => history.push("/category/vehicle")}
             >
-              vehicles
+              <DriveEtaIcon /> vehicles
             </ListItem>
             <ListItem
               button
               className={classes.root}
               onClick={() => history.push("/category/home")}
             >
+              <HomeWorkIcon />
               Property Rentals,Home
             </ListItem>
             <ListItem
@@ -123,6 +137,7 @@ function SideBar() {
               className={classes.root}
               onClick={() => history.push("/category/goods")}
             >
+              <LoyaltyIcon />
               Goods
             </ListItem>
           </List>
