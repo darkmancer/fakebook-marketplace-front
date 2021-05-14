@@ -19,7 +19,7 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React from "react";
+import React, { useContext } from "react";
 import {
   MdAccessTime,
   MdAdd,
@@ -31,14 +31,17 @@ import {
 import { useStyles } from "./UseStyleAccountPage";
 import { RadioStatus, RadioSort } from "./RadioMap";
 import { useHistory } from "react-router-dom";
+import { AccountContext } from "../../../context/AccountContextProvider";
+
 function DrawerMenuAccount() {
   const classes = useStyles();
   const history = useHistory();
-  const [open, setOpen] = React.useState(false);
+  const [openColl, setOpenColl] = React.useState(false);
+  const { setOpen, open } = useContext(AccountContext);
   const [openStatus, setOpenStatus] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState();
   const handleClick = () => {
-    setOpen((prevOpen) => !prevOpen);
+    setOpenColl((prevOpen) => !prevOpen);
   };
   const handleClickStatus = () => {
     setOpenStatus((prevOpen) => !prevOpen);
@@ -105,8 +108,9 @@ function DrawerMenuAccount() {
             </List>
             <List>
               <ListItem
-                className={classes.buttonListAccount}
-                onClick={() => alert("Save")}>
+                button
+                onClick={() => setOpen(true)}
+                className={classes.buttonListAccount}>
                 <Avatar
                   style={{ marginRight: 10 }}
                   alt="name"
@@ -142,9 +146,9 @@ function DrawerMenuAccount() {
                 className={classes.buttonListAccount}
                 onClick={handleClick}>
                 <ListItemText primary="Sort by" />
-                {open ? <ExpandLess /> : <ExpandMore />}
+                {openColl ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
-              <Collapse in={open} timeout="auto">
+              <Collapse in={openColl} timeout="auto">
                 <List component="div" disablePadding>
                   <RadioGroup>
                     {RadioSort.map((radio, idx) => {
