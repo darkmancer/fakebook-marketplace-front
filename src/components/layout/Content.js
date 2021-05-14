@@ -3,6 +3,9 @@ import { useHistory } from "react-router-dom";
 import { Box, Grid } from "@material-ui/core";
 import { useStylesContent } from "./UseStyleContent";
 import RoomIcon from "@material-ui/icons/Room";
+import GoodsCard from "./Categories/Goods/GoodsCard";
+import VehicleCard from "./Categories/Vehicles/VehicleCard";
+import HomeCard from "./Categories/Homes/HomeCard";
 import ProductCard from "./ProductCard";
 import axios from "../../config/axios";
 
@@ -38,11 +41,20 @@ function Content() {
       <Grid container spacing={1}>
         <Grid item xs={15}>
           <Grid container justify="flex-start">
-            <Grid item xs={3}>
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-            </Grid>
+            {products?.map((product) => (
+              <Grid item xs={3}>
+                <ProductCard product={product}/>
+                {/* {product.productType !== "ITEM" ? (
+                  product.productType === "VEHICLE" ? (
+                    <VehicleCard product={product} />
+                  ) : (
+                    <HomeCard product={product} />
+                  )
+                ) : (
+                  <GoodsCard product={product} />
+                )} */}
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>
@@ -50,3 +62,131 @@ function Content() {
   );
 }
 export default Content;
+
+/*   <Grid container spacing={1}>
+        <Grid item xs={15}>
+          <Grid container justify="flex-start">
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                className={classes.paper}
+                src="./pexels-photo-4109111.jpeg"
+              />
+              <h3>price</h3>
+              <h4>Bangkok,Thailand</h4>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>*/
