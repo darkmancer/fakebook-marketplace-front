@@ -4,7 +4,7 @@ import GoodsContent from "../layout/Categories/Goods/GoodsContent";
 import Header from "../layout/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Grid } from "@material-ui/core";
-
+const drawerWidth = 360;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     [theme.breakpoints.up("sm")]: {
-      width: 240,
+      width: drawerWidth,
       flexShrink: 0,
     },
     [theme.breakpoints.down("sm")]: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   //ถ้า sm ขึ้นไปจะทำอะไร
   content: {
     [theme.breakpoints.up("sm")]: {
-      width: 240,
+      width: drawerWidth,
       flexGrow: 1,
       margin: theme.spacing(3),
     },
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${240}px)`,
+      width: `calc(100% - ${drawerWidth}px)`,
     },
   },
 }));

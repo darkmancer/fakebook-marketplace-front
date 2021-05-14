@@ -1,11 +1,24 @@
 import { makeStyles } from "@material-ui/core/styles";
-const drawerWidth = 240;
+const drawerWidth = 360;
 export const useStylesSideBar = makeStyles((theme) => ({
   root: {
     display: "flex",
     color: "white",
     "&:hover": {
-      backgroundColor: "rgb(97, 95, 95)",
+      borderRadius: 6,
+      backgroundColor: "#424242",
+    },
+  },
+  createList: {
+    margin: theme.spacing(1, 0),
+    color: "#2D88FF",
+    borderRadius: 6,
+    backgroundColor: "#2D88FF33",
+    display: "flex",
+    justifyContent: "center",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#3e5e85",
     },
   },
   drawerPaper: {
@@ -26,9 +39,10 @@ export const useStylesSideBar = makeStyles((theme) => ({
   },
   searchInput: {
     margin: theme.spacing(1),
-    width: "25ch",
+    width: 330,
+    height: "5ch",
     backgroundColor: "#3A3B3C",
     borderRadius: 20,
-    color: "white",
+    color: "#DCDCDC",
   },
 }));
