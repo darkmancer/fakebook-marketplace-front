@@ -39,10 +39,7 @@ export const useStyles = makeStyles((theme) => ({
   drawerSpacing: {
     margin: theme.spacing(0, 1),
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
+
   dividerLine: {
     backgroundColor: "grey",
   },
@@ -116,7 +113,6 @@ export const useStyles = makeStyles((theme) => ({
     top: 260,
     left: 600,
     textAlign: "center",
-
     width: "30ch",
   },
   buttonListings: {
@@ -181,10 +177,26 @@ export const useStyles = makeStyles((theme) => ({
     top: 80,
     left: 400,
   },
+  contentCommenceProfile: {
+    position: "fixed",
+    top: 80,
+    left: 1120,
+  },
   paperSearchListing: {
     backgroundColor: "#242526",
     width: "80ch",
     display: "flex",
+    borderRadius: 10,
+    padding: theme.spacing(1, 1),
+
+    justifyContent: "space-between",
+  },
+
+  paperCommence: {
+    backgroundColor: "#242526",
+    width: "30ch",
+    display: "flex",
+    borderRadius: 10,
     padding: theme.spacing(1, 1),
 
     justifyContent: "space-between",
@@ -201,5 +213,134 @@ export const useStyles = makeStyles((theme) => ({
   iconSearch: {
     color: "#424242",
     marginRight: 10,
+  },
+  FlexAvatar: {
+    display: "flex",
+    margin: theme.spacing(2, 1),
+  },
+  NameAvatar: {
+    color: "white",
+    margin: theme.spacing(0.5),
+  },
+  ActiveListings: {
+    color: "#bdbdbd",
+    margin: theme.spacing(0.5),
+  },
+  AvatarCommence: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+  },
+  buttonCreateNewListAvatar: {
+    textTransform: "none",
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 250,
+    color: "#2D88FF",
+    backgroundColor: "#2D88FF33",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#2851A3",
+    },
+  },
+  buttonProfile: {
+    textTransform: "none",
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 250,
+    color: "white",
+    backgroundColor: "#424242",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#616161",
+    },
+  },
+  paper: {
+    position: "absolute",
+    width: "60ch",
+    borderRadius: 4,
+    overflow: "scroll",
+  },
+  paperCommenceModal: {
+    backgroundColor: "#242526",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  CommenceHeaderModal: {
+    textAlign: "center",
+    color: "white",
+  },
+  AvatarCommenceModal: {
+    width: theme.spacing(10),
+    height: theme.spacing(10),
+    margin: theme.spacing(2, 0, 0, 0),
+    position: "relative",
+    left: 220,
+  },
+  nameCommenceModal: {
+    color: "white",
+    textAlign: "center",
+  },
+  buttonCommenceModal: {
+    textTransform: "none",
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 100,
+    color: "white",
+    borderRadius: 6,
+    backgroundColor: "#424242",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#616161",
+    },
+  },
+  FlexCenter: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  DividerModal: {
+    width: "96%",
+    margin: "auto",
+    backgroundColor: "#616161",
+  },
+  RatingModal: {
+    color: "#616161",
+    fontSize: 36,
+  },
+  RatingText: {
+    color: "#616161",
+    fontSize: 20,
+  },
+  RatingsubText: {
+    color: "#616161",
+    fontSize: 14,
+  },
+  RatingHead: {
+    color: "white",
+    fontSize: 24,
+  },
+  FlexIcon: {
+    display: "flex",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  IconHome: {
+    marginRight: 5,
+    color: "white",
+  },
+  TextHome: {
+    color: "white",
+    fontSize: 20,
+    margin: theme.spacing(0, 1),
+  },
+  paperImg: {
+    borderRadius: 6,
+    margin: theme.spacing(1),
+    height: theme.spacing(16),
+    width: theme.spacing(16),
+  },
+  GridFlex: {
+    display: "flex",
+    flexDirection: "row",
   },
 }));

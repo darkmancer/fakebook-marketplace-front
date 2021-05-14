@@ -38,8 +38,8 @@ function ModalRegister() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description">
+        aria-labelledby="title"
+        aria-describedby="description">
         <RegisterForm getModalStyle={getModalStyle} />
       </Modal>
     </div>
