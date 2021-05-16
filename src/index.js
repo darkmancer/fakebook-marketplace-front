@@ -6,6 +6,7 @@ import { blue, deepOrange } from "@material-ui/core/colors";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Router } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
+import SocketContextProvider from "./context/SocketContextProvider";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
@@ -21,11 +22,13 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
+      <SocketContextProvider>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
+      </SocketContextProvider>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

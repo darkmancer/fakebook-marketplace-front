@@ -17,6 +17,7 @@ import MyPageListings from "./components/pages/MyPageListings";
 import CreateListingItemPage from "./components/pages/CreateListingItemPage";
 import CreateListingVehiclePage from "./components/pages/CreateListingVehiclePage";
 import CreateListingHomePage from "./components/pages/CreateListingHomePage";
+import MessengerPage from "./components/pages/MessengerPage";
 const privateRoutes = [];
 const publicRoutes = [
   {
@@ -78,6 +79,10 @@ const publicRoutes = [
   {
     path: "/home",
     component: CreateListingHomePage,
+  },
+  {
+    path: "/messenger",
+    component: MessengerPage,
   },
 ];
 
