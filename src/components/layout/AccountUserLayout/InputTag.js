@@ -6,10 +6,11 @@ import { MdAddCircle } from "react-icons/md";
 
 import { useState } from "react";
 import { Paper } from "@material-ui/core";
-function InputTag({ tags, setTags }) {
+function InputTag({ tags, setTags, setItem, onChageItem, item }) {
   const classes = useStyles();
 
   const [tagInput, setTagInput] = useState();
+
   const OnChangeTag = (e) => {
     setTagInput(e.target.value);
   };
@@ -17,6 +18,7 @@ function InputTag({ tags, setTags }) {
     if (event.key === "Enter" && event.target.value !== "") {
       setTags([...tags, event.target.value]);
       event.target.value = "";
+
       setTagInput("");
     }
   };

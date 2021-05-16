@@ -28,7 +28,7 @@ function PhotoPreview({ showPhotos, item, tags, handleDelete }) {
               </Typography>
             ) : (
               showPhotos.map((pic, idx) => (
-                <img src={pic.file} alt="PreviewPhoto" />
+                <img src={pic.file} key={idx} alt="PreviewPhoto" />
               ))
             )}
           </div>

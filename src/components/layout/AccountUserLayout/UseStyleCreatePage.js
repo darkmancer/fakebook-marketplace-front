@@ -50,6 +50,14 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "0.9rem",
     margin: theme.spacing(1, 2.5),
   },
+  gridList: {
+    width: 100,
+    height: 100,
+    overflow: "hidden",
+  },
+  photo: {
+    margin: theme.spacing(1),
+  },
   PaperAddPhoto: {
     display: "flex",
     justifyContent: "center",
@@ -60,6 +68,14 @@ export const useStyles = makeStyles((theme) => ({
 
     height: 200,
   },
+  PaperMultiPhotos: {
+    display: "flex",
+    marginLeft: theme.spacing(2),
+    width: "90%",
+    backgroundColor: "#242526",
+
+    minHeight: 200,
+  },
   ButtonAddPhoto: {
     textTransform: "none",
     margin: theme.spacing(1),
@@ -69,6 +85,28 @@ export const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "grey",
     },
+  },
+  ButtonAddMultiPhoto: {
+    textTransform: "none",
+    margin: theme.spacing(1),
+    fontSize: "0.5rem",
+    width: "14ch",
+    height: 80,
+    color: "white",
+    backgroundColor: "#616161",
+    "&:hover": {
+      backgroundColor: "grey",
+    },
+  },
+  CancelIcon: {
+    position: "relative",
+    bottom: 90,
+    left: 68,
+    color: "#616161",
+    "&:hover": {
+      color: "grey",
+    },
+    margin: theme.spacing(0.5, 2, 0, 0),
   },
   inputPhoto: {
     display: "none",
@@ -250,6 +288,12 @@ export const useStyles = makeStyles((theme) => ({
   BoostText: {
     color: "grey",
     margin: theme.spacing(2),
+  },
+  flexPhotos: {
+    margin: theme.spacing(2),
+
+    display: "flex",
+    flexWrap: "wrap",
   },
 }));
 

@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, GridListTile } from "@material-ui/core";
 import {
   Box,
   Toolbar,
@@ -20,11 +20,21 @@ import React from "react";
 import { useState } from "react";
 import { useStyles } from "./UseStyleCreatePage";
 import PhotoPreview from "./PhotoPreview";
-import { MdAddToPhotos, MdLocationOn } from "react-icons/md";
+import {
+  MdAddToPhotos,
+  MdLocationOn,
+  MdCancel,
+} from "react-icons/md";
 
 function DrawerCreateItem() {
+  const handleDelete = (idx) => () => {
+    setShowPhotos((prev) =>
+      prev.filter((prev, index) => index !== idx)
+    );
+    setPhotos((prev) => prev.filter((prev, index) => index !== idx));
+  };
   const [tags, setTags] = React.useState([]);
-
+  const optional = tags.join("");
   const [item, setItem] = useState({
     title: "",
     price: "",
@@ -115,8 +125,7 @@ function DrawerCreateItem() {
     setItem((prev) => ({ ...prev, [name]: value }));
   };
   const onChangeFilePhotos = (e) => {
-    setShowPhotos([...showPhotos]);
-    if (photos.length) {
+    if (photos.length !== 0) {
       setPhotos((prev) => [...prev, e.target.files[0]]);
       setShowPhotos([
         ...showPhotos,
@@ -129,7 +138,7 @@ function DrawerCreateItem() {
       ]);
     }
   };
-  console.log(item);
+
   const classes = useStyles();
   return (
     <div className={classes.flexPageCreateItem}>
@@ -163,33 +172,79 @@ function DrawerCreateItem() {
         </div>
         <Box className={classes.drawerContainer}>
           <Typography className={classes.TextHeader}>
-            Photos - 0/10 You can add up to 10 photos
+            Photos - {photos.length}/10 You can add up to 10 photos
           </Typography>
-          <Paper
-            className={classes.PaperAddPhoto}
-            variant="outlined"
-            style={{ border: "1px solid #616161" }}>
-            <div>
-              <input
-                accept="image/*"
-                className={classes.inputPhoto}
-                id="contained-button-file"
-                multiple
-                type="file"
-                onChange={onChangeFilePhotos}
-              />
-              <label htmlFor="contained-button-file">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  component="span"
-                  startIcon={<MdAddToPhotos />}
-                  className={classes.ButtonAddPhoto}>
-                  Add Photos
-                </Button>
-              </label>
+          {photos.length === 0 ? (
+            <Paper
+              className={classes.PaperAddPhoto}
+              variant="outlined"
+              style={{ border: "1px solid #616161" }}>
+              <div>
+                <input
+                  accept="image/*"
+                  className={classes.inputPhoto}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  onChange={onChangeFilePhotos}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    startIcon={<MdAddToPhotos />}
+                    className={classes.ButtonAddPhoto}>
+                    Add Photos
+                  </Button>
+                </label>
+              </div>
+            </Paper>
+          ) : (
+            <div className={classes.flexPhotos}>
+              {showPhotos?.map((pic, idx) => {
+                return (
+                  <Box key={idx}>
+                    <img
+                      src={pic.file}
+                      alt={pic.file}
+                      width="80"
+                      height="80"
+                      style={{
+                        borderRadius: 10,
+                        margin: 8,
+                        display: "block",
+                      }}
+                    />
+                    <MdCancel
+                      className={classes.CancelIcon}
+                      onClick={handleDelete(idx)}
+                      size="18"
+                    />
+                  </Box>
+                );
+              })}
+              <Box>
+                <input
+                  accept="image/*"
+                  className={classes.inputPhoto}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  onChange={onChangeFilePhotos}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    className={classes.ButtonAddMultiPhoto}>
+                    <MdAddToPhotos size="30" />
+                  </Button>
+                </label>
+              </Box>
             </div>
-          </Paper>
+          )}
         </Box>
         <form>
           <TextField
