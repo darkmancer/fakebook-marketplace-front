@@ -1,15 +1,119 @@
-import { Avatar, Paper, Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
-import { Box, Drawer, Toolbar } from "@material-ui/core";
+import {
+  Box,
+  Toolbar,
+  TextField,
+  InputLabel,
+  FormControl,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  InputAdornment,
+  Switch,
+  Avatar,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import InputTag from "./InputTag";
+import { Category, condition } from "./CategoryMap";
 import React from "react";
 import { useState } from "react";
 import { useStyles } from "./UseStyleCreatePage";
 import PhotoPreview from "./PhotoPreview";
-import { MdAddToPhotos } from "react-icons/md";
+import { MdAddToPhotos, MdLocationOn } from "react-icons/md";
+
 function DrawerCreateItem() {
-  const [item, setItem] = useState();
+  const [tags, setTags] = React.useState([]);
+
+  const [item, setItem] = useState({
+    title: "",
+    price: "",
+    category: "",
+    subCategory: "",
+    condition: "",
+    description: "",
+    location: "",
+  });
   const [photos, setPhotos] = useState([]);
   const [showPhotos, setShowPhotos] = useState([]);
+
+  const onChangeItem = (e) => {
+    let values = e.target.value;
+    const { name, value } = e.target;
+
+    if (
+      values === "Tool" ||
+      values === "Furniture" ||
+      values === "HouseHold" ||
+      values === "Garden" ||
+      values === "Appliances"
+    ) {
+      setItem({
+        ...item,
+        category: "Home & Garden",
+        subCategory: values,
+      });
+    }
+    if (
+      values === "Video Games" ||
+      values === "Books,Movie & Music"
+    ) {
+      setItem({
+        ...item,
+        category: "Entertainment",
+        subCategory: values,
+      });
+    }
+    if (
+      values === "Bags & Luggage" ||
+      values === "Women's Clothing & Shoes" ||
+      values === "Men's Clothing & Shoes" ||
+      values === "Jewelry & Accessories"
+    ) {
+      setItem({
+        ...item,
+        category: "Clothing & Accessories",
+        subCategory: values,
+      });
+    }
+    if (
+      values === "Health & Beauty" ||
+      values === "Pet Supplies" ||
+      values === "Baby & Kids" ||
+      values === "Toy & Games"
+    ) {
+      setItem({
+        ...item,
+        category: "Family",
+        subCategory: values,
+      });
+    }
+    if (
+      values === "Electronics & Computers" ||
+      values === "Moblie Phones"
+    ) {
+      setItem({
+        ...item,
+        category: "Electronics",
+        subCategory: values,
+      });
+    }
+    if (
+      values === "Bicycles" ||
+      values === "Arts & Crafts" ||
+      values === "Sports & Outdoors" ||
+      values === "Auto Parts" ||
+      values === "Musical & Intruments" ||
+      values === "Antiques & Collectibles"
+    ) {
+      setItem({
+        ...item,
+        category: "Hobbies",
+        subCategory: values,
+      });
+    }
+    setItem((prev) => ({ ...prev, [name]: value }));
+  };
   const onChangeFilePhotos = (e) => {
     setShowPhotos([...showPhotos]);
     if (photos.length) {
@@ -25,9 +129,7 @@ function DrawerCreateItem() {
       ]);
     }
   };
-  console.log(photos.length);
-  console.log(photos);
-  console.log(showPhotos);
+  console.log(item);
   const classes = useStyles();
   return (
     <div className={classes.flexPageCreateItem}>
@@ -89,8 +191,125 @@ function DrawerCreateItem() {
             </div>
           </Paper>
         </Box>
+        <form>
+          <TextField
+            label="Title"
+            className={classes.InputTextField}
+            variant="outlined"
+            onChange={onChangeItem}
+            name="title"
+            InputLabelProps={{ className: classes.labelTextField }}
+          />
+          <TextField
+            label="Price"
+            name="price"
+            className={classes.InputTextField}
+            onChange={onChangeItem}
+            variant="outlined"
+            InputLabelProps={{ className: classes.labelTextField }}
+          />
+          <FormControl
+            variant="outlined"
+            className={classes.InputTextFieldCategory}>
+            <InputLabel htmlFor="category-field">Category</InputLabel>
+            <Select
+              native
+              label="Category"
+              onChange={onChangeItem}
+              className={classes.Selector}
+              inputProps={{
+                name: "category",
+                id: "category-field",
+                classes: {
+                  icon: classes.SelectIcon,
+                },
+              }}>
+              {Category.map((category, idx) => {
+                <option aria-label="None" value="" />;
+                return (
+                  <optgroup
+                    key={idx}
+                    name="mainType"
+                    value={category.Title}
+                    label={category.Title}>
+                    {category.Menu?.map(({ type }, idx) => (
+                      <option key={idx} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </optgroup>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl
+            variant="outlined"
+            className={classes.InputTextFieldCategory}>
+            <InputLabel htmlFor="condition-field">
+              Condition
+            </InputLabel>
+            <Select
+              label="Condition"
+              id="condition-field"
+              name="condition"
+              onChange={onChangeItem}
+              inputProps={{
+                name: "condition",
+                id: "condition-field",
+                classes: {
+                  icon: classes.SelectIcon,
+                },
+              }}>
+              {condition.map((con, idx) => (
+                <MenuItem value={con.condition}>
+                  {con.condition}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            id="multiline"
+            onChange={onChangeItem}
+            className={classes.InputTextField}
+            name="description"
+            label="Description"
+            multiline
+            rows={6}
+            variant="outlined"
+          />
+          <InputTag
+            setItem={setItem}
+            onChageItem={onChangeItem}
+            item={item}
+            tags={tags}
+            setTags={setTags}
+          />
+          <TextField
+            className={classes.InputTextField}
+            variant="outlined"
+            label="Location"
+            name="location"
+            onChange={onChangeItem}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MdLocationOn className={classes.iconTag} />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <div className={classes.flexBoost}>
+            <Typography className={classes.BoostText}>
+              Boost Lisiting After Pubish
+              <Switch
+                color="primary"
+                className={classes.BoostButton}
+              />
+            </Typography>
+          </div>
+        </form>
       </Paper>
-      <PhotoPreview showPhotos={showPhotos} />
+      <PhotoPreview showPhotos={showPhotos} item={item} tags={tags} />
     </div>
   );
 }

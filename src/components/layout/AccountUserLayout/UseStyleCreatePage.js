@@ -8,9 +8,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   paperContainer: {
     width: "25%",
-    minHeight: 600,
+    maxHeight: 700,
+
     borderRadius: 0,
     backgroundColor: "#242526",
+    overflow: "auto",
   },
   FlexAvatar: {
     display: "flex",
@@ -137,4 +139,140 @@ export const useStyles = makeStyles((theme) => ({
     color: "white",
     margin: theme.spacing(2),
   },
+  InputTextField: {
+    borderRadius: 6,
+    margin: theme.spacing(2),
+    width: "80%",
+    "& .MuiInputBase-root": {
+      color: "#eeeeee",
+    },
+    "& .MuiInputLabel-root": {
+      color: "grey",
+    },
+
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#757575",
+      },
+
+      "&:hover fieldset": {
+        borderColor: "#757575",
+      },
+    },
+  },
+  InputTextFieldCategory: {
+    borderRadius: 6,
+    margin: theme.spacing(2),
+    width: "80%",
+    "& .MuiOutlinedInput-input": {
+      color: "grey",
+      borderRadius: 6,
+    },
+    "& .MuiInputLabel-root": {
+      color: "grey",
+    },
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "grey",
+    },
+    "&:hover .MuiOutlinedInput-input": {
+      color: "grey",
+    },
+    "&:hover .MuiInputLabel-root": {
+      color: "grey",
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+      {
+        borderColor: "grey",
+      },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+      color: "grey",
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "grey",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+      {
+        borderColor: "grey",
+      },
+  },
+  InputTag: {
+    borderRadius: 6,
+    margin: theme.spacing(2, 2, 0.5, 2),
+    width: "80%",
+    "& .MuiInputBase-root": {
+      color: "#eeeeee",
+    },
+    "& .MuiInputLabel-root": {
+      color: "grey",
+    },
+
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#757575",
+      },
+
+      "&:hover fieldset": {
+        borderColor: "#757575",
+      },
+    },
+  },
+  SelectIcon: { color: "grey" },
+  labelTextField: {
+    color: "grey",
+  },
+  iconTag: {
+    color: "grey",
+    fontSize: "1.5rem",
+    "&:hover": {
+      color: "white",
+    },
+  },
+  paperTag: {
+    display: "flex",
+
+    flexWrap: "wrap",
+    listStyle: "none",
+
+    margin: theme.spacing(2),
+  },
+  chipTags: {
+    margin: theme.spacing(0.5),
+    backgroundColor: "grey",
+  },
+  BoostButton: {
+    margin: theme.spacing(2),
+    color: "grey",
+  },
+  flexBoost: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  BoostText: {
+    color: "grey",
+    margin: theme.spacing(2),
+  },
 }));
+
+// root: {
+//   '& label.Mui-focused': {
+//     color: 'white',
+//   },
+//   '& .MuiInput-underline:after': {
+//     borderBottomColor: 'yellow',
+//   },
+//   '& .MuiOutlinedInput-root': {
+//     '& fieldset': {
+//       borderColor: 'white',
+//     },
+//     '&:hover fieldset': {
+//       borderColor: 'white',
+//     },
+//     '&.Mui-focused fieldset': {
+//       borderColor: 'yellow',
+//     },
+// เปลียน borderTextField
+// "&:hover fieldset": {
+//   borderColor: "grey",
+// },
+//   },
+// },

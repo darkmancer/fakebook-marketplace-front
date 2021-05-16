@@ -7,14 +7,15 @@ import {
   Divider,
   Avatar,
 } from "@material-ui/core";
+import { Chip } from "@material-ui/core";
 
-function PhotoPreview({ showPhotos }) {
+function PhotoPreview({ showPhotos, item, tags, handleDelete }) {
   const classes = useStyles();
   return (
     <>
       <Paper className={classes.PaperPreviewPhoto}>
         <Typography className={classes.PreviewTitle}>
-          Preview Bitch!
+          Preview
         </Typography>
         <Box
           className={classes.PreviewPhotoContent}
@@ -35,36 +36,41 @@ function PhotoPreview({ showPhotos }) {
             style={{ padding: 10 }}
             className={classes.ContainerContentPreview}>
             <Typography className={classes.titlePreview}>
-              Title :
+              Title : {item.title}
             </Typography>
             <Typography className={classes.contentPreview}>
-              Price
+              Price : {item.price}
             </Typography>
             <Divider className={classes.DividerModal} light />
+            {/* <Typography className={classes.contentPreview}>
+              Details : 
+            </Typography> */}
             <Typography className={classes.contentPreview}>
-              Details
+              Condition {item.condition}
             </Typography>
-            <Typography className={classes.contentPreview}>
-              Condition
-            </Typography>
-            <Typography className={classes.contentPreview}>
+            {/* <Typography className={classes.contentPreview}>
               Brand
-            </Typography>
-            <Typography className={classes.contentPreview}>
+            </Typography> */}
+            {/* <Typography className={classes.contentPreview}>
               Material
+            </Typography> */}
+            <Typography className={classes.contentPreview}>
+              Description : {item.description}
             </Typography>
             <Typography className={classes.contentPreview}>
-              Description
+              Tags :
+              <div className={classes.paperTag}>
+                {tags.map((tag, index) => (
+                  <li key={index}>
+                    <Chip label={tag} className={classes.chipTags} />
+                  </li>
+                ))}
+              </div>
             </Typography>
             <Typography className={classes.contentPreview}>
-              Tags
+              Location : {item.location}
             </Typography>
-            <Typography className={classes.contentPreview}>
-              Location
-            </Typography>
-            <Typography className={classes.contentPreview}>
-              Location
-            </Typography>
+
             <Divider className={classes.DividerModal} light />
             <Typography className={classes.SellerPreview}>
               Seller Information
