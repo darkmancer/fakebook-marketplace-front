@@ -10,6 +10,7 @@ import RoomIcon from "@material-ui/icons/Room";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import ProductCard from "./ProductCard";
+import { setToken } from "../../services/localStorageService";
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -83,7 +84,9 @@ export default function SpringModal({ open, setOpen, seller, trigger, setTrigger
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(6);
   const classes = useStyles();
-
+  setToken(
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJLZWF2YXJpbkBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJTYWkiLCJsYXN0TmFtZSI6IktlYXZhcmluIiwiYmlvIjpudWxsLCJqb2luWWVhciI6IjIwMjEtMDUtMDRUMjE6MzU6MzIuMDAwWiIsImlhdCI6MTYyMDE2NDYxMSwiZXhwIjoxNjIyNzU2NjExfQ.bkssun3jfIZG3MsAzPxuIAjSzQxIes1uxUFNty6ahoY"
+  );
   const handleOpen = () => {
     setOpen(true);
   };

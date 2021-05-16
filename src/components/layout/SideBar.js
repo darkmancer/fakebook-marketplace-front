@@ -120,14 +120,14 @@ function SideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/vehicle")}
+              onClick={() => history.push("/category/VEHICLE")}
             >
               <DriveEtaIcon /> vehicles
             </ListItem>
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/home")}
+              onClick={() => history.push("/category/HOME")}
             >
               <HomeWorkIcon />
               Property Rentals,Home
@@ -135,7 +135,7 @@ function SideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/goods")}
+              onClick={() => history.push("/category/ITEM")}
             >
               <LoyaltyIcon />
               Goods

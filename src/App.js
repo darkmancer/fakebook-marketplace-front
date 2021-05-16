@@ -5,6 +5,7 @@ import { AuthContext } from "./context/AuthContextProvider";
 import LoginRegisterPage from "./components/pages/LoginRegisterPage";
 import SelectProductPage from "./components/pages/SelectProductPage";
 import InboxPage from "./components/pages/InboxPage";
+import DynamicCategoryPage from "./components/pages/DynamicCategoryPage";
 import CategoryVehiclePage from "./components/pages/CategoryVehiclePage";
 import CategoryHomePage from "./components/pages/CategoryHomePage";
 import CategoryGoodsPage from "./components/pages/CategoryGoodsPage";
@@ -46,6 +47,10 @@ const publicRoutes = [
   {
     path: "/select/goods",
     component: SelectGoodsPage,
+  },
+  {
+    path: "/category/:category",
+    component: DynamicCategoryPage,
   },
   {
     path: "/category/home",

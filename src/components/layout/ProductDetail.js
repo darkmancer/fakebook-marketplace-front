@@ -42,21 +42,37 @@ function ProductDetail({ product, trigger, setTrigger }) {
   const [seller, setSeller] = useState(null);
   const classes = { ...useStylesProductDetail(), ...useStyles() };
   const [open, setOpen] = React.useState(false);
+  const [triggerSave, setTriggerSaved] = useState(false);
   const history = useHistory();
-  console.log(product);
+
   useEffect(() => {
     const fetchSeller = async () => {
       try {
         const res = await axios.get(`/seller/${product.userId}`);
-        console.log(res);
+      
         setSeller(res.data.sellerProfile);
       } catch (err) {
         console.log(`err`, err);
       }
     };
+    const fetchIsSaved = async () => {
+      const res = await axios.get(`/saved/isSaved/${product.id}`);
+      setTriggerSaved(res.data.saved)
+    }
     fetchSeller();
+    fetchIsSaved();
   }, [product]);
-  console.log(seller);
+  const saveProduct = async () => {
+    setTriggerSaved((prev) => !prev)
+    const res = await axios.post(`/saved/createSaved/${product.id}`);
+    console.log(res)
+  }
+  const unSaveProduct = async() => {
+    setTriggerSaved((prev) => !prev);
+    const res = await axios.delete(`/saved/deleteSaved/${product.id}`);
+    console.log(res);
+  };
+  console.log(triggerSave)
   return (
     <div style={{ overflow: "scroll" }}>
       <Drawer
@@ -68,7 +84,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
       >
         <Toolbar />
         <div className={classes.closeButton}>
-          <CloseIcon button onClick={() => history.push("/HomePage")} />
+          <CloseIcon button onClick={() => history.push("/homepage")} />
         </div>
         <div className={classes.drawerContainer}>
           <List>
@@ -106,14 +122,27 @@ function ProductDetail({ product, trigger, setTrigger }) {
               </Button>
             </Box>
             <Box>
-              <Button
-                variant="contained"
-                color="default"
-                className={classes.buttonSave}
-                startIcon={<BookmarkIcon />}
-              >
-                save
-              </Button>
+              {triggerSave ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.buttonSave}
+                  startIcon={<BookmarkIcon />}
+                  onClick={unSaveProduct}
+                >
+                  save
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="default"
+                  className={classes.buttonSave}
+                  startIcon={<BookmarkIcon />}
+                  onClick={saveProduct}
+                >
+                  save
+                </Button>
+              )}
             </Box>
 
             <Box>
