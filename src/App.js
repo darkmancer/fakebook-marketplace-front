@@ -20,7 +20,7 @@ import CreateListingHomePage from "./components/pages/CreateListingHomePage";
 const privateRoutes = [];
 const publicRoutes = [
   {
-    path: "/Homepage",
+    path: "/homepage",
     component: HomePage,
   },
   {
@@ -32,7 +32,7 @@ const publicRoutes = [
     component: InboxPage,
   },
   {
-    path: "/select/product",
+    path: "/select/product/:id",
     component: SelectProductPage,
   },
   {
@@ -105,7 +105,7 @@ function App() {
           component={route.component}
         />
       ))}
-
+      
       <Redirect to="/login" />
     </Switch>
   );

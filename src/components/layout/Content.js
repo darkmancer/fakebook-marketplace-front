@@ -44,15 +44,6 @@ function Content() {
             {products?.map((product) => (
               <Grid item xs={3}>
                 <ProductCard product={product}/>
-                {/* {product.productType !== "ITEM" ? (
-                  product.productType === "VEHICLE" ? (
-                    <VehicleCard product={product} />
-                  ) : (
-                    <HomeCard product={product} />
-                  )
-                ) : (
-                  <GoodsCard product={product} />
-                )} */}
               </Grid>
             ))}
           </Grid>

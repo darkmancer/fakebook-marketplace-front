@@ -7,7 +7,8 @@ export const modalStyle = {
 export const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 400,
+    width: 750,
+    height: "100%",
     backgroundColor: "#242526",
     border: "1px solid grey",
     borderRadius: 5,
@@ -17,6 +18,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    
   },
   multilineColor: {
     color: "white",

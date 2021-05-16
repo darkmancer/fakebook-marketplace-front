@@ -3,10 +3,11 @@ import Carousel from "react-gallery-carousel";
 import "react-gallery-carousel/dist/index.css";
 import CancelIcon from "@material-ui/icons/Cancel";
 
-function Product() {
-  const images = [900, 800, 700, 600, 500].map((size) => ({
-    src: `https://placedog.net/${size}/${size}`,
-  }));
+function Product({ product }) {
+  //  src: `https://placedog.net/${size}/${size}`
+  const images = product?.Photos?.map((e) => {
+    return { src: e.post };
+  });
 
   return (
     <div>
