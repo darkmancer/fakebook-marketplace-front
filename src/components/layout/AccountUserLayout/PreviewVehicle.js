@@ -11,7 +11,7 @@ import {
 import { Chip } from "@material-ui/core";
 import Carousel from "react-gallery-carousel";
 
-function PhotoPreview({ showPhotos, item, tags }) {
+function PreviewVehicle({ showPhotos, item, tags }) {
   const classes = useStyles();
   const images = showPhotos.map((pic) => ({
     src: `${pic.file}`,
@@ -56,24 +56,31 @@ function PhotoPreview({ showPhotos, item, tags }) {
               Title : {item.title}
             </Typography>
             <Typography className={classes.contentPreview}>
-              Price : {item.price}
+              Price :{item.price !== "" ? `${item.price} Bath` : null}
             </Typography>
             <Divider className={classes.DividerModal} light />
             {/* <Typography className={classes.contentPreview}>
-              Details : 
+              Vehicle Type : {item.vehicleType}
             </Typography> */}
             <Typography className={classes.contentPreview}>
-              Condition {item.condition}
+              Brand : {item.brand}
             </Typography>
-            {/* <Typography className={classes.contentPreview}>
-              Brand
-            </Typography> */}
-            {/* <Typography className={classes.contentPreview}>
-              Material
-            </Typography> */}
             <Typography className={classes.contentPreview}>
-              Description : {item.description}
+              Model : {item.model}
             </Typography>
+            <Typography className={classes.contentPreview}>
+              Condition : {item.condition}
+            </Typography>
+            <Typography className={classes.contentPreview}>
+              Year : {item.year}
+            </Typography>
+            <Typography className={classes.contentPreview}>
+              Mileage : {item.mileage}
+            </Typography>
+            <Typography className={classes.contentPreview}>
+              Tranmission : {item.tranmission}
+            </Typography>
+
             <Typography className={classes.contentPreview}>
               Tags :
               <div className={classes.paperTag}>
@@ -83,6 +90,9 @@ function PhotoPreview({ showPhotos, item, tags }) {
                   </li>
                 ))}
               </div>
+            </Typography>
+            <Typography className={classes.contentPreview}>
+              Description : {item.description}
             </Typography>
             <Typography className={classes.contentPreview}>
               Location : {item.location}
@@ -110,4 +120,4 @@ function PhotoPreview({ showPhotos, item, tags }) {
   );
 }
 
-export default PhotoPreview;
+export default PreviewVehicle;

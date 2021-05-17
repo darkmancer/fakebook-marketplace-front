@@ -9,11 +9,11 @@ export const useStyles = makeStyles((theme) => ({
   paperContainer: {
     width: "25%",
     maxHeight: 700,
-
+    overflow: "auto",
     borderRadius: 0,
     backgroundColor: "#242526",
-    overflow: "auto",
   },
+
   FlexAvatar: {
     display: "flex",
     margin: theme.spacing(2, 1),
@@ -35,10 +35,23 @@ export const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     margin: theme.spacing(1),
     width: "16ch",
+    height: 35,
     color: "white",
     backgroundColor: "#424242",
     "&:hover": {
       backgroundColor: "grey",
+    },
+  },
+  ButtonPublish: {
+    textTransform: "none",
+    margin: theme.spacing(1),
+    width: "95%",
+    color: "white",
+    height: 50,
+    fontSize: "1.2rem",
+    backgroundColor: "#2196F3",
+    "&:hover": {
+      backgroundColor: "#40c4ff",
     },
   },
   AvatarCreateDrawer: {
@@ -294,6 +307,19 @@ export const useStyles = makeStyles((theme) => ({
 
     display: "flex",
     flexWrap: "wrap",
+  },
+  CloseButton: {
+    textTransform: "none",
+    borderRadius: "70%",
+    width: "4ch",
+    height: 35,
+    color: "white",
+    margin: theme.spacing(1, 0.3),
+
+    backgroundColor: "#424242",
+    "&:hover": {
+      backgroundColor: "grey",
+    },
   },
 }));
 

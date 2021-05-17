@@ -11,7 +11,7 @@ import {
 import { Chip } from "@material-ui/core";
 import Carousel from "react-gallery-carousel";
 
-function PhotoPreview({ showPhotos, item, tags }) {
+function PreviewHome({ showPhotos, item, tags }) {
   const classes = useStyles();
   const images = showPhotos.map((pic) => ({
     src: `${pic.file}`,
@@ -56,23 +56,24 @@ function PhotoPreview({ showPhotos, item, tags }) {
               Title : {item.title}
             </Typography>
             <Typography className={classes.contentPreview}>
-              Price : {item.price}
+              Price :{item.price !== "" ? `${item.price} Bath` : null}
             </Typography>
             <Divider className={classes.DividerModal} light />
-            {/* <Typography className={classes.contentPreview}>
-              Details : 
-            </Typography> */}
             <Typography className={classes.contentPreview}>
-              Condition {item.condition}
+              Home for : {item.estateFor}
             </Typography>
-            {/* <Typography className={classes.contentPreview}>
-              Brand
-            </Typography> */}
-            {/* <Typography className={classes.contentPreview}>
-              Material
-            </Typography> */}
             <Typography className={classes.contentPreview}>
-              Description : {item.description}
+              EstateType : {item.estateType}
+            </Typography>
+            <Typography className={classes.contentPreview}>
+              Room :{" "}
+              {item.bedroom !== "" ? `${item.bedroom} Bedroom` : null}{" "}
+              {item.bathroom !== ""
+                ? `${item.bathroom} Bathroom`
+                : null}
+            </Typography>
+            <Typography className={classes.contentPreview}>
+              Area : {item.area}
             </Typography>
             <Typography className={classes.contentPreview}>
               Tags :
@@ -85,7 +86,10 @@ function PhotoPreview({ showPhotos, item, tags }) {
               </div>
             </Typography>
             <Typography className={classes.contentPreview}>
-              Location : {item.location}
+              Property address : {item.address}
+            </Typography>
+            <Typography className={classes.contentPreview}>
+              Description : {item.description}
             </Typography>
 
             <Divider className={classes.DividerModal} light />
@@ -110,4 +114,4 @@ function PhotoPreview({ showPhotos, item, tags }) {
   );
 }
 
-export default PhotoPreview;
+export default PreviewHome;
