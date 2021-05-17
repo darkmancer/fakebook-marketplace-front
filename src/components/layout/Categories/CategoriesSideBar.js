@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Drawer,
@@ -15,6 +15,7 @@ import {
   Radio,
   RadioGroup,
   Input,
+  Typography,
 } from "@material-ui/core";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import DriveEtaIcon from "@material-ui/icons/DriveEta";
@@ -27,8 +28,14 @@ import FilterLocationModal from "../FilterLocationModal";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { RadioCondition, RadioSort } from "../AccountUserLayout/RadioMap";
 import { MdSearch } from "react-icons/md";
+import { PriceContext } from "../../../context/PriceContextProvider";
+import DevicesIcon from "@material-ui/icons/Devices";
+
+
 function CategoriesSideBar() {
   const classes = useStyles();
+  const { priceMin, setPriceMin, priceMax, setPriceMax } =
+    useContext(PriceContext);
   const [open, setOpen] = React.useState(false);
   const [openCondition, setOpenCondition] = React.useState(false);
   const [sortBy, setSortBy] = useState("");
@@ -44,10 +51,13 @@ function CategoriesSideBar() {
   const handleChangeRadio = (event) => {
     setSelectedValue(event.target.value);
   };
-  const handleChange = (event) => {
-    setSortBy(event.target.value);
+  const handleChangeMin = (event) => {
+    setPriceMin(event.target.value);
   };
-  console.log(selectedValue);
+  const handleChangeMax = (event) => {
+    setPriceMax(event.target.value);
+  };
+  console.log(priceMin, priceMax);
   const [openPopup, setOpenPopup] = useState(false);
   return (
     <>
@@ -166,6 +176,7 @@ function CategoriesSideBar() {
                     disableUnderline: true,
                     className: classes.searchPrice,
                   }}
+                  onChange={handleChangeMin}
                 />
               </Box>
               <Box>
@@ -178,6 +189,7 @@ function CategoriesSideBar() {
                     disableUnderline: true,
                     className: classes.searchPrice,
                   }}
+                  onChange={handleChangeMax}
                 />
               </Box>
             </Box>
@@ -186,20 +198,43 @@ function CategoriesSideBar() {
           <Divider className={classes.dividerLine} />
 
           <List>
-            <ListItem>Categories</ListItem>
+            <ListItem>
+              {" "}
+              <Typography
+                variant="h5"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Categories
+              </Typography>
+            </ListItem>
             <ListItem
               button
               className={classes.root}
               onClick={() => history.push("/category/VEHICLE")}
             >
-              <DriveEtaIcon /> vehicles
+              <DriveEtaIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Vehicle
+              </Typography>
             </ListItem>
             <ListItem
               button
               className={classes.root}
               onClick={() => history.push("/category/HOME")}
             >
-              <HomeWorkIcon /> Property Rentals,Home
+              <HomeWorkIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Property Rentals
+              </Typography>
             </ListItem>
             <ListItem
               button
@@ -207,7 +242,209 @@ function CategoriesSideBar() {
               onClick={() => history.push("/category/ITEM")}
             >
               <LoyaltyIcon />
-              Goods
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Goods
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Electronics
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Apparel
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Home Sales
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Family
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Free Stuff
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Garden &nvsp; Outdoor
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Hobbies
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Home Goods
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Home Improvement Supplies
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Musical Instruments
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Office Supplies
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Pet Supplies
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Sporting Goods
+              </Typography>
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push("/category/ITEM")}
+            >
+              <DevicesIcon />
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginLeft: "1rem" }}
+              >
+                Toys &nsp; Games
+              </Typography>
             </ListItem>
           </List>
         </Box>
