@@ -5,20 +5,31 @@ import { Box, Grid } from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";
 import { useStyles } from "./StyleHome";
 import "../../Content.css";
-function HomeCard() {
+function HomeCard({product}) {
   const classes = useStyles();
   const history = useHistory();
   return (
-    <>
+    <div>
       <img
         className={classes.paper}
-        src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620792410/GroupProject/Si-Racha-Thailand_tpj01s.jpg"
+        style={{
+          overflow: "hidden",
+          objectFit: "cover",
+          objectPosition: "50% 50%",
+        }}
+        src={product?.Photos[0]?.post}
         onClick={() => history.push("/select/home")}
       />
-      <h3>Price</h3>
-      <h3>estate_type</h3>
-      <h4>bangkok</h4>
-    </>
+      <h3>
+        ฿
+        {product.price
+          ?.toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          .slice(0, -3)}
+      </h3>
+      <h3>{product.title}</h3>
+      <h4>{product.location}</h4>
+    </div>
   );
 }
 export default HomeCard;

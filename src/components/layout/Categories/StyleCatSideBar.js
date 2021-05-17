@@ -83,5 +83,6 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "#3A3B3C",
     borderRadius: 20,
     color: "#DCDCDC",
+    padding: "15px",
   },
 }));

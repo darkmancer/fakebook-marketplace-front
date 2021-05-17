@@ -11,6 +11,7 @@ import {
   createMuiTheme,
 } from "@material-ui/core/styles";
 import AccountContextProvider from "./context/AccountContextProvider";
+import PriceContextProvider from "./context/PriceContextProvider";
 const theme = createMuiTheme({
   palette: {
     primary: blue,
@@ -24,6 +25,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
+      <PriceContextProvider>
     <AccountContextProvider>
       <AuthContextProvider>
         <ThemeProvider theme={theme}>
@@ -33,6 +35,7 @@ ReactDOM.render(
         </ThemeProvider>
       </AuthContextProvider>
     </AccountContextProvider>
+      </PriceContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
