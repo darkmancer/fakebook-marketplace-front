@@ -22,11 +22,11 @@ import Messages from "./Messages";
 import SendIcon from "@material-ui/icons/Send";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-
+import useChat from "./_useChat";
 const modalStyle = {
   top: `30%`,
   right: `5%`,
-  bottom: `0%`,
+  //bottom: `0%`,
   //transform: `translate(-50%, -50%)`,
 };
 
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     position: "absolute",
     width: 400,
+    // minHeight: 500,
     backgroundColor: "#242526",
     color: "white",
     display: "flex",
@@ -57,37 +58,28 @@ const useStyles = makeStyles((theme) => ({
   },
   searchInput: {
     margin: theme.spacing(1),
-    miHeight: "3ch",
+    minHeight: "3ch",
     backgroundColor: "#3A3B3C",
     borderRadius: 20,
     color: "#DCDCDC",
   },
+  messageList: {
+    overflow: "auto",
+  },
 }));
 
 function MessageBox(props) {
-  const [message, setMessage] = useState("");
   const classes = useStyles();
+  const [text, setText] = useState("");
   const { openChat, setOpenChat } = props;
   const { socket } = useContext(SocketContext);
+  const { messages, sendMessage } = useChat();
+  console.log(text);
   let own = null;
-
-  useEffect(() => {
-    socket.on("connect", function () {
-      socket.send("hi");
-
-      socket.on("message", function (msg) {});
-    });
-
-    //  socket.on("JOIN_REQUEST_ACCEPTED", handleInviteAccepted);
-    //const socket = io("http://localhost:5000/");
-
-    //   socket.on("message", function (msg) {});
-    // })
-
-    // return () => {
-    //   socket.disconnect();
-    // };
-  }, []);
+  const handleSend = (text) => {
+    sendMessage(text);
+  };
+  //onSendMessage={(message) => {sendMessage({ message });}}
   return (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
@@ -104,27 +96,27 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages own={own} />
-      <Messages own={own} />
+      <Messages own={own} messages={messages} />
 
       <Box className={classes.chatFooter}>
         <TextField
           fullWidth
           margin="normal"
           multiline
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
-              setMessage("");
+              sendMessage(text);
+              setText("");
             }
           }}
-          value={message}
+          value={text}
           InputProps={{
             className: classes.searchInput,
           }}
         />
-        <Button color="primary">
+        <Button /*onClick={(e) => setText(e.target.value)} */ color="primary">
           <SendIcon />
         </Button>
       </Box>

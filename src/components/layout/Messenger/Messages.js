@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Box,
   TextField,
@@ -30,17 +31,41 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     padding: theme.spacing(1),
   },
+  messageList: {
+    overflow: "auto",
+  },
 }));
 
-function Messages({ own }) {
-  const [message, setMessage] = useState("");
+function Messages({ own, messages }) {
+  //const receiverId = "16";
+  const getMessages = async () => {
+    try {
+      const res = await axios.get("http://localhost:8001/message/", {
+        receiverId: "16",
+      });
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getMessages();
+  }, []);
+
+  console.log(messages);
+  //const [message, setMessage] = useState("");
   const classes = useStyles();
   return (
-    <List>
-      <ListItem className={classes.root}>
-        <ListItemText className={classes.text}>Messages Text</ListItemText>
-      </ListItem>
-    </List>
+    <Box className={classes.messageList}>
+      <List>
+        <ListItem className={classes.root}>
+          {messages.map((message, index) => (
+            <ListItemText className={classes.text}>{message}</ListItemText>
+          ))}
+        </ListItem>
+      </List>
+    </Box>
   );
 }
 
