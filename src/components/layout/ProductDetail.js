@@ -49,7 +49,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
     const fetchSeller = async () => {
       try {
         const res = await axios.get(`/seller/${product.userId}`);
-      
+
         setSeller(res.data.sellerProfile);
       } catch (err) {
         console.log(`err`, err);
@@ -57,22 +57,24 @@ function ProductDetail({ product, trigger, setTrigger }) {
     };
     const fetchIsSaved = async () => {
       const res = await axios.get(`/saved/isSaved/${product.id}`);
-      setTriggerSaved(res.data.saved)
-    }
+      setTriggerSaved(res.data.saved);
+    };
     fetchSeller();
     fetchIsSaved();
   }, [product]);
   const saveProduct = async () => {
-    setTriggerSaved((prev) => !prev)
-    const res = await axios.post(`/saved/createSaved/${product.id}`);
-    console.log(res)
-  }
-  const unSaveProduct = async() => {
     setTriggerSaved((prev) => !prev);
-    const res = await axios.delete(`/saved/deleteSaved/${product.id}`);
+    const res = await axios.post(`/saved/createSaved/${product.id}`);
     console.log(res);
   };
-  console.log(triggerSave)
+  const unSaveProduct = async () => {
+    setTriggerSaved((prev) => !prev);
+    const res = await axios.delete(
+      `/saved/deleteSaved/${product.id}`
+    );
+    console.log(res);
+  };
+  console.log(triggerSave);
   return (
     <div style={{ overflow: "scroll" }}>
       <Drawer
@@ -80,11 +82,13 @@ function ProductDetail({ product, trigger, setTrigger }) {
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
-        }}
-      >
+        }}>
         <Toolbar />
         <div className={classes.closeButton}>
-          <CloseIcon button onClick={() => history.push("/homepage")} />
+          <CloseIcon
+            button
+            onClick={() => history.push("/homepage")}
+          />
         </div>
         <div className={classes.drawerContainer}>
           <List>
@@ -116,8 +120,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
                 variant="contained"
                 color="default"
                 className={classes.button}
-                startIcon={<MessageIcon />}
-              >
+                startIcon={<MessageIcon />}>
                 Message
               </Button>
             </Box>
@@ -128,8 +131,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
                   color="primary"
                   className={classes.buttonSave}
                   startIcon={<BookmarkIcon />}
-                  onClick={unSaveProduct}
-                >
+                  onClick={unSaveProduct}>
                   save
                 </Button>
               ) : (
@@ -138,8 +140,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
                   color="default"
                   className={classes.buttonSave}
                   startIcon={<BookmarkIcon />}
-                  onClick={saveProduct}
-                >
+                  onClick={saveProduct}>
                   save
                 </Button>
               )}
@@ -150,8 +151,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
                 variant="contained"
                 color="default"
                 className={classes.button}
-                startIcon={<ShareIcon />}
-              >
+                startIcon={<ShareIcon />}>
                 share
               </Button>
             </Box>
@@ -175,8 +175,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
             <Typography
               variant="h5"
               component="h2"
-              style={{ fontWeight: "600" }}
-            >
+              style={{ fontWeight: "600" }}>
               <ListItem>Seller Information</ListItem>
             </Typography>
             <NewCommerceProfileModal
