@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import InputTag from "./InputTag";
 import { Category, condition } from "./CategoryMap";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useStyles } from "./UseStyleCreatePage";
 import PhotoPreview from "./PhotoPreview";
@@ -28,7 +28,7 @@ import {
 } from "react-icons/md";
 import { IconButton } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-
+import { getCurrentLocation, locationName } from "./functionGeocode";
 function DrawerCreateItem() {
   const history = useHistory();
   const [boost, setBoost] = useState(false);
@@ -54,6 +54,13 @@ function DrawerCreateItem() {
       );
     }
   };
+  useEffect(() => {
+    async function getLocation() {
+      const currentLocation = await getCurrentLocation();
+      console.log(locationName(currentLocation));
+    }
+    getLocation();
+  }, []);
   const [tags, setTags] = React.useState([]);
   const optional = tags.join("");
   const [item, setItem] = useState({
