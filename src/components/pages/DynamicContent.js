@@ -13,62 +13,59 @@ import { PriceContext } from "../../context/PriceContextProvider";
 function Content({ category }) {
   const [products, setProducts] = useState(null);
   const classes = useStylesContent();
-  const { priceMin, setPriceMin, priceMax, setPriceMax } =
-    useContext(PriceContext);
-  console.log(category);
-  let print;
+  const { priceMin, priceMax, condition, search } = useContext(PriceContext);
+  console.log(search, search);
+  const fetchProduct = async () => {
+    try {
+      const res = await axios.get(`/product/get-category/${category}`);
+
+      const foundProducts = res?.data.products
+        ?.filter((product) => {
+          if (condition === "All") return product;
+          console.log("filtered works", product);
+          return product.condition === condition;
+        })
+        ?.filter((product) => {
+          if (!search) return product;
+          console.log("search works");
+          if (
+            product.title?.toLowerCase().includes(search.toLowerCase()) ||
+            product.optional?.toLowerCase().includes(search.toLowerCase())
+          ) {
+            return product;
+          }
+        });
+      setProducts(foundProducts);
+    } catch (err) {
+      console.log(`err`, err);
+    }
+  };
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await axios.get(`/product/get-type/${category}`);
-        console.log(res);
-        setProducts(res.data.products);
-      } catch (err) {
-        console.log(`err`, err);
-      }
-    };
     fetchProduct();
-  }, [category]);
-  // if (!priceMin && !priceMax) {
-  //   print = products?.map((product) => (
-  //     <Grid item xs={3}>
-  //       <ProductCard product={product} />
-  //     </Grid>
-  //   ));
-  // } else if (priceMax && priceMin) {
-  //   print = products
-  //     ?.filter(
-  //       (product) => +product.price < priceMax && +product.price > priceMin
-  //     )
-  //     .map((product) => (
-  //       <Grid item xs={3}>
-  //         <ProductCard product={product} />
-  //       </Grid>
-  //     ));
-  // } else if (priceMax) {
-  //   print = products
-  //     ?.filter((product) => +product.price < priceMax)
-  //     .map((product) => (
-  //       <Grid item xs={3}>
-  //         <ProductCard product={product} />
-  //       </Grid>
-  //     ));
-  // } else if (priceMin) {
-  //   print = products
-  //     ?.filter((product) => +product.price > priceMin)
-  //     .map((product) => (
-  //       <Grid item xs={3}>
-  //         <ProductCard product={product} />
-  //       </Grid>
-  //     ));
-  // }
+  }, [category, condition, search]);
+
+  // useEffect(() => {
+  //   fetchProduct();
+  //   const filterProduct = async () => {
+  //     const conditionedProduct = await products?.filter((product) => {
+  //       console.log("this work");
+  //       return product.condition === condition;
+  //     });
+  //     console.log(conditionedProduct);
+  //     setProducts(conditionedProduct);
+  //   };
+
+  //   filterProduct();
+  // }, [condition]);
+
+  console.log(products);
 
   return (
     <Box>
       <Box className={classes.containerText}>
         <h2 className={classes.text}>
-          Today's Picka {priceMin} {priceMax}
+          Today's Picka {priceMin} {priceMax} {condition} {search}
         </h2>
         <h5 className="location-text">
           <RoomIcon />
@@ -88,7 +85,7 @@ function Content({ category }) {
               ? products
                   ?.filter(
                     (product) =>
-                      +product.price < priceMax && +product.price > priceMin
+                      +product.price <= priceMax && +product.price >= priceMin
                   )
                   .map((product) => (
                     <Grid item xs={3}>
@@ -97,7 +94,7 @@ function Content({ category }) {
                   ))
               : priceMax
               ? products
-                  ?.filter((product) => +product.price < priceMax)
+                  ?.filter((product) => +product.price <= priceMax)
                   .map((product) => (
                     <Grid item xs={3}>
                       <ProductCard product={product} />
@@ -105,7 +102,7 @@ function Content({ category }) {
                   ))
               : priceMin
               ? products
-                  ?.filter((product) => +product.price > priceMin)
+                  ?.filter((product) => +product.price >= priceMin)
                   .map((product) => (
                     <Grid item xs={3}>
                       <ProductCard product={product} />
