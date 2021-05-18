@@ -104,4 +104,7 @@ export const useStyle = makeStyles((theme) => ({
       fontSize: "6px",
     },
   },
+  alertErr: {
+    margin: theme.spacing(1),
+  },
 }));

@@ -177,6 +177,11 @@ export const useStyles = makeStyles((theme) => ({
     top: 80,
     left: 400,
   },
+  contentListing: {
+    position: "fixed",
+    top: 180,
+    left: 400,
+  },
   contentCommenceProfile: {
     position: "fixed",
     top: 80,
@@ -190,6 +195,24 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 1),
 
     justifyContent: "space-between",
+  },
+  contentInmyList: {
+    margin: theme.spacing(1),
+  },
+  flexButtonInlist: {
+    margin: theme.spacing(3.7, 0, 0, 0),
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  paperListing: {
+    backgroundColor: "#242526",
+    width: "80ch",
+    display: "flex",
+    borderRadius: 10,
+
+    padding: theme.spacing(1, 1),
+    margin: theme.spacing(1, 0),
+    // justifyContent: "space-between",
   },
 
   paperCommence: {
@@ -242,6 +265,58 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: "#2851A3",
     },
   },
+  buttonMark: {
+    textTransform: "none",
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 160,
+    color: "white",
+    backgroundColor: "#424242",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#616161",
+    },
+  },
+  buttonListing: {
+    textTransform: "none",
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 140,
+    color: "white",
+    height: 45,
+    backgroundColor: "#424242",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#616161",
+    },
+  },
+  buttonShare: {
+    textTransform: "none",
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 100,
+    color: "white",
+    height: 45,
+    backgroundColor: "#424242",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#616161",
+    },
+  },
+  buttonListingEdit: {
+    textTransform: "none",
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 60,
+    color: "white",
+    height: 45,
+    backgroundColor: "#424242",
+    "&:hover": {
+      borderRadius: 6,
+      backgroundColor: "#616161",
+    },
+  },
+
   buttonProfile: {
     textTransform: "none",
     padding: theme.spacing(0.5),
@@ -342,5 +417,14 @@ export const useStyles = makeStyles((theme) => ({
   GridFlex: {
     display: "flex",
     flexDirection: "row",
+  },
+  ListTitle: {
+    color: "white",
+  },
+  ListPrice: {
+    color: "white",
+  },
+  ListStatus: {
+    color: "grey",
   },
 }));

@@ -13,12 +13,11 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import InputTag from "./InputTag";
-import { Category, condition } from "./CategoryMap";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useStyles } from "./UseStyleCreatePage";
-import PhotoPreview from "./PhotoPreview";
+import { year, condition } from "./CategoryMap";
+import InputTag from "./InputTag";
+
 import {
   MdAddToPhotos,
   MdLocationOn,
@@ -26,21 +25,21 @@ import {
   MdClose,
   MdPublic,
 } from "react-icons/md";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { IconButton } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import { getCurrentLocation, locationName } from "./functionGeocode";
-function DrawerCreateItem() {
+import PreviewVehicle from "./PreviewVehicle";
+
+function DrawerCreateVehicle() {
+  const classes = useStyles();
   const history = useHistory();
-  const [boost, setBoost] = useState(false);
-  const toggleBoost = () => {
-    setBoost((prev) => !prev);
-    console.log(boost);
-  };
   const handleCloseButton = () => {
     history.push("/mylistings");
   };
   const [photos, setPhotos] = useState([]);
   const [showPhotos, setShowPhotos] = useState([]);
+  const [tags, setTags] = React.useState([]);
+  const optional = tags.join("");
+
   const handleDelete = (idx) => () => {
     if (photos.length === 1) {
       setShowPhotos([]);
@@ -54,104 +53,24 @@ function DrawerCreateItem() {
       );
     }
   };
-  useEffect(() => {
-    async function getLocation() {
-      const currentLocation = await getCurrentLocation();
-      console.log(locationName(currentLocation));
-    }
-    getLocation();
-  }, []);
-  const [tags, setTags] = React.useState([]);
-  const optional = tags.join("");
+
   const [item, setItem] = useState({
     title: "",
     price: "",
-    category: "",
-    subCategory: "",
-    condition: "",
+    conditon: "",
     description: "",
+    model: "",
+    brand: "",
+    mileage: "",
     location: "",
+    year: "",
+    tranmission: "",
   });
-
   const onChangeItem = (e) => {
-    let values = e.target.value;
     const { name, value } = e.target;
-
-    if (
-      values === "Tool" ||
-      values === "Furniture" ||
-      values === "HouseHold" ||
-      values === "Garden" ||
-      values === "Appliances"
-    ) {
-      setItem({
-        ...item,
-        category: "Home & Garden",
-        subCategory: values,
-      });
-    }
-    if (
-      values === "Video Games" ||
-      values === "Books,Movie & Music"
-    ) {
-      setItem({
-        ...item,
-        category: "Entertainment",
-        subCategory: values,
-      });
-    }
-    if (
-      values === "Bags & Luggage" ||
-      values === "Women's Clothing & Shoes" ||
-      values === "Men's Clothing & Shoes" ||
-      values === "Jewelry & Accessories"
-    ) {
-      setItem({
-        ...item,
-        category: "Clothing & Accessories",
-        subCategory: values,
-      });
-    }
-    if (
-      values === "Health & Beauty" ||
-      values === "Pet Supplies" ||
-      values === "Baby & Kids" ||
-      values === "Toy & Games"
-    ) {
-      setItem({
-        ...item,
-        category: "Family",
-        subCategory: values,
-      });
-    }
-    if (
-      values === "Electronics & Computers" ||
-      values === "Moblie Phones"
-    ) {
-      setItem({
-        ...item,
-        category: "Electronics",
-        subCategory: values,
-      });
-    }
-    if (
-      values === "Bicycles" ||
-      values === "Arts & Crafts" ||
-      values === "Sports & Outdoors" ||
-      values === "Auto Parts" ||
-      values === "Musical & Intruments" ||
-      values === "Antiques & Collectibles"
-    ) {
-      setItem({
-        ...item,
-        category: "Hobbies",
-        subCategory: values,
-      });
-    }
     setItem((prev) => ({ ...prev, [name]: value }));
   };
   const onChangeFilePhotos = (e) => {
-    setShowPhotos([...showPhotos]);
     if (photos.length !== 0) {
       setPhotos((prev) => [...prev, e.target.files[0]]);
       setShowPhotos([
@@ -165,8 +84,6 @@ function DrawerCreateItem() {
       ]);
     }
   };
-
-  const classes = useStyles();
   return (
     <div className={classes.flexPageCreateItem}>
       <Paper className={classes.paperContainer}>
@@ -176,7 +93,7 @@ function DrawerCreateItem() {
             style={{ display: "flex" }}
             justifyContent="space-between">
             <Typography className={classes.HeadersTitle}>
-              Item for Sale
+              Vehicle For Sale
             </Typography>
             <Button className={classes.ButtonCreate}>
               Save Draft
@@ -204,6 +121,30 @@ function DrawerCreateItem() {
             </div>
           </div>
         </div>
+        {/* <FormControl
+          variant="outlined"
+          className={classes.InputTextFieldCategory}>
+          <InputLabel htmlFor="vehicle-type">Vehicle type</InputLabel>
+          <Select
+            label="Vehicle type"
+            onChange={onChangeItem}
+            className={classes.Selector}
+            inputProps={{
+              name: "vehicleType",
+              id: "vehicle-type",
+              classes: {
+                icon: classes.SelectIcon,
+              },
+            }}>
+            {vehicleType.map(({ type }, idx) => {
+              return (
+                <MenuItem key={idx} value={type}>
+                  {type}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl> */}
         <Box className={classes.drawerContainer}>
           <Typography className={classes.TextHeader}>
             Photos - {photos.length}/10 You can add up to 10 photos
@@ -299,38 +240,77 @@ function DrawerCreateItem() {
             variant="outlined"
             InputLabelProps={{ className: classes.labelTextField }}
           />
+          <TextField
+            label="Brand"
+            name="brand"
+            autoComplete="off"
+            className={classes.InputTextField}
+            onChange={onChangeItem}
+            variant="outlined"
+            InputLabelProps={{ className: classes.labelTextField }}
+          />
+          <TextField
+            label="Model"
+            name="model"
+            autoComplete="off"
+            className={classes.InputTextField}
+            onChange={onChangeItem}
+            variant="outlined"
+            InputLabelProps={{ className: classes.labelTextField }}
+          />
+          <TextField
+            label="Mileage"
+            name="mileage"
+            className={classes.InputTextField}
+            onChange={onChangeItem}
+            variant="outlined"
+            autoComplete="off"
+            InputLabelProps={{ className: classes.labelTextField }}
+          />
+
           <FormControl
             variant="outlined"
             className={classes.InputTextFieldCategory}>
-            <InputLabel htmlFor="category-field">Category</InputLabel>
+            <InputLabel htmlFor="year-car">Year</InputLabel>
             <Select
-              native
-              label="Category"
+              label="Year"
+              id="year-car"
+              name="year"
               onChange={onChangeItem}
-              className={classes.Selector}
               inputProps={{
-                name: "category",
-                id: "category-field",
+                name: "year",
+                id: "year-car",
                 classes: {
                   icon: classes.SelectIcon,
                 },
               }}>
-              {Category.map((category, idx) => {
-                <option aria-label="None" value="" />;
-                return (
-                  <optgroup
-                    key={idx}
-                    name="mainType"
-                    value={category.Title}
-                    label={category.Title}>
-                    {category.Menu?.map(({ type }, idx) => (
-                      <option key={idx} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </optgroup>
-                );
-              })}
+              {year.map((year, idx) => (
+                <MenuItem key={idx} value={year}>
+                  {year}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl
+            variant="outlined"
+            className={classes.InputTextFieldCategory}>
+            <InputLabel htmlFor="tranmission-field">
+              Tranmission
+            </InputLabel>
+            <Select
+              label="Tranmission"
+              id="tranmission-field"
+              name="tranmission"
+              onChange={onChangeItem}
+              inputProps={{
+                name: "tranmission",
+                id: "tranmission-field",
+                classes: {
+                  icon: classes.SelectIcon,
+                },
+              }}>
+              <MenuItem value="Automatic">Automatic</MenuItem>
+              <MenuItem value="Manual">Manual</MenuItem>
             </Select>
           </FormControl>
           <FormControl
@@ -358,17 +338,6 @@ function DrawerCreateItem() {
               ))}
             </Select>
           </FormControl>
-          <TextField
-            id="multiline"
-            onChange={onChangeItem}
-            autoComplete="off"
-            className={classes.InputTextField}
-            name="description"
-            label="Description"
-            multiline
-            rows={6}
-            variant="outlined"
-          />
           <InputTag
             setItem={setItem}
             onChageItem={onChangeItem}
@@ -390,33 +359,35 @@ function DrawerCreateItem() {
               ),
             }}
           />
-          <div className={classes.flexBoost}>
-            <Typography className={classes.BoostText}>
-              Boost Lisiting After Publish
-              <Switch
-                color="primary"
-                onChange={toggleBoost}
-                className={classes.BoostButton}
-              />
-            </Typography>
-          </div>
-        </form>
-        <Box>
-          <Button
-            variant="outlined"
-            disabled={
-              item.title === "" && item.price === "" ? true : false
-            }
-            className={classes.ButtonPublish}
-            endIcon={<MdPublic />}>
-            Publish
-          </Button>
-        </Box>
-      </Paper>
 
-      <PhotoPreview showPhotos={showPhotos} item={item} tags={tags} />
+          <TextField
+            id="multiline"
+            onChange={onChangeItem}
+            className={classes.InputTextField}
+            name="description"
+            label="Description"
+            multiline
+            rows={6}
+            variant="outlined"
+          />
+        </form>
+        <Button
+          variant="outlined"
+          disabled={
+            item.title === "" && item.price === "" ? true : false
+          }
+          className={classes.ButtonPublish}
+          endIcon={<MdPublic />}>
+          Publish
+        </Button>
+      </Paper>
+      <PreviewVehicle
+        showPhotos={showPhotos}
+        item={item}
+        tags={tags}
+      />
     </div>
   );
 }
 
-export default DrawerCreateItem;
+export default DrawerCreateVehicle;

@@ -23,8 +23,10 @@ function InputTag({ tags, setTags, setItem, onChageItem, item }) {
     }
   };
   const addTagsOnClick = (value) => {
-    setTags([...tags, value]);
-    setTagInput("");
+    if (value !== "") {
+      setTags([...tags, value]);
+      setTagInput("");
+    }
   };
 
   const handleDelete = (chipToDelete) => () => {
