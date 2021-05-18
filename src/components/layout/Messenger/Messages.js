@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Box,
-  TextField,
-  Typography,
-  CardActions,
-  Button,
-  Card,
-  CardContent,
-  Avatar,
-  Divider,
-  Paper,
-  List,
-  ListItem,
-  ListSubheader,
-  ListItemAvatar,
-  ListItemText,
-} from "@material-ui/core";
+import { socket, SocketContext } from "../../../context/SocketContextProvider";
+import { Box, List, ListItem, ListItemText } from "@material-ui/core";
+
 import { makeStyles } from "@material-ui/core/styles";
+import * as localStorage from "../../../services/localStorageService";
+import useChat from "./_useChat";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,13 +25,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Messages({ own, messages }) {
-  //const receiverId = "16";
+  const [texts, setTexts] = useState([]);
+  const receiverId = "16";
+
   const getMessages = async () => {
     try {
-      const res = await axios.get("http://localhost:8001/message/", {
-        receiverId: "16",
-      });
+      const res = await axios.get(
+        "http://localhost:8001/message/" + receiverId,
+
+        { headers: { authorization: `Bearer ${localStorage.getToken()}` } }
+      );
       console.log(res);
+      setTexts(res.data.messages);
     } catch (err) {
       console.log(err);
     }
@@ -53,15 +46,32 @@ function Messages({ own, messages }) {
     getMessages();
   }, []);
 
-  console.log(messages);
+  // socket.emit("connected", texts);
+  socket.emit("chat message", texts);
+
+  socket.on("chat message", function (msg) {
+    // var item = document.createElement("li");
+    // item.textContent = msg;
+    // messages.appendChild(item);
+    // window.scrollTo(0, document.body.scrollHeight);
+    //msg ออกมาเปนtexts [{}]
+  });
+
+  // useEffect(() => {
+  //   socket.emit("newChatMessage", function (data) {
+  //     getMessages();
+  //   });
+  // }, []);
+
+  console.log("text", texts);
   //const [message, setMessage] = useState("");
   const classes = useStyles();
   return (
     <Box className={classes.messageList}>
       <List>
         <ListItem className={classes.root}>
-          {messages.map((message, index) => (
-            <ListItemText className={classes.text}>{message}</ListItemText>
+          {texts.map((text, index) => (
+            <ListItemText className={classes.text}>{text.text}</ListItemText>
           ))}
         </ListItem>
       </List>

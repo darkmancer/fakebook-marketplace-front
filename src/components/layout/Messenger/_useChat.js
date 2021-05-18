@@ -8,10 +8,11 @@ const useChat = () => {
   console.log(messages);
   //const socketRef = useRef();
   useEffect(() => {
+    //will run, (messages) get the lasted messages append more messages
+
     socket.on("newChatMessage", ({ message }) => {
       setMessages((messages) => [...messages, message]);
     });
-
     //ทำแบบนี้ เพราะuseEffect run first once message is emt array แต่ถ้าไม่ได้ใส่ current messages
     //เพราะทำแบบนี้เปนการใส่ add append emt arr ,we should append more messages จึงใช้ callback
     //setMessages([...messages, message])

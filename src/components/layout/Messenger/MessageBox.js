@@ -1,21 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import * as localStorage from "../../../services/localStorageService";
 import { SocketContext } from "../../../context/SocketContextProvider";
 import {
   Box,
   TextField,
   Typography,
-  CardActions,
   Button,
-  Card,
-  CardContent,
   Avatar,
   Divider,
   Paper,
-  List,
-  ListItem,
-  ListSubheader,
-  ListItemAvatar,
-  ListItemText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Messages from "./Messages";
@@ -76,8 +70,27 @@ function MessageBox(props) {
   const { messages, sendMessage } = useChat();
   console.log(text);
   let own = null;
-  const handleSend = (text) => {
-    sendMessage(text);
+
+  const handleSendTexts = async (e) => {
+    e.preventDefault();
+
+    const receiverId = "16";
+
+    try {
+      await axios.post(
+        "http://localhost:8001/message/" + receiverId,
+
+        { text: text },
+
+        { headers: { authorization: `Bearer ${localStorage.getToken()}` } }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleOnClose = () => {
+    setOpenChat(false);
   };
   //onSendMessage={(message) => {sendMessage({ message });}}
   return (
@@ -87,10 +100,10 @@ function MessageBox(props) {
           alt="receiver-profile"
           src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620209841/GroupProject/nIEli5jE_400x400_yjuvb2.jpg"
         />
-        <Typography>Chiwawa</Typography>
+        <Typography>RECEIVER_ID_NAME/SELLER_ID</Typography>
 
-        <Button color="primary" onClick={() => setOpenChat(false)}>
-          <CloseIcon />
+        <Button color="primary">
+          <CloseIcon onClick={handleOnClose} />
         </Button>
       </Box>
 
@@ -105,18 +118,14 @@ function MessageBox(props) {
           multiline
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              sendMessage(text);
-              setText("");
-            }
+            if (e.key === "Enter") handleSendTexts(e);
           }}
           value={text}
           InputProps={{
             className: classes.searchInput,
           }}
         />
-        <Button /*onClick={(e) => setText(e.target.value)} */ color="primary">
+        <Button onClick={(e) => handleSendTexts(e)} color="primary">
           <SendIcon />
         </Button>
       </Box>

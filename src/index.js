@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Router } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
 import SocketContextProvider from "./context/SocketContextProvider";
+import AccountContextProvider from "./context/AccountContextProvider";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
@@ -21,15 +22,17 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <SocketContextProvider>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ThemeProvider>
-      </SocketContextProvider>
-    </AuthContextProvider>
+    <SocketContextProvider>
+      <AccountContextProvider>
+        <AuthContextProvider>
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ThemeProvider>
+        </AuthContextProvider>
+      </AccountContextProvider>
+    </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

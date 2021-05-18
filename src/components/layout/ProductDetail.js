@@ -25,6 +25,7 @@ function ProductDetail() {
   const classes = useStylesProductDetail();
   const [openPopup, setOpenPopup] = useState(false);
   const [openChat, setOpenChat] = useState(false);
+
   const history = useHistory();
   return (
     <>
@@ -104,7 +105,10 @@ function ProductDetail() {
         </div>
       </Drawer>
       <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
-      <MessageBox openChat={openChat} setOpenPopup={setOpenChat} />
+
+      {openChat ? (
+        <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
+      ) : null}
     </>
   );
 }

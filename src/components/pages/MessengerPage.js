@@ -2,6 +2,7 @@ import ProductSelected from "../layout/ProductSelected";
 import ProductDetail from "../layout/ProductDetail";
 import Header from "../layout/Header";
 import MessageBox from "../layout/Messenger/MessageBox";
+import Chat from "../layout/Messenger/Chat";
 import { Paper, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -49,8 +50,8 @@ function MessengerPage() {
 
       {/* <nav className={classes.drawer} position="fixed"> */}
       <MessageBox />
-      {/* </nav>
-      </div> */}
+      {/* </nav> */}
+      {/* </div> */}
     </>
   );
 }
