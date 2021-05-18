@@ -17,6 +17,9 @@ import {
   Input,
   Typography,
 } from "@material-ui/core";
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import HomeIcon from "@material-ui/icons/Home";
+import WatchIcon from "@material-ui/icons/Watch";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import DriveEtaIcon from "@material-ui/icons/DriveEta";
 import StorefrontIcon from "@material-ui/icons/Storefront";
@@ -30,16 +33,16 @@ import { RadioCondition, RadioSort } from "../AccountUserLayout/RadioMap";
 import { MdSearch } from "react-icons/md";
 import { PriceContext } from "../../../context/PriceContextProvider";
 import DevicesIcon from "@material-ui/icons/Devices";
-
+import BuildIcon from "@material-ui/icons/Build";
 
 function CategoriesSideBar() {
   const classes = useStyles();
-  const { priceMin, setPriceMin, priceMax, setPriceMax } =
+  const { priceMin, setPriceMin, priceMax, setPriceMax, condition, setCondition, search, setSearch } =
     useContext(PriceContext);
   const [open, setOpen] = React.useState(false);
   const [openCondition, setOpenCondition] = React.useState(false);
   const [sortBy, setSortBy] = useState("");
-  const [selectedValue, setSelectedValue] = React.useState();
+
   const history = useHistory();
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -48,8 +51,15 @@ function CategoriesSideBar() {
     setOpenCondition((prevOpen) => !prevOpen);
   };
 
-  const handleChangeRadio = (event) => {
-    setSelectedValue(event.target.value);
+  const handleChangeCondition = (event) => {
+    setCondition(event.target.value)
+  };
+  const handleSearch = (event) => {
+    setSearch(event.target.value)
+  }
+
+  const handleSortBy = (event) => {
+
   };
   const handleChangeMin = (event) => {
     setPriceMin(event.target.value);
@@ -83,6 +93,7 @@ function CategoriesSideBar() {
                   disableUnderline: true,
                   className: classes.searchInput,
                 }}
+                onChange={handleSearch}
               />
             </form>{" "}
             <ListItem
@@ -126,9 +137,9 @@ function CategoriesSideBar() {
                         <ListItemSecondaryAction>
                           <Radio
                             className={classes.RadioCheck}
-                            checked={selectedValue === radio.primary}
+                          
                             value={radio.primary}
-                            onChange={handleChangeRadio}
+                            onChange={handleSortBy}
                           />
                         </ListItemSecondaryAction>
                       </ListItem>
@@ -156,9 +167,9 @@ function CategoriesSideBar() {
                         <ListItemSecondaryAction>
                           <Radio
                             className={classes.RadioCheck}
-                            checked={selectedValue === radio.primary}
+                            checked={condition === radio.primary}
                             value={radio.primary}
-                            onChange={handleChangeRadio}
+                            onChange={handleChangeCondition}
                           />
                         </ListItemSecondaryAction>
                       </ListItem>
@@ -211,7 +222,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/VEHICLE")}
+              onClick={() => history.push("/category/vehicle")}
             >
               <DriveEtaIcon />
               <Typography
@@ -225,7 +236,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/HOME")}
+              onClick={() => history.push("/category/Property-Rentals")}
             >
               <HomeWorkIcon />
               <Typography
@@ -253,7 +264,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Electronics")}
             >
               <DevicesIcon />
               <Typography
@@ -267,9 +278,9 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Clothing-&-Accessories")}
             >
-              <DevicesIcon />
+              <WatchIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -281,9 +292,9 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Home-Sales")}
             >
-              <DevicesIcon />
+              <HomeIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -295,9 +306,9 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Family")}
             >
-              <DevicesIcon />
+              <InsertEmoticonIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -309,9 +320,9 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Free-Stuff")}
             >
-              <DevicesIcon />
+              <LoyaltyIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -323,21 +334,21 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Garden-&-Outdoor")}
             >
-              <DevicesIcon />
+              <BuildIcon />
               <Typography
                 variant="h6"
                 component="h6"
                 style={{ marginLeft: "1rem" }}
               >
-                Garden &nvsp; Outdoor
+                Garden &amp; Outdoor
               </Typography>
             </ListItem>
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Hobbies")}
             >
               <DevicesIcon />
               <Typography
@@ -351,7 +362,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Home-Goods")}
             >
               <DevicesIcon />
               <Typography
@@ -365,9 +376,11 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() =>
+                history.push("/category/Home-Improvement-Supplies")
+              }
             >
-              <DevicesIcon />
+              <BuildIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -379,7 +392,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Musical-Instruments")}
             >
               <DevicesIcon />
               <Typography
@@ -393,7 +406,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Office-Supplies")}
             >
               <DevicesIcon />
               <Typography
@@ -407,7 +420,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Pet-Supplies")}
             >
               <DevicesIcon />
               <Typography
@@ -421,7 +434,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Sporting-Goods")}
             >
               <DevicesIcon />
               <Typography
@@ -435,7 +448,7 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push("/category/Toys-&-Games")}
             >
               <DevicesIcon />
               <Typography
@@ -443,7 +456,7 @@ function CategoriesSideBar() {
                 component="h6"
                 style={{ marginLeft: "1rem" }}
               >
-                Toys &nsp; Games
+                Toys &amp; Games
               </Typography>
             </ListItem>
           </List>
