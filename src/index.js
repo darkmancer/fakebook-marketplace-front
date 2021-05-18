@@ -23,15 +23,19 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <AccountContextProvider>
-      <AuthContextProvider>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ThemeProvider>
-      </AuthContextProvider>
-    </AccountContextProvider>
+    <SocketContextProvider>
+      <PriceContextProvider>
+        <AccountContextProvider>
+          <AuthContextProvider>
+            <ThemeProvider theme={theme}>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </ThemeProvider>
+          </AuthContextProvider>
+        </AccountContextProvider>
+      </PriceContextProvider>
+    </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
