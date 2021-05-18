@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
 import * as localStorage from "../../../services/localStorageService";
 import { SocketContext } from "../../../context/SocketContextProvider";
@@ -10,13 +10,15 @@ import {
   Avatar,
   Divider,
   Paper,
+  Modal,
+  Slide,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Messages from "./Messages";
 import SendIcon from "@material-ui/icons/Send";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import useChat from "./_useChat";
+
 const modalStyle = {
   top: `30%`,
   right: `5%`,
@@ -51,39 +53,40 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   searchInput: {
+    padding: theme.spacing(1),
     margin: theme.spacing(1),
     minHeight: "3ch",
     backgroundColor: "#3A3B3C",
     borderRadius: 20,
     color: "#DCDCDC",
   },
-  messageList: {
-    overflow: "auto",
-  },
 }));
 
 function MessageBox(props) {
   const classes = useStyles();
-  const [text, setText] = useState("");
+  const [newMessage, setNewMessage] = useState("");
   const { openChat, setOpenChat } = props;
   const { socket } = useContext(SocketContext);
-  const { messages, sendMessage } = useChat();
-  console.log(text);
-  let own = null;
 
   const handleSendTexts = async (e) => {
     e.preventDefault();
 
+    // e.target.scroll({ top: target.scrollHeight, behavior: "smooth" });
     const receiverId = "16";
 
+    socket.emit("sendMessage", { text: newMessage });
+
     try {
-      await axios.post(
+      const res = await axios.post(
         "http://localhost:8001/message/" + receiverId,
 
-        { text: text },
+        { text: newMessage },
 
         { headers: { authorization: `Bearer ${localStorage.getToken()}` } }
       );
+      console.log("res", res);
+      setNewMessage("");
+      //setText([...text, res.data.messages.text]);
     } catch (err) {
       console.log(err);
     }
@@ -92,8 +95,8 @@ function MessageBox(props) {
   const handleOnClose = () => {
     setOpenChat(false);
   };
-  //onSendMessage={(message) => {sendMessage({ message });}}
-  return (
+
+  const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
         <Avatar
@@ -109,18 +112,18 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages own={own} messages={messages} />
+      <Messages />
 
       <Box className={classes.chatFooter}>
         <TextField
           fullWidth
           margin="normal"
           multiline
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => setNewMessage(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") handleSendTexts(e);
           }}
-          value={text}
+          value={newMessage}
           InputProps={{
             className: classes.searchInput,
           }}
@@ -131,6 +134,8 @@ function MessageBox(props) {
       </Box>
     </Paper>
   );
+
+  return <Modal open={openChat}>{body}</Modal>;
 }
 
 export default MessageBox;

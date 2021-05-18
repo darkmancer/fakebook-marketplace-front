@@ -106,9 +106,7 @@ function ProductDetail() {
       </Drawer>
       <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
 
-      {openChat ? (
-        <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
-      ) : null}
+      <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
     </>
   );
 }
