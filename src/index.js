@@ -8,6 +8,7 @@ import { BrowserRouter, Router } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
 import SocketContextProvider from "./context/SocketContextProvider";
 import AccountContextProvider from "./context/AccountContextProvider";
+import PriceContextProvider from "./context/PriceContextProvider";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
@@ -23,15 +24,17 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <SocketContextProvider>
-      <AccountContextProvider>
-        <AuthContextProvider>
-          <ThemeProvider theme={theme}>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ThemeProvider>
-        </AuthContextProvider>
-      </AccountContextProvider>
+      <PriceContextProvider>
+    <AccountContextProvider>
+      <AuthContextProvider>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
+      </AuthContextProvider>
+    </AccountContextProvider>
+      </PriceContextProvider>
     </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

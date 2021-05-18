@@ -113,3 +113,36 @@ export const condition = [
   { condition: "Used - Good" },
   { condition: "Used - Fair" },
 ];
+export const vehicleType = [
+  {
+    type: "Car/Type",
+  },
+  {
+    type: "MotorCycle",
+  },
+  {
+    type: "PowerSport",
+  },
+  {
+    type: "RV/Camper",
+  },
+  {
+    type: "Trailer",
+  },
+  {
+    type: "Boat",
+  },
+  {
+    type: "Commercial/Industrial",
+  },
+  {
+    type: "Other",
+  },
+];
+var curYear = new Date().getFullYear();
+let date = [];
+let i;
+for (i = curYear; i >= curYear - 30; i--) {
+  date.push(i);
+}
+export const year = date;

@@ -7,6 +7,7 @@ import { useState } from "react";
 import ContentListing from "../layout/AccountUserLayout/ContentListing";
 import CommeceProfile from "../layout/AccountUserLayout/CommeceProfile";
 import "./MyPage.css";
+import MyListing from "../layout/AccountUserLayout/MyListing";
 function MyPage() {
   const classes = useStyles();
   // const [haveList, setHaveList] = useState();
@@ -19,6 +20,7 @@ function MyPage() {
       <main>
         <ContentListing className={classes.content} />
         <ContentAccount className={classes.content} />
+        <MyListing className={classes.content} />
         <CommeceProfile />
       </main>
     </>

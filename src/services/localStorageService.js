@@ -7,4 +7,5 @@ const getToken = () => localStorage.getItem(access_token);
 
 const clearToken = () => localStorage.removeItem(access_token);
 
-export { setToken, getToken, clearToken };
+const clearAll = () => localStorage.clear();
+export { setToken, getToken, clearToken, clearAll };

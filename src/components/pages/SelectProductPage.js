@@ -1,8 +1,11 @@
+import React, { useState, useEffect } from "react";
 import ProductSelected from "../layout/ProductSelected";
 import ProductDetail from "../layout/ProductDetail";
 import Header from "../layout/Header";
 import { Paper, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
+import axios from "../../config/axios";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -36,21 +39,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SelectProductPage() {
+  const [product, setProduct] = useState(null);
+  const [trigger, setTrigger] = useState(false);
   const classes = useStyles();
-  return (
-    <>
+  const { id } = useParams();
+  console.log(id);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`/product/${id}`);
+        console.log(res);
+        setProduct(res.data.product);
+      } catch (err) {
+        console.log(`err`, err);
+      }
+    };
+    fetchProduct();
+  }, []);
+  console.log(product)
+  console.log(trigger)
+  return (<>
+    {product ? ( 
       <div className={classes.root}>
         <Header className={classes.appBar} position="fixed" />
 
         <main className={classes.content}>
-          <ProductSelected />
+          <ProductSelected product={product} />
         </main>
 
         <nav className={classes.drawer}>
-          <ProductDetail />
+          <ProductDetail product={product} setTrigger={setTrigger} trigger={trigger}/>
         </nav>
       </div>
-    </>
+    ): <div>Loading</div>}
+   </>
   );
 }
 export default SelectProductPage;

@@ -13,12 +13,15 @@ import {
 } from "@material-ui/core";
 import { useStylesHeader } from "./UseStyleHeader";
 import * as localStorage from "../../services/localStorageService";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 function Header(props) {
   const { palette } = props;
   const classes = useStylesHeader(palette);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { setIsAuthenticated } = useContext(AuthContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,9 +30,10 @@ function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
-    localStorage.clearToken();
+    localStorage.clearAll();
+    await setIsAuthenticated(false);
     //setAuth({});
     // role === "admin" ? setIsAdmin(false) : setIsAuthenticated(false);
     history.push("/login");
@@ -41,8 +45,7 @@ function Header(props) {
         <Box flexGrow={1}>
           <Typography
             className={classes.root}
-            onClick={() => history.push("/Homepage")}
-          >
+            onClick={() => history.push("/Homepage")}>
             Market Place
           </Typography>
         </Box>
@@ -57,8 +60,7 @@ function Header(props) {
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
+          onClose={handleClose}>
           <MenuItem onClick={handleClose}>My account</MenuItem>
           <MenuItem onClick={handleClose}>Edit account</MenuItem>
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
