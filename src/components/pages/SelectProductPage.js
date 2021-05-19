@@ -43,6 +43,7 @@ function SelectProductPage() {
   const [trigger, setTrigger] = useState(false);
   const classes = useStyles();
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   console.log(id);
   useEffect(() => {
     const fetchProduct = async () => {
@@ -50,29 +51,39 @@ function SelectProductPage() {
         const res = await axios.get(`/product/${id}`);
         console.log(res);
         setProduct(res.data.product);
+        setIsLoading(false);
       } catch (err) {
         console.log(`err`, err);
       }
     };
     fetchProduct();
   }, []);
-  console.log(product)
-  console.log(trigger)
-  return (<>
-    {product ? ( 
-      <div className={classes.root}>
-        <Header className={classes.appBar} position="fixed" />
+  console.log(product);
+  console.log(trigger);
+  if (isLoading) return <p>loading</p>;
+  return (
+    <>
+      {product ? (
+        <div className={classes.root}>
+          <Header className={classes.appBar} position="fixed" />
 
-        <main className={classes.content}>
-          <ProductSelected product={product} />
-        </main>
+          <main className={classes.content}>
+            <ProductSelected product={product} />
+          </main>
 
-        <nav className={classes.drawer}>
-          <ProductDetail product={product} setTrigger={setTrigger} trigger={trigger}/>
-        </nav>
-      </div>
-    ): <div>Loading</div>}
-   </>
+          <nav className={classes.drawer}>
+            <ProductDetail
+              product={product}
+              setTrigger={setTrigger}
+              trigger={trigger}
+              id={id}
+            />
+          </nav>
+        </div>
+      ) : (
+        <div>Loading</div>
+      )}
+    </>
   );
 }
 export default SelectProductPage;

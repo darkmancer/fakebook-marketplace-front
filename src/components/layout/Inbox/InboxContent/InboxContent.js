@@ -18,6 +18,7 @@ import SellItemModal from "../SellItemModal/SellItemModal";
 import MoreIcon from "@material-ui/icons/More";
 import { useStyles } from "./StylesInboxContent";
 import SellStep from "./SellStep";
+import MessageBox from "../../Messenger/MessageBox";
 
 function InboxContent() {
   const classes = useStyles();
@@ -26,6 +27,7 @@ function InboxContent() {
   const [showSell, setShowSell] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const [showStep, setShowStep] = useState(false);
   const [list, setList] = React.useState("");
 
@@ -138,6 +140,8 @@ function InboxContent() {
           )}
         </Box>
       </Grid>
+
+      <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
     </Grid>
   );
 }

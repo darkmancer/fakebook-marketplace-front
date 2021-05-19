@@ -10,6 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import { useStylesProductDetail } from "../../UseStyleProductDetail";
 import CommerceProfileModal from "../../CommerceProfileModal";
+import MessageBox from "../../Messenger/MessageBox";
 import {
   AppBar,
   Toolbar,
@@ -25,6 +26,7 @@ import CloseIcon from "@material-ui/icons/Close";
 function VehicleDetail() {
   const classes = useStylesProductDetail();
   const [openPopup, setOpenPopup] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const history = useHistory();
   return (
     <>
@@ -51,6 +53,7 @@ function VehicleDetail() {
           <Box className={classes.buttonList}>
             <Box flexGrow={1}>
               <Button
+                onClick={() => setOpenChat(true)}
                 fullWidth
                 variant="contained"
                 color="default"
@@ -105,6 +108,7 @@ function VehicleDetail() {
         </div>
       </Drawer>
       <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
     </>
   );
 }
