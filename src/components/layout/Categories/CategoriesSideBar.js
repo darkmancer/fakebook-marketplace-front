@@ -17,6 +17,8 @@ import {
   Input,
   Typography,
 } from "@material-ui/core";
+import InboxIcon from '@material-ui/icons/Inbox'
+import PersonIcon from '@material-ui/icons/Person'
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import HomeIcon from "@material-ui/icons/Home";
 import WatchIcon from "@material-ui/icons/Watch";
@@ -35,14 +37,13 @@ import { PriceContext } from "../../../context/PriceContextProvider";
 import DevicesIcon from "@material-ui/icons/Devices";
 import BuildIcon from "@material-ui/icons/Build";
 
-function CategoriesSideBar() {
+function CategoriesSideBar({category}) {
   const classes = useStyles();
-  const { priceMin, setPriceMin, priceMax, setPriceMax, condition, setCondition, search, setSearch } =
+  const { priceMin, setPriceMin, priceMax, setPriceMax, condition, setCondition, search, setSearch, setSort } =
     useContext(PriceContext);
   const [open, setOpen] = React.useState(false);
   const [openCondition, setOpenCondition] = React.useState(false);
   const [sortBy, setSortBy] = useState("");
-
   const history = useHistory();
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -59,7 +60,7 @@ function CategoriesSideBar() {
   }
 
   const handleSortBy = (event) => {
-
+    setSort(event.target.value)
   };
   const handleChangeMin = (event) => {
     setPriceMin(event.target.value);
@@ -77,7 +78,7 @@ function CategoriesSideBar() {
         // className={classes.root}
         variant="permanent"
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
       >
         <Toolbar />
@@ -91,15 +92,42 @@ function CategoriesSideBar() {
                     <MdSearch size="30" className={classes.iconSearch} />
                   ),
                   disableUnderline: true,
-                  className: classes.searchInput,
+                  className: classes.searchInput
                 }}
                 onChange={handleSearch}
               />
-            </form>{" "}
+            </form>{' '}
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => {
+                history.push('/category/homepage')
+              }}
+            >
+              <StorefrontIcon />
+              Browse All
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push('/inbox')}
+            >
+              <InboxIcon />
+              Inbox
+            </ListItem>
+            <ListItem
+              button
+              className={classes.root}
+              onClick={() => history.push('/mypage')}
+            >
+              <PersonIcon />
+              Your Account
+            </ListItem>
+            <Divider className={classes.dividerLine} />
             <ListItem
               button
               className={classes.createList}
-              onClick={() => alert("ok")}
+              onClick={() => history.push('/mylistings')}
             >
               <AddIcon />
               Create New Listing
@@ -115,69 +143,46 @@ function CategoriesSideBar() {
               className={classes.root}
               onClick={() => setOpenPopup(true)}
             >
-              bangkok, Thailand within 60 km
+              Bangkok, Thailand within 60 km
             </ListItem>
           </List>
           <List>
-            <ListItem
-              button
-              className={classes.buttonListAccount}
-              onClick={handleClick}
-            >
-              <ListItemText primary="Sort by" />
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={open} timeout="auto">
-              <List component="div" disablePadding>
-                <RadioGroup>
-                  {RadioSort.map((radio, idx) => {
-                    return (
-                      <ListItem key={idx}>
-                        <ListItemText primary={radio.primary} />
-                        <ListItemSecondaryAction>
-                          <Radio
-                            className={classes.RadioCheck}
-                          
-                            value={radio.primary}
-                            onChange={handleSortBy}
-                          />
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    );
-                  })}
-                </RadioGroup>
-              </List>
-            </Collapse>
-            {/* item condition Not show in Vehicle page*/}
-            <ListItem
-              button
-              className={classes.buttonListAccount}
-              onClick={handleClickCondition}
-            >
-              <ListItemText primary="Item Condition" />
-              {openCondition ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={openCondition} timeout="auto">
-              <List component="div" disablePadding>
-                <RadioGroup>
-                  {RadioCondition.map((radio, idx) => {
-                    return (
-                      <ListItem key={idx}>
-                        <ListItemText primary={radio.primary} />
-                        <ListItemSecondaryAction>
-                          <Radio
-                            className={classes.RadioCheck}
-                            checked={condition === radio.primary}
-                            value={radio.primary}
-                            onChange={handleChangeCondition}
-                          />
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    );
-                  })}
-                </RadioGroup>
-              </List>
-            </Collapse>
+            {category !== 'Property-Rentals' &&
+            category !== 'vehicle' &&
+            category !== 'Home-Sales' ? (
+              <>
+                <ListItem
+                  button
+                  className={classes.buttonListAccount}
+                  onClick={handleClickCondition}
+                >
+                  <ListItemText primary="Item Condition" />
+                  {openCondition ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={openCondition} timeout="auto">
+                  <List component="div" disablePadding>
+                    <RadioGroup>
+                      {RadioCondition.map((radio, idx) => {
+                        return (
+                          <ListItem key={idx}>
+                            <ListItemText primary={radio.primary} />
+                            <ListItemSecondaryAction>
+                              <Radio
+                                className={classes.RadioCheck}
+                                checked={condition === radio.primary}
+                                value={radio.primary}
+                                onChange={handleChangeCondition}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        )
+                      })}
+                    </RadioGroup>
+                  </List>
+                </Collapse>
+              </>
+            ) : null}
+
             <ListItem>Price</ListItem>
             <Box className={classes.priceMinMax}>
               <Box>
@@ -185,7 +190,7 @@ function CategoriesSideBar() {
                   placeholder="min"
                   InputProps={{
                     disableUnderline: true,
-                    className: classes.searchPrice,
+                    className: classes.searchPrice
                   }}
                   onChange={handleChangeMin}
                 />
@@ -198,7 +203,7 @@ function CategoriesSideBar() {
                   placeholder="max"
                   InputProps={{
                     disableUnderline: true,
-                    className: classes.searchPrice,
+                    className: classes.searchPrice
                   }}
                   onChange={handleChangeMax}
                 />
@@ -210,11 +215,11 @@ function CategoriesSideBar() {
 
           <List>
             <ListItem>
-              {" "}
+              {' '}
               <Typography
                 variant="h5"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Categories
               </Typography>
@@ -222,13 +227,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/vehicle")}
+              onClick={() => history.push('/category/vehicle')}
             >
               <DriveEtaIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Vehicle
               </Typography>
@@ -236,13 +241,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Property-Rentals")}
+              onClick={() => history.push('/category/Property-Rentals')}
             >
               <HomeWorkIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Property Rentals
               </Typography>
@@ -250,13 +255,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
+              onClick={() => history.push('/category/ITEM')}
             >
               <LoyaltyIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Goods
               </Typography>
@@ -264,13 +269,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Electronics")}
+              onClick={() => history.push('/category/Electronics')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Electronics
               </Typography>
@@ -278,13 +283,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Clothing-&-Accessories")}
+              onClick={() => history.push('/category/Clothing-&-Accessories')}
             >
               <WatchIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Apparel
               </Typography>
@@ -292,13 +297,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Home-Sales")}
+              onClick={() => history.push('/category/Home-Sales')}
             >
               <HomeIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Home Sales
               </Typography>
@@ -306,13 +311,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Family")}
+              onClick={() => history.push('/category/Family')}
             >
               <InsertEmoticonIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Family
               </Typography>
@@ -320,13 +325,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Free-Stuff")}
+              onClick={() => history.push('/category/Free-Stuff')}
             >
               <LoyaltyIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Free Stuff
               </Typography>
@@ -334,13 +339,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Garden-&-Outdoor")}
+              onClick={() => history.push('/category/Garden-&-Outdoor')}
             >
               <BuildIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Garden &amp; Outdoor
               </Typography>
@@ -348,13 +353,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Hobbies")}
+              onClick={() => history.push('/category/Hobbies')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Hobbies
               </Typography>
@@ -362,13 +367,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Home-Goods")}
+              onClick={() => history.push('/category/Home-Goods')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Home Goods
               </Typography>
@@ -377,14 +382,14 @@ function CategoriesSideBar() {
               button
               className={classes.root}
               onClick={() =>
-                history.push("/category/Home-Improvement-Supplies")
+                history.push('/category/Home-Improvement-Supplies')
               }
             >
               <BuildIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Home Improvement Supplies
               </Typography>
@@ -392,13 +397,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Musical-Instruments")}
+              onClick={() => history.push('/category/Musical-Instruments')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Musical Instruments
               </Typography>
@@ -406,13 +411,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Office-Supplies")}
+              onClick={() => history.push('/category/Office-Supplies')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Office Supplies
               </Typography>
@@ -420,13 +425,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Pet-Supplies")}
+              onClick={() => history.push('/category/Pet-Supplies')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Pet Supplies
               </Typography>
@@ -434,13 +439,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Sporting-Goods")}
+              onClick={() => history.push('/category/Sporting-Goods')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Sporting Goods
               </Typography>
@@ -448,13 +453,13 @@ function CategoriesSideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/Toys-&-Games")}
+              onClick={() => history.push('/category/Toys-&-Games')}
             >
               <DevicesIcon />
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ marginLeft: "1rem" }}
+                style={{ marginLeft: '1rem' }}
               >
                 Toys &amp; Games
               </Typography>
@@ -467,6 +472,6 @@ function CategoriesSideBar() {
         />
       </Drawer>
     </>
-  );
+  )
 }
 export default CategoriesSideBar;
