@@ -6,12 +6,11 @@ import { blue, deepOrange } from "@material-ui/core/colors";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Router } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
-import {
-  ThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+import SocketContextProvider from "./context/SocketContextProvider";
 import AccountContextProvider from "./context/AccountContextProvider";
 import PriceContextProvider from "./context/PriceContextProvider";
+import PayloadContextProvider from "./context/PayloadContextProvider";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     primary: blue,
@@ -25,17 +24,21 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-      <PriceContextProvider>
-    <AccountContextProvider>
-      <AuthContextProvider>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ThemeProvider>
-      </AuthContextProvider>
-    </AccountContextProvider>
-      </PriceContextProvider>
+    <SocketContextProvider>
+      <PayloadContextProvider>
+        <PriceContextProvider>
+          <AccountContextProvider>
+            <AuthContextProvider>
+              <ThemeProvider theme={theme}>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </ThemeProvider>
+            </AuthContextProvider>
+          </AccountContextProvider>
+        </PriceContextProvider>
+      </PayloadContextProvider>
+    </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

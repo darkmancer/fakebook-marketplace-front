@@ -9,6 +9,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import { useStylesProductDetail } from "../../UseStyleProductDetail";
 import CommerceProfileModal from "../../CommerceProfileModal";
+import MessageBox from "../../Messenger/MessageBox";
 import CloseIcon from "@material-ui/icons/Close";
 import {
   AppBar,
@@ -24,6 +25,7 @@ import {
 function GoodsDetail() {
   const classes = useStylesProductDetail();
   const [openPopup, setOpenPopup] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const history = useHistory();
   return (
     <>
@@ -51,6 +53,7 @@ function GoodsDetail() {
           <Box className={classes.buttonList}>
             <Box flexGrow={1}>
               <Button
+                onClick={() => setOpenChat(true)}
                 fullWidth
                 variant="contained"
                 color="default"
@@ -102,6 +105,7 @@ function GoodsDetail() {
         </div>
       </Drawer>
       <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
     </>
   );
 }
