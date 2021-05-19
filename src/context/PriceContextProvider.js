@@ -6,10 +6,12 @@ export const PriceContext = createContext();
 function PriceContextProvider({ children }) {
   //  const [state, dispatch] = useReducer(reducer, initialState, init)
    const [priceMin, setPriceMin] = useState(0);
-   const [priceMax, setPriceMax] = useState(0);
+  const [priceMax, setPriceMax] = useState(0);
+  const [condition, setCondition] = useState("All");
+  const [search, setSearch] = useState(null);
 
   return (
-    <PriceContext.Provider value={{priceMin, setPriceMin, priceMax, setPriceMax }}>
+    <PriceContext.Provider value={{priceMin, setPriceMin, priceMax, setPriceMax, condition, setCondition, search, setSearch }}>
       {children}
     </PriceContext.Provider>
   );

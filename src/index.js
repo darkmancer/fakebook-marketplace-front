@@ -6,13 +6,15 @@ import { blue, deepOrange } from "@material-ui/core/colors";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Router } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
+import SocketContextProvider from "./context/SocketContextProvider";
+import AccountContextProvider from "./context/AccountContextProvider";
+import PriceContextProvider from "./context/PriceContextProvider";
+import LocationContextProvider from "./context/LocationContextProvider";
+import PayloadContextProvider from "./context/PayloadContextProvider";
 import {
   ThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import AccountContextProvider from "./context/AccountContextProvider";
-import PriceContextProvider from "./context/PriceContextProvider";
-import LocationContextProvider from "./context/LocationContextProvider";
 const theme = createMuiTheme({
   palette: {
     primary: blue,
@@ -26,19 +28,21 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <LocationContextProvider>
-      <PriceContextProvider>
-        <AccountContextProvider>
-          <AuthContextProvider>
-            <ThemeProvider theme={theme}>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </ThemeProvider>
-          </AuthContextProvider>
-        </AccountContextProvider>
-      </PriceContextProvider>
-    </LocationContextProvider>
+    <SocketContextProvider>
+      <PayloadContextProvider>
+        <PriceContextProvider>
+          <AccountContextProvider>
+            <AuthContextProvider>
+              <ThemeProvider theme={theme}>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </ThemeProvider>
+            </AuthContextProvider>
+          </AccountContextProvider>
+        </PriceContextProvider>
+      </PayloadContextProvider>
+    </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
