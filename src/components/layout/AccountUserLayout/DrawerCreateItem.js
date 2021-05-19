@@ -12,6 +12,8 @@ import {
   Avatar,
   Paper,
   Typography,
+  CircularProgress,
+  Backdrop,
 } from "@material-ui/core";
 import InputTag from "./InputTag";
 import { Category, condition } from "./CategoryMap";
@@ -28,10 +30,12 @@ import {
 } from "react-icons/md";
 import { IconButton } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { getCurrentLocation, locationName } from "./functionGeocode";
+import { getCurrentLocation, LocationName } from "./functionGeocode";
+import axios from "../../../config/axios";
 function DrawerCreateItem() {
   const history = useHistory();
   const [boost, setBoost] = useState(false);
+  const [loading, setLoading] = useState(false);
   const toggleBoost = () => {
     setBoost((prev) => !prev);
     console.log(boost);
@@ -57,12 +61,15 @@ function DrawerCreateItem() {
   useEffect(() => {
     async function getLocation() {
       const currentLocation = await getCurrentLocation();
-      console.log(locationName(currentLocation));
+      console.log(LocationName(currentLocation));
     }
     getLocation();
   }, []);
+  const location = localStorage.getItem("CurLocation");
+  const address = localStorage.getItem("Address");
   const [tags, setTags] = React.useState([]);
-  const optional = tags.join("");
+  const optional = tags.join(",");
+  console.log(tags, optional);
   const [item, setItem] = useState({
     title: "",
     price: "",
@@ -70,8 +77,69 @@ function DrawerCreateItem() {
     subCategory: "",
     condition: "",
     description: "",
-    location: "",
+    location: location,
   });
+  const onChangeFilePhotos = (e) => {
+    setShowPhotos([...showPhotos]);
+    if (photos.length !== 0) {
+      setPhotos((prev) => [...prev, e.target.files[0]]);
+      setShowPhotos([
+        ...showPhotos,
+        { file: URL.createObjectURL(e.target.files[0]) },
+      ]);
+    } else {
+      setPhotos([e.target.files[0]]);
+      setShowPhotos([
+        { file: URL.createObjectURL(e.target.files[0]) },
+      ]);
+    }
+  };
+
+  console.log(photos);
+  const onPublishSubmit = async () => {
+    // console.log(item);
+    // console.log(photos);
+    setLoading(true);
+    try {
+      const {
+        title,
+        price,
+        category,
+        subCategory,
+        condition,
+        description,
+        location,
+      } = item;
+      console.log(photos);
+
+      const myFormData = new FormData();
+      myFormData.append("title", title);
+      myFormData.append("category", category);
+      myFormData.append("subCategory", subCategory);
+      myFormData.append("condition", condition);
+      myFormData.append("description", description);
+      myFormData.append("optional", optional);
+      myFormData.append("location", location);
+      myFormData.append("price", price);
+      myFormData.append("boost", boost);
+      myFormData.append("productType", "ITEM");
+      // myFormData.append("multiImage", photos);
+
+      for (let i = 0; i < photos.length; i++) {
+        myFormData.append("multiImage", photos[i]);
+      }
+      const res = await axios.post(
+        "/product/create-product",
+        myFormData
+      );
+      if (res) {
+        setLoading(false);
+        history.push("/mypage");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const onChangeItem = (e) => {
     let values = e.target.value;
@@ -150,23 +218,9 @@ function DrawerCreateItem() {
     }
     setItem((prev) => ({ ...prev, [name]: value }));
   };
-  const onChangeFilePhotos = (e) => {
-    setShowPhotos([...showPhotos]);
-    if (photos.length !== 0) {
-      setPhotos((prev) => [...prev, e.target.files[0]]);
-      setShowPhotos([
-        ...showPhotos,
-        { file: URL.createObjectURL(e.target.files[0]) },
-      ]);
-    } else {
-      setPhotos(e.target.files);
-      setShowPhotos([
-        { file: URL.createObjectURL(e.target.files[0]) },
-      ]);
-    }
-  };
 
   const classes = useStyles();
+  console.log(item);
   return (
     <div className={classes.flexPageCreateItem}>
       <Paper className={classes.paperContainer}>
@@ -309,7 +363,7 @@ function DrawerCreateItem() {
               onChange={onChangeItem}
               className={classes.Selector}
               inputProps={{
-                name: "category",
+                name: "subCategory",
                 id: "category-field",
                 classes: {
                   icon: classes.SelectIcon,
@@ -381,7 +435,11 @@ function DrawerCreateItem() {
             variant="outlined"
             label="Location"
             name="location"
-            onChange={onChangeItem}
+            value={address}
+            multiline
+            rows={4}
+            readOnly
+            // onChange={onChangeItem}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -407,6 +465,7 @@ function DrawerCreateItem() {
             disabled={
               item.title === "" && item.price === "" ? true : false
             }
+            onClick={onPublishSubmit}
             className={classes.ButtonPublish}
             endIcon={<MdPublic />}>
             Publish
@@ -414,7 +473,15 @@ function DrawerCreateItem() {
         </Box>
       </Paper>
 
-      <PhotoPreview showPhotos={showPhotos} item={item} tags={tags} />
+      <PhotoPreview
+        showPhotos={showPhotos}
+        item={item}
+        tags={tags}
+        address={address}
+      />
+      <Backdrop className={classes.backdrop} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

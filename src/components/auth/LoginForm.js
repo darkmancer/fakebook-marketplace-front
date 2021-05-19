@@ -22,15 +22,19 @@ function LoginForm() {
     setUser((prev) => ({ ...prev, [name]: value }));
   };
   const handleOnClick = async () => {
-    const { email, password } = user;
-    if (email === "" || password === "") {
-      return setError(true);
-    }
-    const res = await axios.post("/sign-in", { email, password });
-    if (res) {
-      setIsAuthenticated(true);
-      await setToken(res.data.token);
-      history.push("/homepage");
+    try {
+      const { email, password } = user;
+      if (email === "" || password === "") {
+        return setError(true);
+      }
+      const res = await axios.post("/sign-in", { email, password });
+      if (res) {
+        setIsAuthenticated(true);
+        await setToken(res.data.token);
+        history.push("/homepage");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
   const handleEnter = async (e) => {

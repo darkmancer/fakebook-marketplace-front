@@ -11,7 +11,7 @@ import {
 import { Chip } from "@material-ui/core";
 import Carousel from "react-gallery-carousel";
 
-function PhotoPreview({ showPhotos, item, tags }) {
+function PhotoPreview({ showPhotos, item, tags, address }) {
   const classes = useStyles();
   const images = showPhotos.map((pic) => ({
     src: `${pic.file}`,
@@ -85,7 +85,7 @@ function PhotoPreview({ showPhotos, item, tags }) {
               </div>
             </Typography>
             <Typography className={classes.contentPreview}>
-              Location : {item.location}
+              Location : {address}
             </Typography>
 
             <Divider className={classes.DividerModal} light />

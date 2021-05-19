@@ -111,6 +111,10 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: "grey",
     },
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
   CancelIcon: {
     position: "relative",
     bottom: 90,
