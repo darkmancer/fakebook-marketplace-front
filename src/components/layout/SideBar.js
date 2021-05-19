@@ -109,7 +109,7 @@ function SideBar() {
               className={classes.root}
               onClick={() => setOpenPopup(true)}
             >
-              bangkok, Thailand within 60 km
+              Bangkok, Thailand within 60 km
             </ListItem>
           </List>
 

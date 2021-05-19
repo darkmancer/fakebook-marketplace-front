@@ -49,11 +49,11 @@ function CategoryPage() {
       <Header className={classes.appBar} position="fixed" />
 
       <nav className={classes.drawer}>
-        <CategoriesSideBar />
+        <CategoriesSideBar category={category} />
       </nav>
 
       <main className={classes.content}>
-        <DynamicContent category={category}/>
+        <DynamicContent category={category} />
       </main>
     </div>
   );
