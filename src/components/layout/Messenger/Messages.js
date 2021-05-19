@@ -1,23 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import axios from "../../../config/axios";
 import { socket, SocketContext } from "../../../context/SocketContextProvider";
-import { Box, List, ListItem, ListItemText, Slide } from "@material-ui/core";
+import { Box, List, ListItem, ListItemText, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as localStorage from "../../../services/localStorageService";
+import { PayloadContext } from "../../../context/PayloadContextProvider";
 
 const useStyles = makeStyles((theme) => ({
   text: {
     display: "flex",
-    flexDirection: "column-reverse",
-    alignItems: "flex-start",
+    width: "fit-content",
   },
   textSender: {
-    display: "flex",
-    flexDirection: "column-reverse",
-
-    maxWidth: "200",
+    display: "inline-block",
+    textAlign: "right",
     borderRadius: 5,
-    alignItems: "flex-end",
     padding: theme.spacing(1),
   },
   messageList: {
@@ -26,45 +23,45 @@ const useStyles = makeStyles((theme) => ({
   },
   colorBlue: {
     backgroundColor: "#1092F3",
-    maxWidth: "200",
+    display: "inline-block",
+    width: "fit-content",
     borderRadius: 5,
     padding: theme.spacing(1),
   },
   colorGrey: {
     backgroundColor: "#3A3B3C",
-    maxWidth: "200",
     borderRadius: 5,
     padding: theme.spacing(1),
   },
+  avatarSeller: {
+    display: "flex",
+  },
 }));
 
-function Messages({ own }) {
+function Messages({ receiverId, seller }) {
   const scrollRef = useRef();
   const [texts, setTexts] = useState([]);
   const [arriveMessages, setArriveMessages] = useState(null);
-
+  const { payload, setPayload } = useContext(PayloadContext);
   const [sender, setSender] = useState([]);
   const [receiver, setReceiver] = useState([]);
+  const [test, setTest] = useState([]);
+  console.log(test);
+  console.log(texts);
+  console.log(receiverId);
+  console.log(arriveMessages);
 
   // console.log("sender", sender);
   // console.log("receiver", receiver);
 
   console.log("arriveMessages", arriveMessages);
-  const receiverId = "16";
 
   const getMessages = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:8001/message/" + receiverId,
+      const res = await axios.get(`/message/${receiverId}`);
 
-        { headers: { authorization: `Bearer ${localStorage.getToken()}` } }
-      );
-      // console.log("message-res", res.data.messages.Receiver);
-
+      console.log(res.data.messages);
       setTexts(res.data.messages);
-      // setSender(res.data.messages.Sender);
-      // setReceiver(res.data.messages.Receiver);
-      //getMessages();
     } catch (err) {
       console.log(err);
     }
@@ -77,10 +74,16 @@ function Messages({ own }) {
   useEffect(() => {
     socket.on("getMessage", (data) => {
       setArriveMessages({
+        receiverId: `${receiverId}`,
         text: data.text,
       });
     });
   }, []);
+
+  // socket.on("hello", (data) => {
+  //   io.emit("")
+  //   setTest(data);
+  // });
 
   useEffect(() => {
     arriveMessages && setTexts((prev) => [...prev, arriveMessages]);
@@ -97,11 +100,26 @@ function Messages({ own }) {
         {texts.map((text, index) => (
           <ListItem
             ref={scrollRef}
-            className={text.Sender ? classes.textSender : classes.text}
+            className={
+              text.receiverId == receiverId ? classes.textSender : classes.text
+            }
           >
+            {text.receiverId == receiverId ? null : (
+              <Avatar
+                alt="receiver-profile"
+                src={seller.Avatar}
+                style={{ display: "inline" }}
+                // className={classes.avatarSeller}
+              />
+            )}
             <ListItemText
-              className={text.Sender ? classes.colorBlue : classes.colorGrey}
+              className={
+                text.receiverId == receiverId
+                  ? classes.colorBlue
+                  : classes.colorGrey
+              }
             >
+              {/* <span>{text.text}</span> */}
               {text.text}
             </ListItemText>
           </ListItem>

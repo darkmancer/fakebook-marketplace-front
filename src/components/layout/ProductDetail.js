@@ -40,22 +40,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProductDetail({ product, trigger, setTrigger }) {
+function ProductDetail({ product, trigger, setTrigger, id }) {
   const [seller, setSeller] = useState(null);
   const classes = { ...useStylesProductDetail(), ...useStyles() };
   const [open, setOpen] = React.useState(false);
   const [triggerSave, setTriggerSaved] = useState(false);
   const [openChat, setOpenChat] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // const classes = useStylesProductDetail();
   const history = useHistory();
 
+  console.log(seller);
   useEffect(() => {
     const fetchSeller = async () => {
       try {
         const res = await axios.get(`/seller/${product.userId}`);
+        // const res = await axios.get(`/seller/${id}`);
 
         setSeller(res.data.sellerProfile);
+        setIsLoading(false);
       } catch (err) {
         console.log(`err`, err);
       }
@@ -78,6 +82,7 @@ function ProductDetail({ product, trigger, setTrigger }) {
     console.log(res);
   };
   console.log(triggerSave);
+  if (isLoading) return <p>loading</p>;
   return (
     <>
       <div style={{ overflow: "scroll" }}>
@@ -200,7 +205,12 @@ function ProductDetail({ product, trigger, setTrigger }) {
 
       <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
 
-      <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
+      <MessageBox
+        seller={seller}
+        openChat={openChat}
+        setOpenChat={setOpenChat}
+        receiverId={id}
+      />
     </>
   );
 }

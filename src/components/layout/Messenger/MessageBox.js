@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
-import axios from "axios";
 import * as localStorage from "../../../services/localStorageService";
 import { SocketContext } from "../../../context/SocketContextProvider";
 import {
@@ -18,12 +17,11 @@ import Messages from "./Messages";
 import SendIcon from "@material-ui/icons/Send";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
+import axios from "../../../config/axios";
 
 const modalStyle = {
   top: `30%`,
   right: `5%`,
-  //bottom: `0%`,
-  //transform: `translate(-50%, -50%)`,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -65,25 +63,23 @@ const useStyles = makeStyles((theme) => ({
 function MessageBox(props) {
   const classes = useStyles();
   const [newMessage, setNewMessage] = useState("");
-  const { openChat, setOpenChat } = props;
+  const { openChat, setOpenChat, seller } = props; //seller fetch จากหน้า ProductDetail มาไม่ทันเลยใส่ isloading ไว้หน้า productdetail
   const { socket } = useContext(SocketContext);
+
+  //id ที่รับเข้ามาคือ id.param ของ product
 
   const handleSendTexts = async (e) => {
     e.preventDefault();
 
     // e.target.scroll({ top: target.scrollHeight, behavior: "smooth" });
-    const receiverId = "16";
+    //const receiverId = "16";
 
     socket.emit("sendMessage", { text: newMessage });
 
     try {
-      const res = await axios.post(
-        "http://localhost:8001/message/" + receiverId,
-
-        { text: newMessage },
-
-        { headers: { authorization: `Bearer ${localStorage.getToken()}` } }
-      );
+      const res = await axios.post(`/message/${seller?.id}`, {
+        text: newMessage,
+      });
       console.log("res", res);
       setNewMessage("");
       //setText([...text, res.data.messages.text]);
@@ -99,12 +95,10 @@ function MessageBox(props) {
   const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
-        <Avatar
-          alt="receiver-profile"
-          src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620209841/GroupProject/nIEli5jE_400x400_yjuvb2.jpg"
-        />
-        <Typography>RECEIVER_ID_NAME/SELLER_ID</Typography>
-
+        <Avatar alt="receiver-profile" src={seller.Avatar} />
+        <Typography>
+          {seller.firstName} {seller.lastName}
+        </Typography>
         <Button color="primary">
           <CloseIcon onClick={handleOnClose} />
         </Button>
@@ -112,7 +106,7 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages />
+      <Messages receiverId={seller.id} seller={seller} />
 
       <Box className={classes.chatFooter}>
         <TextField
