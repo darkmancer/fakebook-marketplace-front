@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   Drawer,
   Toolbar,
@@ -15,73 +15,83 @@ import {
   Radio,
   RadioGroup,
   Input,
-  Typography,
-} from "@material-ui/core";
+  Typography
+} from '@material-ui/core'
 import InboxIcon from '@material-ui/icons/Inbox'
 import PersonIcon from '@material-ui/icons/Person'
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-import HomeIcon from "@material-ui/icons/Home";
-import WatchIcon from "@material-ui/icons/Watch";
-import HomeWorkIcon from "@material-ui/icons/HomeWork";
-import DriveEtaIcon from "@material-ui/icons/DriveEta";
-import StorefrontIcon from "@material-ui/icons/Storefront";
-import LoyaltyIcon from "@material-ui/icons/Loyalty";
-import AddIcon from "@material-ui/icons/Add";
-import Header from "../Header";
-import { useStyles } from "./StyleCatSideBar";
-import FilterLocationModal from "../FilterLocationModal";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import { RadioCondition, RadioSort } from "../AccountUserLayout/RadioMap";
-import { MdSearch } from "react-icons/md";
-import { PriceContext } from "../../../context/PriceContextProvider";
-
-import DevicesIcon from "@material-ui/icons/Devices";
-import BuildIcon from "@material-ui/icons/Build";
-import AndroidIcon from '@material-ui/icons/Android';
-import AudiotrackIcon from '@material-ui/icons/Audiotrack';
-import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
-import GolfCourseIcon from '@material-ui/icons/GolfCourse';
-import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
+import HomeIcon from '@material-ui/icons/Home'
+import WatchIcon from '@material-ui/icons/Watch'
+import HomeWorkIcon from '@material-ui/icons/HomeWork'
+import DriveEtaIcon from '@material-ui/icons/DriveEta'
+import StorefrontIcon from '@material-ui/icons/Storefront'
+import LoyaltyIcon from '@material-ui/icons/Loyalty'
+import AddIcon from '@material-ui/icons/Add'
+import Header from '../Header'
+import { useStyles } from './StyleCatSideBar'
+import FilterLocationModal from '../FilterLocationModal'
+import { ExpandLess, ExpandMore } from '@material-ui/icons'
+import { RadioCondition, RadioSort } from '../AccountUserLayout/RadioMap'
+import { MdSearch } from 'react-icons/md'
+import { PriceContext } from '../../../context/PriceContextProvider'
+import { GeocodeContext } from '../../../context/GeocodeContextProvider'
+import DevicesIcon from '@material-ui/icons/Devices'
+import BuildIcon from '@material-ui/icons/Build'
+import AndroidIcon from '@material-ui/icons/Android'
+import AudiotrackIcon from '@material-ui/icons/Audiotrack'
+import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly'
+import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike'
+import GolfCourseIcon from '@material-ui/icons/GolfCourse'
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports'
 import SportsFootballIcon from '@material-ui/icons/SportsFootball'
 import EmojiNatureIcon from '@material-ui/icons/EmojiNature'
 import TodayIcon from '@material-ui/icons/Today'
 import GitHubIcon from '@material-ui/icons/GitHub'
 
-function CategoriesSideBar({category}) {
-  const classes = useStyles();
-  const { priceMin, setPriceMin, priceMax, setPriceMax, condition, setCondition, search, setSearch, setSort } =
-    useContext(PriceContext);
- 
-  const [open, setOpen] = React.useState(false);
-  const [openCondition, setOpenCondition] = React.useState(false);
-  const [sortBy, setSortBy] = useState("");
-  const history = useHistory();
+function CategoriesSideBar({ category }) {
+  const classes = useStyles()
+  const {
+    priceMin,
+    setPriceMin,
+    priceMax,
+    setPriceMax,
+    condition,
+    setCondition,
+    search,
+    setSearch,
+    setSort
+  } = useContext(PriceContext)
+   const {address, setAddress, radius } = useContext(GeocodeContext)
+
+  const [open, setOpen] = React.useState(false)
+  const [openCondition, setOpenCondition] = React.useState(false)
+  const [sortBy, setSortBy] = useState('')
+  const history = useHistory()
   const handleClick = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+    setOpen((prevOpen) => !prevOpen)
+  }
   const handleClickCondition = () => {
-    setOpenCondition((prevOpen) => !prevOpen);
-  };
+    setOpenCondition((prevOpen) => !prevOpen)
+  }
 
   const handleChangeCondition = (event) => {
     setCondition(event.target.value)
-  };
+  }
   const handleSearch = (event) => {
     setSearch(event.target.value)
   }
 
   const handleSortBy = (event) => {
     setSort(event.target.value)
-  };
+  }
   const handleChangeMin = (event) => {
-    setPriceMin(event.target.value);
-  };
+    setPriceMin(event.target.value)
+  }
   const handleChangeMax = (event) => {
-    setPriceMax(event.target.value);
-  };
-  console.log(priceMin, priceMax);
-  const [openPopup, setOpenPopup] = useState(false);
+    setPriceMax(event.target.value)
+  }
+  console.log(priceMin, priceMax)
+  const [openPopup, setOpenPopup] = useState(false)
   return (
     <>
       <Header />
@@ -155,7 +165,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => setOpenPopup(true)}
             >
-              Bangkok, Thailand within 60 km
+              {address} within {radius} km
             </ListItem>
           </List>
           <List>
@@ -193,7 +203,9 @@ function CategoriesSideBar({category}) {
                   </List>
                 </Collapse>
               </>
-            ) : null}
+            ) : (
+              setCondition(null)
+            )}
 
             <ListItem>Price</ListItem>
             <Box className={classes.priceMinMax}>
@@ -486,4 +498,4 @@ function CategoriesSideBar({category}) {
     </>
   )
 }
-export default CategoriesSideBar;
+export default CategoriesSideBar

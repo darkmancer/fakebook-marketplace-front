@@ -1,22 +1,25 @@
 import { createContext } from 'react'
 import { useState, useEffect } from 'react'
-import { getCurrentLocation, locationName } from '../utilities/Geocode'
+import { getCurrentLatLng, getAddress } from '../utilities/Geocode'
 
 export const GeocodeContext = createContext()
 
 function GeocodeContextProvider({ children }) {
   //  const [state, dispatch] = useReducer(reducer, initialState, init)
 
-  const [geocode, setGeocode] = useState(0)
+  const [geocode, setGeocode] = useState('')
   const [radius, setRadius] = useState(60)
-  const [address, setAddress] = useState("")
+  const [address, setAddress] = useState('')
+
   useEffect(() => {
     async function getLocation() {
-      const currentLocation = await getCurrentLocation()
-      console.log(currentLocation)
-      setGeocode(currentLocation)
-      console.log(locationName(currentLocation))
+      const currentLatLng = await getCurrentLatLng()
+      console.log(currentLatLng)
+      setGeocode(currentLatLng)
+      const currentAddress = await getAddress(currentLatLng)
+      setAddress(currentAddress)
     }
+  
     getLocation()
   }, [])
 

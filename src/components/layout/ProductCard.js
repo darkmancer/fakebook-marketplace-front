@@ -6,7 +6,9 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import RoomIcon from "@material-ui/icons/Room";
 import { useStylesContent } from "./UseStyleContent";
 import "./Content.css";
-function ProductCard({ product,size, setOpen, setTrigger, trigger}) {
+import { getAddress } from '../../utilities/Geocode'
+function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
+  const [address, setAddress] = React.useState('')
   const classes = useStylesContent();
   const history = useHistory();
   function handleClick() {
@@ -16,6 +18,21 @@ function ProductCard({ product,size, setOpen, setTrigger, trigger}) {
     console.log(product.id)
     window.location.reload()
   }
+  const convertLatLngToAddress = async() => {
+    const address = await getAddress(product.location)
+    return address
+  } 
+ 
+  React.useEffect(() => {
+    const setAdd = async () => {
+      console.log('inside')
+      const loName = await getAddress(product.location)
+      setAddress(loName)
+    }
+    setAdd()
+  }, [])
+  console.log(address)
+
   if (size === "mini") {
     return (
       <div
@@ -67,14 +84,14 @@ function ProductCard({ product,size, setOpen, setTrigger, trigger}) {
           onClick={() => history.push(`/select/product/${product.id}`)}
         />
         <Typography variant="h4" component="p" style={{ color: "white" }}>
-          {product?.location.includes("Thailand") ? "฿" : "$"}
+          {address?.includes("Thailand") ? "฿" : "$"}
           {product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </Typography>
         <Typography variant="h5" component="p" style={{ color: "white" }}>
           {product?.title}{" "}
         </Typography>
         <Typography variant="h6" component="p" style={{ color: "white" }}>
-          {product?.location}{" "}
+         {address}
         </Typography>
       </div>
     );

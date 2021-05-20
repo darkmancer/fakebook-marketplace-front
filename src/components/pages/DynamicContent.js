@@ -1,30 +1,31 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Box, Grid } from '@material-ui/core'
+import { Box, Grid, Container } from '@material-ui/core'
 import { useStylesContent } from '../layout/UseStyleContent'
 import RoomIcon from '@material-ui/icons/Room'
 import { GeocodeContext } from '../../context/GeocodeContextProvider'
 import ProductCard from '../layout/ProductCard'
 import axios from '../../config/axios'
-import {calcDistance} from '../../utilities/Geocode'
+import { calcDistance } from '../../utilities/Geocode'
 import '../layout/Content.css'
 import { PriceContext } from '../../context/PriceContextProvider'
 
 const useForceUpdate = () => useState()[1]
 
 function Content({ category }) {
-  const forceUpdate = useForceUpdate()
+  
   const [products, setProducts] = useState([])
   const classes = useStylesContent()
   const { priceMin, priceMax, condition, search, sort } =
     useContext(PriceContext)
-   const { geocode, setGeocode, setRadius, radius, address, setAddress } =
-     useContext(GeocodeContext)
+  const { geocode, setGeocode, setRadius, radius, address, setAddress } =
+    useContext(GeocodeContext)
+
   const filterProducts = (products) => {
     return products
       ?.filter((product) => {
         if (!condition || condition === 'All') return product
-        console.log('filtered works', product)
+
         return product.condition === condition
       })
       ?.filter((product) => {
@@ -37,17 +38,22 @@ function Content({ category }) {
         }
       })
   }
-  const locationFilter = (products) => {
+  const locationFilter = async (products) => {
     return products?.filter((product) => {
-      console.log("working")
-      return calcDistance(product.location,geocode) <= +radius
+      console.log(product.location)
+      console.log(calcDistance(product.location, geocode))
+      console.log(+radius)
+      if (calcDistance(product.location, geocode) <= +radius) return product
     })
   }
   const fetchProduct = async () => {
     try {
       const res = await axios.get(`/product/get-by-category/${category}`)
+
       const filteredProducts = filterProducts(res.data.products)
-      setProducts(filteredProducts)
+      const filteredProductsByLocation = await locationFilter(filteredProducts)
+      setProducts(filteredProductsByLocation)
+      console.log(filteredProductsByLocation)
     } catch (err) {
       console.log(`err`, err)
     }
@@ -55,81 +61,91 @@ function Content({ category }) {
   const fetchBrowseAll = async () => {
     try {
       const res = await axios.get(`/product/get-all-product`)
-      const filteredProducts = filterProducts(res.data.products)
-      const filteredProducts2 = locationFilter(filteredProducts)
-      setProducts(filteredProducts2)
-      console.log(filteredProducts2)
+
+      console.log(`res.data`, res.data.products)
+      if (res.data.products) {
+        const filteredProducts = filterProducts(res.data.products)
+        const filteredProductsByLocation = await locationFilter(
+          filteredProducts
+        )
+        if (filteredProductsByLocation) {
+          setProducts(filteredProductsByLocation)
+        }
+      } else {
+        setProducts(res.data.products)
+      }
     } catch (err) {
       console.log(`err`, err)
     }
   }
 
-
-
   useEffect(() => {
-    if (!category) {
-      fetchBrowseAll()
-    } else {
+    if (category) {
       fetchProduct()
+    } else {
+      fetchBrowseAll()
     }
-  }, [category, condition, search,radius])
-
-
-
-
+  }, [category, condition, search, radius, address])
 
   return (
-    <Box>
-      <Box className={classes.containerText}>
-        <h2 className={classes.text}>
-          Today's Pick {priceMin} {priceMax} {condition} {search} {sort} {geocode} {address} {radius}
-        </h2>
-        <h5 className="location-text">
-          <RoomIcon />
-          Bangkok 60km
-        </h5>
-      </Box>
-      <Grid container spacing={1}>
-        <Grid item xs={15}>
-          <Grid container justify="flex-start" spacing={3}>
-            {!priceMin && !priceMax
-              ? products?.map((product) => (
-                  <Grid item xs={3}>
-                    <ProductCard product={product} />
-                  </Grid>
-                ))
-              : priceMax && priceMin
-              ? products
-                  ?.filter(
-                    (product) =>
-                      +product.price <= priceMax && +product.price >= priceMin
-                  )
-                  .map((product) => (
+    <div>
+      <Box>
+        <Box className={classes.containerText}>
+          <h2 className={classes.text}>
+            Today's Pick {priceMin} {priceMax} {condition} {search} {sort}{' '}
+            {geocode} {address} {radius}
+          </h2>
+          <h5 className="location-text">
+            <RoomIcon />
+            {address} {radius}km
+          </h5>
+        </Box>
+         <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Grid
+              container
+              justify={products.length < 4 ? 'space-evenly' : 'flex-start'}
+              spacing={3}
+            >
+              {!priceMin && !priceMax
+                ? products?.map((product) => (
                     <Grid item xs={3}>
                       <ProductCard product={product} />
                     </Grid>
                   ))
-              : priceMax
-              ? products
-                  ?.filter((product) => +product.price <= priceMax)
-                  .map((product) => (
-                    <Grid item xs={3}>
-                      <ProductCard product={product} />
-                    </Grid>
-                  ))
-              : priceMin
-              ? products
-                  ?.filter((product) => +product.price >= priceMin)
-                  .map((product) => (
-                    <Grid item xs={3}>
-                      <ProductCard product={product} />
-                    </Grid>
-                  ))
-              : null}
+                : priceMax && priceMin
+                ? products
+                    ?.filter(
+                      (product) =>
+                        +product.price <= priceMax && +product.price >= priceMin
+                    )
+                    .map((product) => (
+                      <Grid item xs={3}>
+                        <ProductCard product={product} />
+                      </Grid>
+                    ))
+                : priceMax
+                ? products
+                    ?.filter((product) => +product.price <= priceMax)
+                    .map((product) => (
+                      <Grid item xs={3}>
+                        <ProductCard product={product} />
+                      </Grid>
+                    ))
+                : priceMin
+                ? products
+                    ?.filter((product) => +product.price >= priceMin)
+                    .map((product) => (
+                      <Grid item xs={3}>
+                        <ProductCard product={product} />
+                      </Grid>
+                    ))
+                : null}
+            </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    </Box>
+        </Grid> 
+      </Box>
+    </div>
   )
 }
 export default Content
