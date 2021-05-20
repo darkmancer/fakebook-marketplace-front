@@ -71,6 +71,7 @@ function InboxContent() {
   //   fetchIsSaved();
   // }, [product]);
 
+  console.log("payload", payload?.id);
   const getTalk = async () => {
     //payload?.id= คนที่ติดเราเป็นทั้งคนติดต่อ ทั้ง เค้าติดต่อ
     try {
