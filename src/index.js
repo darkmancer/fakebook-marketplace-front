@@ -15,8 +15,6 @@ import {
   ThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import AccountContextProvider from "./context/AccountContextProvider";
-import PriceContextProvider from "./context/PriceContextProvider";
 import GeocodeContextProvider from "./context/GeocodeContextProvider"
 const theme = createMuiTheme({
   palette: {
