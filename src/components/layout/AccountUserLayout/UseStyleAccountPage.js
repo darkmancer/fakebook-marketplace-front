@@ -178,7 +178,8 @@ export const useStyles = makeStyles((theme) => ({
     left: 400,
   },
   contentListing: {
-    position: "fixed",
+    position: "absolute",
+
     top: 180,
     left: 400,
   },
@@ -307,7 +308,7 @@ export const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
-    width: 60,
+    width: 100,
     color: "white",
     height: 45,
     backgroundColor: "#424242",
@@ -426,5 +427,26 @@ export const useStyles = makeStyles((theme) => ({
   },
   ListStatus: {
     color: "grey",
+  },
+  textCommeceForm: {
+    color: "white",
+  },
+  boxSaved: {
+    position: "relative",
+    top: 100,
+    left: 360,
+    maxWidth: 1100,
+    display: "flex",
+    flexWrap: "wrap",
+    overflow: "none",
+  },
+  paperSaved: {
+    width: 220,
+    display: "flex",
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    height: 260,
+    backgroundColor: "#242526",
+    flexDirection: "column",
   },
 }));

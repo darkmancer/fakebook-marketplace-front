@@ -1,12 +1,12 @@
 import React from "react";
 import DrawerCreateItem from "../layout/AccountUserLayout/DrawerCreateItem";
 
-import HeaderAccount from "../layout/AccountUserLayout/HeaderAccount";
+import Header from "../layout/Header";
 import "./MyPage.css";
 function CreateListingItemPage() {
   return (
     <>
-      <HeaderAccount />
+      <Header />
       <DrawerCreateItem />
     </>
   );

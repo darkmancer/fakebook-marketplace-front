@@ -11,7 +11,7 @@ import {
 import { Chip } from "@material-ui/core";
 import Carousel from "react-gallery-carousel";
 
-function PreviewHome({ showPhotos, item, tags }) {
+function PreviewHome({ showPhotos, item, tags, user }) {
   const classes = useStyles();
   const images = showPhotos.map((pic) => ({
     src: `${pic.file}`,
@@ -104,7 +104,7 @@ function PreviewHome({ showPhotos, item, tags }) {
                 src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
               />
               <Typography className={classes.NamePreview}>
-                Chiwawa
+                {`${user?.firstName} ${user?.lastName} `}
               </Typography>
             </div>
           </Box>

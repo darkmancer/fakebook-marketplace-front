@@ -13,7 +13,7 @@ import CommenceProductCard from "./CommenceProductCard";
 
 import { useStyles } from "./UseStyleAccountPage";
 
-function CommenceProfileForm({ getModalStyle }) {
+function CommenceProfileForm({ getModalStyle, user, products }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(3);
   const [modalStyle] = React.useState(getModalStyle);
@@ -31,7 +31,9 @@ function CommenceProfileForm({ getModalStyle }) {
           alt="name"
           src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
         />
-        <h1 className={classes.nameCommenceModal}>Chiwawa</h1>
+        <h1 className={classes.nameCommenceModal}>
+          {user?.firstName}
+        </h1>
         <div className={classes.FlexCenter}>
           <Button className={classes.buttonCommenceModal}>
             Share
@@ -82,29 +84,14 @@ function CommenceProfileForm({ getModalStyle }) {
           </Typography>
 
           <div className={classes.GridFlex}>
-            <CommenceProductCard />
+            {products?.map((product, idx) => {
+              return (
+                <CommenceProductCard key={idx} product={product} />
+              );
+            })}
           </div>
         </Box>
-        <Divider className={classes.DividerModal} light />
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography className={classes.TextHome}>
-            Buy & Sell Group Listing
-          </Typography>
-
-          <div className={classes.GridFlex}>
-            <CommenceProductCard />
-          </div>
-        </Box>
-        <Divider className={classes.DividerModal} light />
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography className={classes.TextHome}>
-            Profile Selling Listings - 0
-          </Typography>
-
-          <div className={classes.GridFlex}>
-            <CommenceProductCard />
-          </div>
-        </Box>
+        <br></br>
         <br></br>
         <br></br>
         <br></br>

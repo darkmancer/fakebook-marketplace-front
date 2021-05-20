@@ -9,14 +9,17 @@ import {
   Button,
   InputAdornment,
   Switch,
+  CircularProgress,
   Avatar,
   Paper,
   Typography,
+  Backdrop,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { useStyles } from "./UseStyleCreatePage";
 import { year, condition } from "./CategoryMap";
 import InputTag from "./InputTag";
+import axios from "../../../config/axios";
 
 import {
   MdAddToPhotos,
@@ -32,6 +35,8 @@ import PreviewVehicle from "./PreviewVehicle";
 function DrawerCreateVehicle() {
   const classes = useStyles();
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
   const handleCloseButton = () => {
     history.push("/mylistings");
   };
@@ -57,7 +62,7 @@ function DrawerCreateVehicle() {
   const [item, setItem] = useState({
     title: "",
     price: "",
-    conditon: "",
+    condition: "",
     description: "",
     model: "",
     brand: "",
@@ -70,11 +75,11 @@ function DrawerCreateVehicle() {
     const { name, value } = e.target;
     setItem((prev) => ({ ...prev, [name]: value }));
   };
-  const handleOnPublish = () => {
+  const handleOnDraft = async () => {
     const {
       title,
       price,
-      conditon,
+      condition,
       description,
       model,
       brand,
@@ -83,6 +88,84 @@ function DrawerCreateVehicle() {
       year,
       tranmission,
     } = item;
+    try {
+      const myFormData = new FormData();
+      myFormData.append("title", title);
+      myFormData.append("price", price);
+      myFormData.append("model", model);
+      myFormData.append("brand", brand);
+      myFormData.append("mileage", mileage);
+      myFormData.append("location", location);
+      myFormData.append("optional", optional);
+      myFormData.append("year", year);
+      myFormData.append("tranmission", tranmission);
+      myFormData.append("category", "Vehicle");
+      myFormData.append("subCategory", "Vehicle");
+      myFormData.append("productType", "VEHICLE");
+      myFormData.append("productStatus", "Draft");
+      myFormData.append("condition", condition);
+      myFormData.append("description", description);
+      if (photos.length > 0) {
+        for (let i = 0; i < photos.length; i++) {
+          myFormData.append("multiImage", photos[i]);
+        }
+      }
+      const res = await axios.post(
+        "/product/create-product",
+        myFormData
+      );
+      if (res) {
+        setLoading(false);
+        history.push("/mypage");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleOnPublish = async () => {
+    const {
+      title,
+      price,
+      condition,
+      description,
+      model,
+      brand,
+      mileage,
+      location,
+      year,
+      tranmission,
+    } = item;
+    try {
+      const myFormData = new FormData();
+      myFormData.append("title", title);
+      myFormData.append("price", price);
+      myFormData.append("model", model);
+      myFormData.append("brand", brand);
+      myFormData.append("mileage", mileage);
+      myFormData.append("location", location);
+      myFormData.append("optional", optional);
+      myFormData.append("year", year);
+      myFormData.append("tranmission", tranmission);
+      myFormData.append("category", "Vehicle");
+      myFormData.append("subCategory", "Vehicle");
+      myFormData.append("productType", "VEHICLE");
+      myFormData.append("productStatus", "Single Item");
+      myFormData.append("condition", condition);
+      myFormData.append("description", description);
+      for (let i = 0; i < photos.length; i++) {
+        myFormData.append("multiImage", photos[i]);
+      }
+      const res = await axios.post(
+        "/product/create-product",
+        myFormData
+      );
+      if (res) {
+        setLoading(false);
+        history.push("/mypage");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   const onChangeFilePhotos = (e) => {
     if (photos.length !== 0) {
@@ -387,6 +470,7 @@ function DrawerCreateVehicle() {
         </form>
         <Button
           variant="outlined"
+          onClick={handleOnPublish}
           disabled={
             item.title === "" && item.price === "" ? true : false
           }
@@ -400,6 +484,9 @@ function DrawerCreateVehicle() {
         item={item}
         tags={tags}
       />
+      <Backdrop className={classes.backdrop} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

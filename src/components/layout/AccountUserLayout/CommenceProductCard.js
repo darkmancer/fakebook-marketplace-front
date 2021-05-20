@@ -4,21 +4,24 @@ import { useHistory } from "react-router-dom";
 
 import { useStyles } from "./UseStyleAccountPage";
 
-function CommenceProductCard() {
+function CommenceProductCard({ product }) {
   const classes = useStyles();
   const history = useHistory();
   return (
     <div>
       <img
         className={classes.paperImg}
-        src="./pexels-photo-4109111.jpeg"
+        src={product?.Photos[0]?.post}
         alt="Product"
-        onClick={() => history.push("/select/product")}
+        onClick={() => history.push("/select/product/" + product.id)}
       />
       <div>
-        <Typography>Product Title: </Typography>
-        <Typography>Price</Typography>
-        <Typography>Product Title: </Typography>
+        <Typography className={classes.textCommeceForm}>
+          Product Title: {product?.title}
+        </Typography>
+        <Typography className={classes.textCommeceForm}>
+          Price: {product?.price} Baht
+        </Typography>
       </div>
     </div>
   );

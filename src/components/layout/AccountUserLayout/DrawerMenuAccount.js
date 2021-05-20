@@ -79,7 +79,7 @@ function DrawerMenuAccount() {
             <List>
               <ListItem
                 className={classes.buttonListAccount}
-                onClick={() => alert("Save")}>
+                onClick={() => history.push("/mypage/saved")}>
                 <ListItemIcon className={classes.ListIcon}>
                   <MdBookmark />
                 </ListItemIcon>
@@ -89,7 +89,7 @@ function DrawerMenuAccount() {
             <List>
               <ListItem
                 className={classes.buttonListAccount}
-                onClick={() => alert("Following")}>
+                onClick={() => history.push("/mypage/following")}>
                 <ListItemIcon className={classes.ListIcon}>
                   <MdLayers />
                 </ListItemIcon>

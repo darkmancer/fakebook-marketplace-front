@@ -19,9 +19,10 @@ import { AuthContext } from "../../context/AuthContextProvider";
 function Header(props) {
   const { palette } = props;
   const classes = useStylesHeader(palette);
+
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { user, setIsAuthenticated } = useContext(AuthContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,7 +66,9 @@ function Header(props) {
           <MenuItem onClick={handleClose}>Edit account</MenuItem>
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
-        Chiwawa
+        <Typography style={{ marginLeft: 16 }}>
+          {user?.firstName}
+        </Typography>
       </Toolbar>
     </AppBar>
   );

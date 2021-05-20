@@ -1,10 +1,10 @@
 import React from "react";
-import HeaderAccount from "../layout/AccountUserLayout/HeaderAccount";
 import DrawerCreateVehicle from "../layout/AccountUserLayout/DrawerCreateVehicle";
+import Header from "../layout/Header";
 function CreateListingVehiclePage() {
   return (
     <div>
-      <HeaderAccount />
+      <Header />
       <DrawerCreateVehicle />
     </div>
   );

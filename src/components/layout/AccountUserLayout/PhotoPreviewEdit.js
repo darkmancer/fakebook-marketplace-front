@@ -11,10 +11,10 @@ import {
 import { Chip } from "@material-ui/core";
 import Carousel from "react-gallery-carousel";
 
-function PhotoPreview({ showPhotos, item, tags, address, user }) {
+function PhotoPreviewEdit({ showPhotos, item, tags, address, user }) {
   const classes = useStyles();
   const images = showPhotos.map((pic) => ({
-    src: `${pic.file}`,
+    src: `${pic.post}`,
   }));
 
   return (
@@ -110,4 +110,4 @@ function PhotoPreview({ showPhotos, item, tags, address, user }) {
   );
 }
 
-export default PhotoPreview;
+export default PhotoPreviewEdit;

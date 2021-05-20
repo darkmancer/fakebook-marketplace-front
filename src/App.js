@@ -18,16 +18,14 @@ import MyPageListings from "./components/pages/MyPageListings";
 import CreateListingItemPage from "./components/pages/CreateListingItemPage";
 import CreateListingVehiclePage from "./components/pages/CreateListingVehiclePage";
 import CreateListingHomePage from "./components/pages/CreateListingHomePage";
+import EditPage from "./components/pages/EditPage";
+import { PayloadContext } from "./context/PayloadContextProvider";
+import SavedPage from "./components/pages/SavedPage";
 
-const privateRoutes = [];
-const publicRoutes = [
+const privateRoutes = [
   {
     path: "/homepage",
     component: HomePage,
-  },
-  {
-    path: "/login",
-    component: LoginRegisterPage,
   },
   {
     path: "/inbox",
@@ -85,14 +83,30 @@ const publicRoutes = [
     path: "/home",
     component: CreateListingHomePage,
   },
+  {
+    path: "/EditPage/:id",
+    component: EditPage,
+  },
+  {
+    path: "/mypage/saved",
+    component: SavedPage,
+  },
+];
+const publicRoutes = [
+  {
+    path: "/login",
+    component: LoginRegisterPage,
+  },
 ];
 
 function App() {
-  const { isAuthenticated } = useContext(AuthContext);
-
+  const { isAuthenticated, user } = useContext(AuthContext);
+  const { payload } = useContext(PayloadContext);
+  // console.log(user);
+  console.log(payload);
   return (
     <Switch>
-      {/* {isAuthenticated &&
+      {isAuthenticated &&
         privateRoutes.map((route, index) => (
           <Route
             key={index}
@@ -100,18 +114,17 @@ function App() {
             path={route.path}
             component={route.component}
           />
-        ))} */}
-      {/* {! */}
-      {/* {!isAuthenticated && */}
-      {publicRoutes.map((route, index) => (
-        <Route
-          key={index}
-          exact
-          path={route.path}
-          component={route.component}
-        />
-      ))}
-      
+        ))}
+      {!isAuthenticated &&
+        publicRoutes.map((route, index) => (
+          <Route
+            key={index}
+            exact
+            path={route.path}
+            component={route.component}
+          />
+        ))}
+
       <Redirect to="/login" />
     </Switch>
   );
