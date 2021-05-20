@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 function MessageBox(props) {
   const classes = useStyles();
   const [newMessage, setNewMessage] = useState("");
-  const { openChat, setOpenChat, seller } = props; //seller fetch จากหน้า ProductDetail มาไม่ทันเลยใส่ isloading ไว้หน้า productdetail
+  const { openChat, setOpenChat, seller, productId } = props; //seller fetch จากหน้า ProductDetail มาไม่ทันเลยใส่ isloading ไว้หน้า productdetail
   const { socket } = useContext(SocketContext);
 
   //id ที่รับเข้ามาคือ id.param ของ product
@@ -79,6 +79,7 @@ function MessageBox(props) {
     try {
       const res = await axios.post(`/message/${seller?.id}`, {
         text: newMessage,
+        productId,
       });
       console.log("res", res);
       setNewMessage("");

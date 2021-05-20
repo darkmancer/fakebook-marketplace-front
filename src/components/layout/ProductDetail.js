@@ -209,7 +209,7 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
         seller={seller}
         openChat={openChat}
         setOpenChat={setOpenChat}
-        receiverId={id}
+        productId={id}
       />
     </>
   );

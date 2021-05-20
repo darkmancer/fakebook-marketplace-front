@@ -158,6 +158,7 @@ function InboxContent() {
                   <Box>
                     <Typography variant="body1" className={classes.fontColor}>
                       <SellItem
+                        seller={seller}
                         talksUser={talksUser}
                         setOpenPopup={setOpenPopup}
                         setOpenChat={setOpenChat}
