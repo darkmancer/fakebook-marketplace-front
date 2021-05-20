@@ -20,7 +20,7 @@ function LoginForm() {
     password: "",
   });
 
-  console.log(payload);
+  console.log("payload", payload);
   const handleFormLoginChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));

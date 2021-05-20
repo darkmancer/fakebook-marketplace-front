@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 function MessageBox(props) {
   const classes = useStyles();
   const [newMessage, setNewMessage] = useState("");
-  const { openChat, setOpenChat, seller } = props; //seller fetch จากหน้า ProductDetail มาไม่ทันเลยใส่ isloading ไว้หน้า productdetail
+  const { openChat, setOpenChat, seller, productId } = props; //seller fetch จากหน้า ProductDetail มาไม่ทันเลยใส่ isloading ไว้หน้า productdetail
   const { socket } = useContext(SocketContext);
 
   //id ที่รับเข้ามาคือ id.param ของ product
@@ -79,6 +79,7 @@ function MessageBox(props) {
     try {
       const res = await axios.post(`/message/${seller?.id}`, {
         text: newMessage,
+        productId,
       });
       console.log("res", res);
       setNewMessage("");
@@ -95,9 +96,9 @@ function MessageBox(props) {
   const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
-        <Avatar alt="receiver-profile" src={seller.Avatar} />
+        <Avatar alt="receiver-profile" />
         <Typography>
-          {seller.firstName} {seller.lastName}
+          {seller?.firstName} {seller?.lastName}
         </Typography>
         <Button color="primary">
           <CloseIcon onClick={handleOnClose} />
@@ -106,7 +107,7 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages receiverId={seller.id} seller={seller} />
+      <Messages receiverId={seller?.id} seller={seller} />
 
       <Box className={classes.chatFooter}>
         <TextField

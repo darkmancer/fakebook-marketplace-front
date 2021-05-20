@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "../../../../config/axios";
 import { useHistory } from "react-router-dom";
 import {
   Grid,
@@ -13,12 +14,14 @@ import {
   Select,
   Typography,
 } from "@material-ui/core";
-
 import SellItemModal from "../SellItemModal/SellItemModal";
 import MoreIcon from "@material-ui/icons/More";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { useStyles } from "./StylesInboxContent";
 import SellStep from "./SellStep";
 import MessageBox from "../../Messenger/MessageBox";
+import SellItem from "./SellIem";
+import { PayloadContext } from "../../../../context/PayloadContextProvider";
 
 function InboxContent() {
   const classes = useStyles();
@@ -29,8 +32,13 @@ function InboxContent() {
   const [openPopup, setOpenPopup] = useState(false);
   const [openChat, setOpenChat] = useState(false);
   const [showStep, setShowStep] = useState(false);
-  const [list, setList] = React.useState("");
+  const [seller, setSeller] = useState(null);
+  const { payload, setPayload } = useContext(PayloadContext);
+  const [talksUser, setTalksUser] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  const [list, setList] = React.useState("");
+  console.log(talksUser);
   const handleChange = (e) => {
     setValue(e.target.value);
   };
@@ -43,6 +51,44 @@ function InboxContent() {
     setShowBuy(false);
   };
 
+  // useEffect(() => {
+  //   const fetchSeller = async () => {
+  //     try {
+  //       const res = await axios.get(`/seller/${product.userId}`);
+  //       // const res = await axios.get(`/seller/${id}`);
+
+  //       setSeller(res.data.sellerProfile);
+  //       setIsLoading(false);
+  //     } catch (err) {
+  //       console.log(`err`, err);
+  //     }
+  //   };
+  //   const fetchIsSaved = async () => {
+  //     const res = await axios.get(`/saved/isSaved/${product.id}`);
+  //     setTriggerSaved(res.data.saved);
+  //   };
+  //   fetchSeller();
+  //   fetchIsSaved();
+  // }, [product]);
+
+  console.log("payload", payload?.id);
+  const getTalk = async () => {
+    //payload?.id= คนที่ติดเราเป็นทั้งคนติดต่อ ทั้ง เค้าติดต่อ
+    try {
+      const res = await axios.get(`/message/gettalk/${payload?.id}`);
+
+      setTalksUser(res.data.talkUsers);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getTalk();
+  }, []);
+
+  if (isLoading) return <p>Loading</p>;
   return (
     <Grid
       container
@@ -64,7 +110,6 @@ function InboxContent() {
               <Divider className={classes.dividerLine} />
               <Box>
                 <Typography variant="body1" className={classes.fontColor}>
-                  {" "}
                   View Chats
                 </Typography>
 
@@ -90,7 +135,6 @@ function InboxContent() {
                   <Divider className={classes.dividerLine} />
                   <Box>
                     <Typography variant="body1" className={classes.fontColor}>
-                      {" "}
                       Filter by label
                     </Typography>
 
@@ -114,8 +158,12 @@ function InboxContent() {
                   <Divider className={classes.dividerLine} />
                   <Box>
                     <Typography variant="body1" className={classes.fontColor}>
-                      sell item ที่map
-                      <MoreIcon button onClick={() => setOpenPopup(true)} />
+                      <SellItem
+                        seller={seller}
+                        talksUser={talksUser}
+                        setOpenPopup={setOpenPopup}
+                        setOpenChat={setOpenChat}
+                      />
                     </Typography>
                   </Box>
                 </>

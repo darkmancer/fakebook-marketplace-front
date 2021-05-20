@@ -107,7 +107,7 @@ function Messages({ receiverId, seller }) {
             {text.receiverId == receiverId ? null : (
               <Avatar
                 alt="receiver-profile"
-                src={seller.Avatar}
+                src={seller?.Avatar}
                 style={{ display: "inline" }}
                 // className={classes.avatarSeller}
               />
