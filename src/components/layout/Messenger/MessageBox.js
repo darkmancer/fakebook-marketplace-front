@@ -95,9 +95,9 @@ function MessageBox(props) {
   const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
-        <Avatar alt="receiver-profile" src={seller.Avatar} />
+        <Avatar alt="receiver-profile" />
         <Typography>
-          {seller.firstName} {seller.lastName}
+          {seller?.firstName} {seller?.lastName}
         </Typography>
         <Button color="primary">
           <CloseIcon onClick={handleOnClose} />
@@ -106,7 +106,7 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages receiverId={seller.id} seller={seller} />
+      <Messages receiverId={seller?.id} seller={seller} />
 
       <Box className={classes.chatFooter}>
         <TextField
