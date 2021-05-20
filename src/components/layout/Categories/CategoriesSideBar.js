@@ -34,13 +34,25 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { RadioCondition, RadioSort } from "../AccountUserLayout/RadioMap";
 import { MdSearch } from "react-icons/md";
 import { PriceContext } from "../../../context/PriceContextProvider";
+
 import DevicesIcon from "@material-ui/icons/Devices";
 import BuildIcon from "@material-ui/icons/Build";
+import AndroidIcon from '@material-ui/icons/Android';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
+import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
+import GolfCourseIcon from '@material-ui/icons/GolfCourse';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import SportsFootballIcon from '@material-ui/icons/SportsFootball'
+import EmojiNatureIcon from '@material-ui/icons/EmojiNature'
+import TodayIcon from '@material-ui/icons/Today'
+import GitHubIcon from '@material-ui/icons/GitHub'
 
 function CategoriesSideBar({category}) {
   const classes = useStyles();
   const { priceMin, setPriceMin, priceMax, setPriceMax, condition, setCondition, search, setSearch, setSort } =
     useContext(PriceContext);
+ 
   const [open, setOpen] = React.useState(false);
   const [openCondition, setOpenCondition] = React.useState(false);
   const [sortBy, setSortBy] = useState("");
@@ -101,7 +113,7 @@ function CategoriesSideBar({category}) {
               button
               className={classes.root}
               onClick={() => {
-                history.push('/category/homepage')
+                history.push('/homepage')
               }}
             >
               <StorefrontIcon />
@@ -341,7 +353,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Garden-&-Outdoor')}
             >
-              <BuildIcon />
+              <EmojiNatureIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -355,7 +367,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Hobbies')}
             >
-              <DevicesIcon />
+              <AndroidIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -369,7 +381,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Home-Goods')}
             >
-              <DevicesIcon />
+              <ChildFriendlyIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -399,7 +411,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Musical-Instruments')}
             >
-              <DevicesIcon />
+              <AudiotrackIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -413,7 +425,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Office-Supplies')}
             >
-              <DevicesIcon />
+              <TodayIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -427,7 +439,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Pet-Supplies')}
             >
-              <DevicesIcon />
+              <GitHubIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -441,7 +453,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Sporting-Goods')}
             >
-              <DevicesIcon />
+              <SportsFootballIcon />
               <Typography
                 variant="h6"
                 component="h6"
@@ -455,7 +467,7 @@ function CategoriesSideBar({category}) {
               className={classes.root}
               onClick={() => history.push('/category/Toys-&-Games')}
             >
-              <DevicesIcon />
+              <SportsEsportsIcon />
               <Typography
                 variant="h6"
                 component="h6"

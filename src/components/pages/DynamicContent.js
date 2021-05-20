@@ -3,10 +3,10 @@ import { useHistory } from 'react-router-dom'
 import { Box, Grid } from '@material-ui/core'
 import { useStylesContent } from '../layout/UseStyleContent'
 import RoomIcon from '@material-ui/icons/Room'
-
+import { GeocodeContext } from '../../context/GeocodeContextProvider'
 import ProductCard from '../layout/ProductCard'
 import axios from '../../config/axios'
-
+import {calcDistance} from '../../utilities/Geocode'
 import '../layout/Content.css'
 import { PriceContext } from '../../context/PriceContextProvider'
 
@@ -18,6 +18,8 @@ function Content({ category }) {
   const classes = useStylesContent()
   const { priceMin, priceMax, condition, search, sort } =
     useContext(PriceContext)
+   const { geocode, setGeocode, setRadius, radius, address, setAddress } =
+     useContext(GeocodeContext)
   const filterProducts = (products) => {
     return products
       ?.filter((product) => {
@@ -35,6 +37,12 @@ function Content({ category }) {
         }
       })
   }
+  const locationFilter = (products) => {
+    return products?.filter((product) => {
+      console.log("working")
+      return calcDistance(product.location,geocode) <= +radius
+    })
+  }
   const fetchProduct = async () => {
     try {
       const res = await axios.get(`/product/get-by-category/${category}`)
@@ -48,54 +56,33 @@ function Content({ category }) {
     try {
       const res = await axios.get(`/product/get-all-product`)
       const filteredProducts = filterProducts(res.data.products)
-      setProducts(filteredProducts)
+      const filteredProducts2 = locationFilter(filteredProducts)
+      setProducts(filteredProducts2)
+      console.log(filteredProducts2)
     } catch (err) {
       console.log(`err`, err)
     }
   }
 
-  const sortProducts = (products) => {
-    const sortedProducts = products.sort((older, newer) => {
-      return sort.includes('oldest') ? newer.id - older.id : older.id - newer.id
-    })
-    setProducts(sortedProducts)
-  }
+
 
   useEffect(() => {
-    if (category === 'homepage') {
+    if (!category) {
       fetchBrowseAll()
     } else {
       fetchProduct()
     }
-  }, [category, condition, search])
+  }, [category, condition, search,radius])
 
-  console.log(sort, products)
 
-  useEffect(() => {
-    forceUpdate()
-    sortProducts(products)
-  }, [sort])
 
-  // useEffect(() => {
-  //   fetchProduct();
 
-  //   filterProduct();
-  // }, [condition,search,category]);
-  // const filterProduct = async () => {
-  //   const conditionedProduct = await products?.filter((product) => {
-  //     console.log("this work");
-  //     return product.condition === condition;
-  //   });
-  //   console.log(conditionedProduct);
-  //   setProducts(conditionedProduct);
-  // };
-  // console.log(products);
 
   return (
     <Box>
       <Box className={classes.containerText}>
         <h2 className={classes.text}>
-          Today's Pick {priceMin} {priceMax} {condition} {search} {sort}
+          Today's Pick {priceMin} {priceMax} {condition} {search} {sort} {geocode} {address} {radius}
         </h2>
         <h5 className="location-text">
           <RoomIcon />

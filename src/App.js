@@ -22,7 +22,7 @@ const privateRoutes = [];
 const publicRoutes = [
   {
     path: "/homepage",
-    component: HomePage,
+    component:  DynamicCategoryPage,
   },
   {
     path: "/login",
