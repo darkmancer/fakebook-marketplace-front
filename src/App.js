@@ -18,6 +18,7 @@ import MyPageListings from "./components/pages/MyPageListings";
 import CreateListingItemPage from "./components/pages/CreateListingItemPage";
 import CreateListingVehiclePage from "./components/pages/CreateListingVehiclePage";
 import CreateListingHomePage from "./components/pages/CreateListingHomePage";
+
 const privateRoutes = [];
 const publicRoutes = [
   {

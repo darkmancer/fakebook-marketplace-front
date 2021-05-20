@@ -6,17 +6,21 @@ import { useState } from "react";
 import axios from "../../config/axios";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { setToken } from "../../services/localStorageService";
+import { PayloadContext } from "../../context/PayloadContextProvider";
 import Alert from "@material-ui/lab/Alert";
 
 function LoginForm() {
   const classes = useStyle();
   const history = useHistory();
   const { setIsAuthenticated } = useContext(AuthContext);
+  const { payload, setPayload } = useContext(PayloadContext);
   const [error, setError] = useState(false);
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  console.log(payload);
   const handleFormLoginChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
@@ -28,7 +32,9 @@ function LoginForm() {
     }
     const res = await axios.post("/sign-in", { email, password });
     if (res) {
+      // console.log(res);
       setIsAuthenticated(true);
+      setPayload(res.data.payload);
       await setToken(res.data.token);
       history.push("/homepage");
     }
@@ -38,7 +44,9 @@ function LoginForm() {
     if (e.key === "Enter" && email !== "" && password !== "") {
       const res = await axios.post("/sign-in", { email, password });
       if (res) {
+        // console.log(res);
         setIsAuthenticated(true);
+        setPayload(res.data.payload);
         await setToken(res.data.token);
         history.push("/homepage");
       }

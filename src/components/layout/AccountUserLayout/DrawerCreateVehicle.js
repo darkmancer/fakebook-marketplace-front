@@ -38,7 +38,7 @@ function DrawerCreateVehicle() {
   const [photos, setPhotos] = useState([]);
   const [showPhotos, setShowPhotos] = useState([]);
   const [tags, setTags] = React.useState([]);
-  const optional = tags.join("");
+  const optional = tags.join(",");
 
   const handleDelete = (idx) => () => {
     if (photos.length === 1) {
@@ -69,6 +69,20 @@ function DrawerCreateVehicle() {
   const onChangeItem = (e) => {
     const { name, value } = e.target;
     setItem((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleOnPublish = () => {
+    const {
+      title,
+      price,
+      conditon,
+      description,
+      model,
+      brand,
+      mileage,
+      location,
+      year,
+      tranmission,
+    } = item;
   };
   const onChangeFilePhotos = (e) => {
     if (photos.length !== 0) {

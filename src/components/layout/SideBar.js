@@ -41,8 +41,7 @@ function SideBar() {
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
-        }}
-      >
+        }}>
         <Toolbar />
         <Box className={classes.drawerContainer}>
           <List>
@@ -51,7 +50,10 @@ function SideBar() {
                 placeholder="Search Market Place"
                 InputProps={{
                   startAdornment: (
-                    <MdSearch size="30" className={classes.iconSearch} />
+                    <MdSearch
+                      size="30"
+                      className={classes.iconSearch}
+                    />
                   ),
                   disableUnderline: true,
                   className: classes.searchInput,
@@ -64,8 +66,7 @@ function SideBar() {
               className={classes.root}
               onClick={() => {
                 history.push("/HomePage");
-              }}
-            >
+              }}>
               <StorefrontIcon />
               Browse All
             </ListItem>
@@ -73,8 +74,7 @@ function SideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/inbox")}
-            >
+              onClick={() => history.push("/inbox")}>
               <InboxIcon />
               Inbox
             </ListItem>
@@ -82,8 +82,7 @@ function SideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/mypage")}
-            >
+              onClick={() => history.push("/mypage")}>
               <PersonIcon />
               Your Account
             </ListItem>
@@ -93,8 +92,7 @@ function SideBar() {
             <ListItem
               button
               className={classes.createList}
-              onClick={() => alert("ok")}
-            >
+              onClick={() => history.push("/myListings")}>
               <AddIcon />
               Create New Listing
             </ListItem>
@@ -107,9 +105,8 @@ function SideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => setOpenPopup(true)}
-            >
-              Bangkok, Thailand within 60 km
+              onClick={() => setOpenPopup(true)}>
+              bangkok, Thailand within 60 km
             </ListItem>
           </List>
 
@@ -120,23 +117,20 @@ function SideBar() {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/VEHICLE")}
-            >
+              onClick={() => history.push("/category/VEHICLE")}>
               <DriveEtaIcon /> vehicles
             </ListItem>
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/HOME")}
-            >
+              onClick={() => history.push("/category/HOME")}>
               <HomeWorkIcon />
               Property Rentals,Home
             </ListItem>
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push("/category/ITEM")}
-            >
+              onClick={() => history.push("/category/ITEM")}>
               <LoyaltyIcon />
               Goods
             </ListItem>
@@ -144,7 +138,10 @@ function SideBar() {
         </Box>
       </Drawer>
 
-      <FilterLocationModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <FilterLocationModal
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      />
     </>
   );
 }

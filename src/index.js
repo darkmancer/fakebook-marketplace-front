@@ -6,6 +6,11 @@ import { blue, deepOrange } from "@material-ui/core/colors";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Router } from "react-router-dom";
 import AuthContextProvider from "./context/AuthContextProvider";
+import SocketContextProvider from "./context/SocketContextProvider";
+import AccountContextProvider from "./context/AccountContextProvider";
+import PriceContextProvider from "./context/PriceContextProvider";
+import LocationContextProvider from "./context/LocationContextProvider";
+import PayloadContextProvider from "./context/PayloadContextProvider";
 import {
   ThemeProvider,
   createMuiTheme,
@@ -26,6 +31,8 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
+    <SocketContextProvider>
+      <PayloadContextProvider>
     <GeocodeContextProvider>
       <PriceContextProvider>
         <AccountContextProvider>
@@ -33,12 +40,14 @@ ReactDOM.render(
             <ThemeProvider theme={theme}>
               <BrowserRouter>
                 <App />
-              </BrowserRouter>
-            </ThemeProvider>
-          </AuthContextProvider>
-        </AccountContextProvider>
-      </PriceContextProvider>
+                </BrowserRouter>
+              </ThemeProvider>
+            </AuthContextProvider>
+          </AccountContextProvider>
+        </PriceContextProvider>
     </GeocodeContextProvider>
+      </PayloadContextProvider>
+    </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
