@@ -75,9 +75,7 @@ function DrawerMenuAccount() {
           paper: classes.drawerPaper,
         }}>
         <Toolbar />
-        <div className={classes.div}>
-          <h2>Your Account</h2>
-        </div>
+        <div className={classes.div}></div>
         <Box className={classes.drawerContainer}>
           <div className={classes.drawerSpacing}>
             <List>

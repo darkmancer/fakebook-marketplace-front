@@ -19,7 +19,9 @@ function MyPage() {
   const [isLoading, setIsLoading] = useState(true);
   const getProductId = async () => {
     try {
-      const res = await axios.get("/product/get-user-products/" + user?.id);
+      const res = await axios.get(
+        "/product/get-user-products/" + user?.id
+      );
       setProducts(res.data.products);
       setIsLoading(false);
     } catch (err) {
@@ -43,7 +45,10 @@ function MyPage() {
         {products.length === 0 ? (
           <ContentAccount className={classes.content} />
         ) : (
-          <MyListing className={classes.content} products={products} />
+          <MyListing
+            className={classes.content}
+            products={products}
+          />
         )}
         <ContentListing className={classes.content} />
 
