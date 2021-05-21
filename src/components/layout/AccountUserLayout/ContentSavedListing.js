@@ -11,7 +11,6 @@ function ContentSavedListing() {
   const [showSave, setShowSave] = useState([])
   const getSaved = async () => {
     const res = await axios.get('/saved/')
-    console.log(res.data)
     setShowSave(res.data.saveds)
   }
   useEffect(() => {

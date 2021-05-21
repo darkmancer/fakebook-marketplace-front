@@ -41,7 +41,7 @@ function CommeceProfile({ user, products }) {
         <Paper className={classes.paperCommence}>
           <div>
             <h4 style={{ color: "white", margin: 8 }}>
-              Your Commence Profile
+              Your Commerce Profile
             </h4>
 
             <div className={classes.FlexAvatar}>

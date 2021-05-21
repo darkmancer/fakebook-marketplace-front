@@ -84,9 +84,7 @@ function ContentEdit() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/product/${id}`);
-        console.log(res.data.product);
         // const file = res.data.product.Photos;
-        // console.log(file);
         await setProduct(res.data.product);
         await setPhotos(res.data.product.Photos);
         await setShowPhotos(res.data.product.Photos);
@@ -101,7 +99,7 @@ function ContentEdit() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/product/${id}`);
-        console.log(res);
+        console.log("PRODUCT :>>>", res);
         setProduct(res.data.product);
         setLoading(false);
       } catch (err) {
@@ -110,9 +108,6 @@ function ContentEdit() {
     };
     fetchProduct();
   }, []);
-  console.log(product);
-  console.log(photos);
-  // console.log(showPhotos);
   const onChangeItem = (e) => {
     let values = e.target.value
     const { name, value } = e.target
@@ -184,7 +179,6 @@ function ContentEdit() {
     }
     setProduct((prev) => ({ ...prev, [name]: value }))
   }
-  console.log(product)
   const onPublishSubmitEdit = async () => {
     try {
     const { title, price, condition, description } = product;

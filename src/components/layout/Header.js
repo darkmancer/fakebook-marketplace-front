@@ -39,14 +39,14 @@ function Header(props) {
     // role === "admin" ? setIsAdmin(false) : setIsAuthenticated(false);
     history.push("/login");
   };
-
+  console.log(user)
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Box flexGrow={1}>
           <Typography
             className={classes.root}
-            onClick={() => history.push("/Homepage")}>
+            onClick={() => history.push("/homepage")}>
             Market Place
           </Typography>
         </Box>
@@ -54,7 +54,7 @@ function Header(props) {
           className={classes.root}
           alt="name"
           onClick={handleClick}
-          src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
+          src={user?.avatar}
         />
         <Menu
           id="simple-menu"
@@ -67,7 +67,7 @@ function Header(props) {
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
         <Typography style={{ marginLeft: 16 }}>
-          {user?.firstName}
+          {user?.firstName} {user?.lastName}
         </Typography>
       </Toolbar>
     </AppBar>

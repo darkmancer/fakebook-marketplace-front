@@ -107,8 +107,6 @@ const publicRoutes = [
 function App() {
   const { isAuthenticated, user } = useContext(AuthContext);
   const { payload } = useContext(PayloadContext);
-  // console.log(user);
-  console.log(payload);
   return (
     <Switch>
       {isAuthenticated &&
