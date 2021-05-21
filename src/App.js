@@ -26,7 +26,7 @@ import FollowerPage from "./components/pages/FollowerPage";
 const privateRoutes = [
   {
     path: "/homepage",
-    component: HomePage,
+    component:  DynamicCategoryPage,
   },
   {
     path: "/inbox",

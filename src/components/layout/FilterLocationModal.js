@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, TextField, Box } from "@material-ui/core";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import { useStyles, theme, modalStyle } from "./UseStyleFilterLocation";
+import { GeocodeContext } from '../../context/GeocodeContextProvider'
 
-const radius = [
+import Geocode from 'react-geocode'
+const rad = [
   {
     value: "1",
     label: "1 km",
@@ -61,10 +63,28 @@ const radius = [
 function FilterLocationModal(props) {
   const classes = useStyles();
   const { openPopup, setOpenPopup } = props;
-  const [radiusLocation, setRadiusLocation] = React.useState("1");
+   const { geocode, setGeocode, setRadius, radius, address, setAddress } = useContext(GeocodeContext)
+  const handleApply = () => {
+    
+  }
+  const handleChangeAddress = (event) => {
+    const targetAddress = event.target.value;
+    setAddress(targetAddress);
+    Geocode.fromAddress(targetAddress).then(
+      (response) => {
+        const { lat, lng } = response.results[0].geometry.location
+        console.log(lat, lng)
+        setGeocode(`${lat},${lng}`)
+      },
+      (error) => {
+        console.error(error)
+      }
+    )
+  }
+  console.log(geocode)
 
-  const handleChange = (event) => {
-    setRadiusLocation(event.target.value);
+  const handleChangeRad = (event) => {
+    setRadius(event.target.value);
   };
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -76,35 +96,38 @@ function FilterLocationModal(props) {
             <TextField
               InputProps={{
                 className: classes.multilineColor,
+                style: { backgroundColor: 'white', color:'black' }
               }}
               className={classes.margin}
               fullWidth
               id="location"
               label="Location"
-              variant="filled"
+              variant="outlined"
+              onChange={handleChangeAddress}
             />
           </Box>
           <Box>
-            {" "}
+            {' '}
             <TextField
               id="radius-select-location"
               select
-              value={radiusLocation}
-              onChange={handleChange}
+              value={radius}
+              onChange={handleChangeRad}
               SelectProps={{
-                native: true,
+                native: true
               }}
+              defaultValues="60"
               variant="outlined"
               fullWidth
               InputProps={{
-                className: classes.multilineColor,
+                className: classes.multilineColor
               }}
             >
-              {radius.map((option) => (
+              {rad.map((option) => (
                 <option
                   key={option.value}
                   value={option.value}
-                  style={{ backgroundColor: "#242526" }}
+                  style={{ backgroundColor: '#242526' }}
                 >
                   {option.label}
                 </option>
@@ -114,11 +137,10 @@ function FilterLocationModal(props) {
         </MuiThemeProvider>
       </form>
 
-      <p>img location from google map</p>
       <button onClick={() => setOpenPopup(false)}>close</button>
-      <button onClick={() => alert("Apply")}>Apply</button>
+      <button onClick={() => alert('Apply')}>Apply</button>
     </div>
-  );
+  )
 
   return (
     // <Dialog open={openPopup}>

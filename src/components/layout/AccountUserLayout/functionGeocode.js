@@ -12,7 +12,7 @@ export function getCurrentLocation() {
 }
 
 export function LocationName(loca) {
-  Geocode.setApiKey("AIzaSyAHQuKM8CJILEMZStXdXMO1RtJebhhoIJ8");
+  Geocode.setApiKey('AIzaSyAHOttMHQnlazEIg8Smr9x9YNJWku71Hs0')
   Geocode.setLanguage("en");
   Geocode.setLocationType("ROOFTOP");
   Geocode.enableDebug();
