@@ -19,7 +19,9 @@ function MyPage() {
   const [isLoading, setIsLoading] = useState(true);
   const getProductId = async () => {
     try {
-      const res = await axios.get("/product/get-user-products/" + user?.id);
+      const res = await axios.get(
+        "/product/get-user-products/" + user?.id
+      );
       setProducts(res.data.products);
       setIsLoading(false);
     } catch (err) {
@@ -31,10 +33,8 @@ function MyPage() {
   }, []);
   // const [haveList, setHaveList] = useState();
 
-  if (isLoading) return <p>loading</p>;
-
   return (
-    <h1>
+    <>
       <Header className={classes.appBar} />
       <nav>
         <DrawerMenuAccount className={classes.drawer} />
@@ -43,13 +43,16 @@ function MyPage() {
         {products.length === 0 ? (
           <ContentAccount className={classes.content} />
         ) : (
-          <MyListing className={classes.content} products={products} />
+          <MyListing
+            className={classes.content}
+            products={products}
+          />
         )}
         <ContentListing className={classes.content} />
 
         <CommeceProfile user={user} products={products} />
       </main>
-    </h1>
+    </>
   );
 }
 
