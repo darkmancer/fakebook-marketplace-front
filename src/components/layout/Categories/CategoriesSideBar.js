@@ -159,20 +159,30 @@ function CategoriesSideBar({ category }) {
           <Divider className={classes.dividerLine} />
 
           <List>
-            <ListItem>Filters</ListItem>
+            <ListItem>
+              <Typography variant="h6" component="h6">
+                Filters
+              </Typography>
+            </ListItem>
             <ListItem
               button
               className={classes.root}
               onClick={() => setOpenPopup(true)}
             >
-              {address} within {radius} km
+              <Typography
+                variant="subtitle1"
+                component="h6"
+                style={{ color: '#2D88FF' }}
+              >
+                {address} · Within {radius} kilometers
+              </Typography>
             </ListItem>
           </List>
           <List>
             {category !== 'Property-Rentals' &&
             category !== 'vehicle' &&
             category !== 'Home-Sales' ? (
-              <>
+              <div>
                 <ListItem
                   button
                   className={classes.buttonListAccount}
@@ -202,7 +212,7 @@ function CategoriesSideBar({ category }) {
                     </RadioGroup>
                   </List>
                 </Collapse>
-              </>
+              </div>
             ) : (
               setCondition(null)
             )}
@@ -240,11 +250,7 @@ function CategoriesSideBar({ category }) {
           <List>
             <ListItem>
               {' '}
-              <Typography
-                variant="h5"
-                component="h6"
-                style={{ marginLeft: '1rem' }}
-              >
+              <Typography variant="h5" component="h6">
                 Categories
               </Typography>
             </ListItem>

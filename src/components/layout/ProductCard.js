@@ -37,38 +37,38 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
     return (
       <div
         style={{
-          width: "100px",
-          height: "100px",
-          display: "inline-block",
-          backgroundColor: "white",
-          zIndex: "1000"
+          width: '100px',
+          height: '100px',
+          display: 'inline-block',
+          backgroundColor: 'white',
+          zIndex: '1000'
         }}
-         onClick={handleClick} 
+        onClick={handleClick}
       >
         <img
           className={classes.paper}
           style={{
-            width: "100px",
-            height: "100px",
-            overflow: "hidden",
-            objectFit: "cover",
-            objectPosition: "50% 50%",
+            width: '100px',
+            height: '100px',
+            overflow: 'hidden',
+            objectFit: 'cover',
+            objectPosition: '50% 50%'
           }}
           src={product?.Photos[0]?.post}
         />
         <Typography variant="body1" component="p">
-          {product?.location.includes("Thailand") ? "฿" : "$"}
-          {product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          {address?.includes('Thailand') ? '฿' : '$'}
+          {product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
         </Typography>
 
         <Typography variant="caption" component="p">
           {product?.title}
         </Typography>
         <Typography variant="caption" component="p">
-          {product?.location}
+          {address}
         </Typography>
       </div>
-    );
+    )
 
   } else {
     return (
