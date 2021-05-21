@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Toolbar,
@@ -29,16 +29,23 @@ import {
 } from "react-icons/md";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { IconButton } from "@material-ui/core";
+import { PayloadContext } from "../../../context/PayloadContextProvider";
+import { AuthContext } from "../../../context/AuthContextProvider";
 
 function DrawerCreateHome() {
   const classes = useStyles();
   const history = useHistory();
+  // const { payload } = useContext(PayloadContext);
+  const { user } = useContext(AuthContext);
+
   const handleCloseButton = () => {
     history.push("/mylistings");
   };
   const [photos, setPhotos] = useState([]);
   const [showPhotos, setShowPhotos] = useState([]);
   const [tags, setTags] = React.useState([]);
+  const optional = tags.join(",");
+
   const handleDelete = (idx) => () => {
     if (photos.length === 1) {
       setShowPhotos([]);
@@ -62,10 +69,86 @@ function DrawerCreateHome() {
     bedroom: "",
     bathroom: "",
     location: "",
+    area: "",
+    address: "",
   });
   const onChangeItem = (e) => {
     const { name, value } = e.target;
     setItem((prev) => ({ ...prev, [name]: value }));
+  };
+  const onDraftSubmit = () => {
+    const {
+      title,
+      price,
+      estateFor,
+      estateType,
+      description,
+      bedroom,
+      bathroom,
+      address,
+      area,
+    } = item;
+    try {
+      const myFormData = new FormData();
+      myFormData.append("title", title);
+      myFormData.append("category", "Property Rental");
+      myFormData.append("subCategory", "Property Rental");
+      myFormData.append("estateFor", estateFor);
+      myFormData.append("estateType", estateType);
+      myFormData.append("description", description);
+      myFormData.append("optional", optional);
+      myFormData.append("location", address);
+      myFormData.append("numberOfBedroom", bedroom);
+      myFormData.append("numberOfBathroom", bathroom);
+      myFormData.append("price", price);
+      myFormData.append("area", area);
+
+      myFormData.append("productType", "HOME");
+      myFormData.append("productStatus", "Draft");
+      if (photos.length > 0) {
+        for (let i = 0; i < photos.length; i++) {
+          myFormData.append("multiImage", photos[i]);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const onPublishSubmit = () => {
+    const {
+      title,
+      price,
+      estateFor,
+      estateType,
+      description,
+      bedroom,
+      bathroom,
+      address,
+      area,
+    } = item;
+    try {
+      const myFormData = new FormData();
+      myFormData.append("title", title);
+      myFormData.append("category", "Property Rental");
+      myFormData.append("subCategory", "Property Rental");
+      myFormData.append("estateFor", estateFor);
+      myFormData.append("estateType", estateType);
+      myFormData.append("description", description);
+      myFormData.append("optional", optional);
+      myFormData.append("location", address);
+      myFormData.append("numberOfBedroom", bedroom);
+      myFormData.append("numberOfBathroom", bathroom);
+      myFormData.append("price", price);
+      myFormData.append("area", area);
+
+      myFormData.append("productType", "HOME");
+      myFormData.append("productStatus", "Available");
+      for (let i = 0; i < photos.length; i++) {
+        myFormData.append("multiImage", photos[i]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   const onChangeFilePhotos = (e) => {
     if (photos.length !== 0) {
@@ -81,6 +164,8 @@ function DrawerCreateHome() {
       ]);
     }
   };
+  // console.log(payload?.firstName);
+
   return (
     <>
       <div className={classes.flexPageCreateItem}>
@@ -93,7 +178,9 @@ function DrawerCreateHome() {
               <Typography className={classes.HeadersTitle}>
                 New Home Listing
               </Typography>
-              <Button className={classes.ButtonCreate}>
+              <Button
+                className={classes.ButtonCreate}
+                onClick={onDraftSubmit}>
                 Save Draft
               </Button>
               <IconButton
@@ -112,7 +199,9 @@ function DrawerCreateHome() {
                 src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
               />
               <div>
-                <h4 className={classes.NameAvatar}>Chiwawa</h4>
+                <h4 className={classes.NameAvatar}>
+                  {user?.firstName}
+                </h4>
                 <h5 className={classes.TextStatusAvatar}>
                   Listing to Marketplace
                 </h5>
@@ -322,6 +411,7 @@ function DrawerCreateHome() {
           </form>
           <Button
             variant="outlined"
+            onClick={onPublishSubmit}
             disabled={
               item.title === "" && item.price === "" ? true : false
             }
@@ -331,6 +421,7 @@ function DrawerCreateHome() {
           </Button>
         </Paper>
         <PreviewHome
+          user={user}
           showPhotos={showPhotos}
           item={item}
           tags={tags}

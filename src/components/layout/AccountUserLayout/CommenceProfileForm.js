@@ -6,14 +6,30 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdHome } from "react-icons/md";
+import { AuthContext } from "../../../context/AuthContextProvider";
 
 import CommenceProductCard from "./CommenceProductCard";
-
+import axios from "../../../config/axios";
 import { useStyles } from "./UseStyleAccountPage";
 
 function CommenceProfileForm({ getModalStyle }) {
+  const [products, setProducts] = useState([]);
+  const getProductId = async () => {
+    try {
+      const res = await axios.get(
+        "/product/get-user-products/" + user.id
+      );
+      setProducts(res.data.products);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getProductId();
+  }, []);
+  const { user } = useContext(AuthContext);
   const classes = useStyles();
   const [value, setValue] = React.useState(3);
   const [modalStyle] = React.useState(getModalStyle);
@@ -31,7 +47,9 @@ function CommenceProfileForm({ getModalStyle }) {
           alt="name"
           src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
         />
-        <h1 className={classes.nameCommenceModal}>Chiwawa</h1>
+        <h1 className={classes.nameCommenceModal}>
+          {user?.firstName}
+        </h1>
         <div className={classes.FlexCenter}>
           <Button className={classes.buttonCommenceModal}>
             Share
@@ -78,33 +96,18 @@ function CommenceProfileForm({ getModalStyle }) {
         <Divider className={classes.DividerModal} light />
         <Box component="fieldset" borderColor="transparent">
           <Typography className={classes.TextHome}>
-            MarketPlace Listings - 3
+            MarketPlace Listings - {products.length}
           </Typography>
 
           <div className={classes.GridFlex}>
-            <CommenceProductCard />
+            {products?.map((product, idx) => {
+              return (
+                <CommenceProductCard key={idx} product={product} />
+              );
+            })}
           </div>
         </Box>
-        <Divider className={classes.DividerModal} light />
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography className={classes.TextHome}>
-            Buy & Sell Group Listing
-          </Typography>
-
-          <div className={classes.GridFlex}>
-            <CommenceProductCard />
-          </div>
-        </Box>
-        <Divider className={classes.DividerModal} light />
-        <Box component="fieldset" mb={3} borderColor="transparent">
-          <Typography className={classes.TextHome}>
-            Profile Selling Listings - 0
-          </Typography>
-
-          <div className={classes.GridFlex}>
-            <CommenceProductCard />
-          </div>
-        </Box>
+        <br></br>
         <br></br>
         <br></br>
         <br></br>

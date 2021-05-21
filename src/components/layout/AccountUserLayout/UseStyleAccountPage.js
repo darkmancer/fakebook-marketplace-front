@@ -178,7 +178,8 @@ export const useStyles = makeStyles((theme) => ({
     left: 400,
   },
   contentListing: {
-    position: "fixed",
+    position: "absolute",
+
     top: 180,
     left: 400,
   },
@@ -307,7 +308,7 @@ export const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
-    width: 60,
+    width: 100,
     color: "white",
     height: 45,
     backgroundColor: "#424242",
@@ -416,7 +417,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   GridFlex: {
     display: "flex",
-    flexDirection: "row",
+    flexWrap: "wrap",
   },
   ListTitle: {
     color: "white",
@@ -426,5 +427,73 @@ export const useStyles = makeStyles((theme) => ({
   },
   ListStatus: {
     color: "grey",
+  },
+  textCommeceForm: {
+    color: "white",
+  },
+  textHeaderFollowing: {
+    color: "white",
+    fontSize: "1.2rem",
+    margin: theme.spacing(1),
+  },
+  boxSaved: {
+    position: "relative",
+    top: 100,
+    left: 360,
+    maxWidth: 1100,
+    display: "flex",
+    flexWrap: "wrap",
+    overflow: "none",
+  },
+  paperSaved: {
+    width: 220,
+    display: "flex",
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    height: 260,
+    backgroundColor: "#242526",
+    flexDirection: "column",
+  },
+  editMode: {
+    // position: "relative",
+    // right: 20,
+    // top: 3,
+    color: "#2d88ff",
+    margin: theme.spacing(1.4),
+  },
+  flexHeaderFollwering: {
+    width: "90%",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  paperFollowing: {
+    backgroundColor: "#242526",
+    width: "60ch",
+    display: "flex",
+    borderRadius: 10,
+    padding: theme.spacing(1, 1),
+
+    flexDirection: "column",
+  },
+  paperContentFollowing: {
+    margin: theme.spacing(2),
+    width: "90%",
+    backgroundColor: "#242526",
+  },
+  Namefollowing: {
+    color: "white",
+    margin: theme.spacing(1, 1.5),
+  },
+  ListingPostingText: {
+    color: "grey",
+    margin: theme.spacing(0, 1.5),
+  },
+  flexSpace: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  IconDel: {
+    color: "white",
+    margin: theme.spacing(0, 2, 0.5, 0),
   },
 }));

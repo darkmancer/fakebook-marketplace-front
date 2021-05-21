@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
 import { AccountContext } from "../../../context/AccountContextProvider";
 import CommenceProfileForm from "./CommenceProfileForm";
 import { useStyles } from "./UseStyleAccountPage";
-function CommeceProfile() {
+function CommeceProfile({ user, products }) {
   const classes = useStyles();
   const history = useHistory();
   const { setOpen, open } = useContext(AccountContext);
@@ -52,9 +52,11 @@ function CommeceProfile() {
                 src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
               />
               <div>
-                <h4 className={classes.NameAvatar}>Chiwawa</h4>
+                <h4 className={classes.NameAvatar}>
+                  {user?.firstName}
+                </h4>
                 <h5 className={classes.ActiveListings}>
-                  1 Active Listings
+                  {products.length} Active Listings
                 </h5>
               </div>
             </div>
@@ -81,7 +83,11 @@ function CommeceProfile() {
         onClose={handleClose}
         aria-labelledby="title"
         aria-describedby="description">
-        <CommenceProfileForm getModalStyle={getModalStyle} />
+        <CommenceProfileForm
+          getModalStyle={getModalStyle}
+          user={user}
+          products={products}
+        />
       </Modal>
     </>
   );

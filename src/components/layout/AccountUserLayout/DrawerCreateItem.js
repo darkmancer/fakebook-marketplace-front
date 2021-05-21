@@ -123,10 +123,57 @@ function DrawerCreateItem() {
       myFormData.append("price", price);
       myFormData.append("boost", boost);
       myFormData.append("productType", "ITEM");
+      myFormData.append("productStatus", "Available");
       // myFormData.append("multiImage", photos);
 
       for (let i = 0; i < photos.length; i++) {
         myFormData.append("multiImage", photos[i]);
+      }
+      const res = await axios.post(
+        "/product/create-product",
+        myFormData
+      );
+      if (res) {
+        setLoading(false);
+        history.push("/mypage");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const onDraftSubmit = async () => {
+    // console.log(item);
+    // console.log(photos);
+    setLoading(true);
+    try {
+      const {
+        title,
+        price,
+        category,
+        subCategory,
+        condition,
+        description,
+        location,
+      } = item;
+      console.log(photos);
+
+      const myFormData = new FormData();
+      myFormData.append("title", title);
+      myFormData.append("category", category);
+      myFormData.append("subCategory", subCategory);
+      myFormData.append("condition", condition);
+      myFormData.append("description", description);
+      myFormData.append("optional", optional);
+      myFormData.append("location", location);
+      myFormData.append("price", price);
+      myFormData.append("boost", boost);
+      myFormData.append("productType", "ITEM");
+      myFormData.append("productStatus", "Draft");
+      // myFormData.append("multiImage", photos);
+      if (photos.length > 0) {
+        for (let i = 0; i < photos.length; i++) {
+          myFormData.append("multiImage", photos[i]);
+        }
       }
       const res = await axios.post(
         "/product/create-product",
@@ -232,7 +279,9 @@ function DrawerCreateItem() {
             <Typography className={classes.HeadersTitle}>
               Item for Sale
             </Typography>
-            <Button className={classes.ButtonCreate}>
+            <Button
+              className={classes.ButtonCreate}
+              onClick={onDraftSubmit}>
               Save Draft
             </Button>
             <IconButton

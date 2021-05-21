@@ -1,10 +1,10 @@
 import React from "react";
-import HeaderAccount from "../layout/AccountUserLayout/HeaderAccount";
 import DrawerCreateHome from "../layout/AccountUserLayout/DrawerCreateHome";
+import Header from "../layout/Header";
 function CreateListingHomePage() {
   return (
     <div>
-      <HeaderAccount />
+      <Header />
       <DrawerCreateHome />
     </div>
   );

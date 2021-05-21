@@ -17,6 +17,7 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  Modal,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useContext } from "react";
@@ -32,8 +33,23 @@ import { useStyles } from "./UseStyleAccountPage";
 import { RadioStatus, RadioSort } from "./RadioMap";
 import { useHistory } from "react-router-dom";
 import { AccountContext } from "../../../context/AccountContextProvider";
+import CommenceProfileForm from "./CommenceProfileForm";
 
 function DrawerMenuAccount() {
+  function getModalStyle() {
+    return {
+      position: "absolute",
+      top: "10%",
+      left: "35%",
+      overflow: "scroll",
+      height: "100%",
+      display: "block",
+    };
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const classes = useStyles();
   const history = useHistory();
   const [openColl, setOpenColl] = React.useState(false);
@@ -67,7 +83,7 @@ function DrawerMenuAccount() {
             <List>
               <ListItem
                 className={classes.buttonListAccount}
-                onClick={() => alert("Listings")}>
+                onClick={() => history.push("/mypage")}>
                 <ListItemIcon
                   className={classes.ListIcon}
                   onClick={() => history.push}>
@@ -79,7 +95,7 @@ function DrawerMenuAccount() {
             <List>
               <ListItem
                 className={classes.buttonListAccount}
-                onClick={() => alert("Save")}>
+                onClick={() => history.push("/mypage/saved")}>
                 <ListItemIcon className={classes.ListIcon}>
                   <MdBookmark />
                 </ListItemIcon>
@@ -89,7 +105,7 @@ function DrawerMenuAccount() {
             <List>
               <ListItem
                 className={classes.buttonListAccount}
-                onClick={() => alert("Following")}>
+                onClick={() => history.push("/mypage/following")}>
                 <ListItemIcon className={classes.ListIcon}>
                   <MdLayers />
                 </ListItemIcon>
@@ -205,6 +221,13 @@ function DrawerMenuAccount() {
           </div>
         </Box>
       </Drawer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="title"
+        aria-describedby="description">
+        <CommenceProfileForm getModalStyle={getModalStyle} />
+      </Modal>
     </>
   );
 }

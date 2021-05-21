@@ -48,7 +48,9 @@ function LoginForm() {
         setIsAuthenticated(true);
         setPayload(res.data.payload);
         await setToken(res.data.token);
+
         history.push("/homepage");
+        window.location.reload();
       }
     }
   };
