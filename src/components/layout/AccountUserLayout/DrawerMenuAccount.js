@@ -112,7 +112,7 @@ function DrawerMenuAccount() {
                 Following
               </ListItem>
             </List>
-            <List>
+            {/* <List>
               <ListItem
                 className={classes.buttonListAccount}
                 onClick={() => alert("Recent Activity")}>
@@ -121,7 +121,7 @@ function DrawerMenuAccount() {
                 </ListItemIcon>
                 Recent Activity
               </ListItem>
-            </List>
+            </List> */}
             <List>
               <ListItem
                 button
