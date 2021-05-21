@@ -7,31 +7,31 @@ import {
   DialogContentText,
   DialogTitle,
   Paper,
-  Typography,
-} from "@material-ui/core";
-import React from "react";
-import { useStyles } from "./UseStyleAccountPage";
-import { AiFillFire } from "react-icons/ai";
+  Typography
+} from '@material-ui/core'
+import React from 'react'
+import { useStyles } from './UseStyleAccountPage'
+import { AiFillFire } from 'react-icons/ai'
 // import { RiShareForwardFill } from "react-icons/ri";
 
-import axios from "../../../config/axios";
-import { useState } from "react";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { useHistory } from "react-router-dom";
+import axios from '../../../config/axios'
+import { useState } from 'react'
+import { MdDelete, MdEdit } from 'react-icons/md'
+import { useHistory } from 'react-router-dom'
 function MyListing({ products }) {
-  const classes = useStyles();
+  const classes = useStyles()
   // /get-user-products/:userId
-  const history = useHistory();
-  const [open, setOpen] = React.useState(false);
+  const history = useHistory()
+  const [open, setOpen] = React.useState(false)
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const handleOpenDel = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
   const onDelete = async (id) => {
-    console.log(id);
+    console.log(id)
     try {
       const res = await axios.delete("/product/delete-product/" + id);
       if (res) {
@@ -39,9 +39,9 @@ function MyListing({ products }) {
         return setOpen(false);
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
   return (
     <>
       <Box className={classes.contentListing}>
@@ -121,11 +121,11 @@ function MyListing({ products }) {
                 </DialogActions>
               </Dialog>
             </Paper>
-          );
+          )
         })}
       </Box>
     </>
-  );
+  )
 }
 
-export default MyListing;
+export default MyListing

@@ -15,6 +15,7 @@ import {
   ThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
+import GeocodeContextProvider from "./context/GeocodeContextProvider"
 const theme = createMuiTheme({
   palette: {
     primary: blue,
@@ -30,22 +31,24 @@ ReactDOM.render(
   <React.StrictMode>
     <SocketContextProvider>
       <PayloadContextProvider>
-        <PriceContextProvider>
-          <AccountContextProvider>
-            <AuthContextProvider>
-              <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                  <App />
+    <GeocodeContextProvider>
+      <PriceContextProvider>
+        <AccountContextProvider>
+          <AuthContextProvider>
+            <ThemeProvider theme={theme}>
+              <BrowserRouter>
+                <App />
                 </BrowserRouter>
               </ThemeProvider>
             </AuthContextProvider>
           </AccountContextProvider>
         </PriceContextProvider>
+    </GeocodeContextProvider>
       </PayloadContextProvider>
     </SocketContextProvider>
   </React.StrictMode>,
-  document.getElementById("root")
-);
+  document.getElementById('root')
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
