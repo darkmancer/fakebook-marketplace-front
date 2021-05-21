@@ -21,6 +21,7 @@ import CreateListingHomePage from "./components/pages/CreateListingHomePage";
 import EditPage from "./components/pages/EditPage";
 import { PayloadContext } from "./context/PayloadContextProvider";
 import SavedPage from "./components/pages/SavedPage";
+import FollowerPage from "./components/pages/FollowerPage";
 
 const privateRoutes = [
   {
@@ -90,6 +91,10 @@ const privateRoutes = [
   {
     path: "/mypage/saved",
     component: SavedPage,
+  },
+  {
+    path: "/mypage/following",
+    component: FollowerPage,
   },
 ];
 const publicRoutes = [

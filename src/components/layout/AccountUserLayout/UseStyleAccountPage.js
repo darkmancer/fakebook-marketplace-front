@@ -417,7 +417,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   GridFlex: {
     display: "flex",
-    flexDirection: "row",
+    flexWrap: "wrap",
   },
   ListTitle: {
     color: "white",
@@ -430,6 +430,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   textCommeceForm: {
     color: "white",
+  },
+  textHeaderFollowing: {
+    color: "white",
+    fontSize: "1.2rem",
+    margin: theme.spacing(1),
   },
   boxSaved: {
     position: "relative",
@@ -448,5 +453,47 @@ export const useStyles = makeStyles((theme) => ({
     height: 260,
     backgroundColor: "#242526",
     flexDirection: "column",
+  },
+  editMode: {
+    // position: "relative",
+    // right: 20,
+    // top: 3,
+    color: "#2d88ff",
+    margin: theme.spacing(1.4),
+  },
+  flexHeaderFollwering: {
+    width: "90%",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  paperFollowing: {
+    backgroundColor: "#242526",
+    width: "60ch",
+    display: "flex",
+    borderRadius: 10,
+    padding: theme.spacing(1, 1),
+
+    flexDirection: "column",
+  },
+  paperContentFollowing: {
+    margin: theme.spacing(2),
+    width: "90%",
+    backgroundColor: "#242526",
+  },
+  Namefollowing: {
+    color: "white",
+    margin: theme.spacing(1, 1.5),
+  },
+  ListingPostingText: {
+    color: "grey",
+    margin: theme.spacing(0, 1.5),
+  },
+  flexSpace: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  IconDel: {
+    color: "white",
+    margin: theme.spacing(0, 2, 0.5, 0),
   },
 }));
