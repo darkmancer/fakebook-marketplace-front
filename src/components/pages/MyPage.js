@@ -33,10 +33,8 @@ function MyPage() {
   }, []);
   // const [haveList, setHaveList] = useState();
 
-  if (isLoading) return <p>loading</p>;
-
   return (
-    <h1>
+    <>
       <Header className={classes.appBar} />
       <nav>
         <DrawerMenuAccount className={classes.drawer} />
@@ -54,7 +52,7 @@ function MyPage() {
 
         <CommeceProfile user={user} products={products} />
       </main>
-    </h1>
+    </>
   );
 }
 

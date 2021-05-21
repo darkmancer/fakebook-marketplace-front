@@ -55,6 +55,19 @@ function ContentEdit() {
       );
     }
   };
+   const onChangeFilePhotos = (e) => {
+     setShowPhotos([...showPhotos])
+     if (photos.length !== 0) {
+       setPhotos((prev) => [...prev, e.target.files[0]])
+       setShowPhotos([
+         ...showPhotos,
+         { post: URL.createObjectURL(e.target.files[0]) }
+       ])
+     } else {
+       setPhotos([e.target.files[0]])
+       setShowPhotos([{ post: URL.createObjectURL(e.target.files[0]) }])
+     }
+   }
   const [loading, setLoading] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [showPhotos, setShowPhotos] = useState([]);
@@ -100,6 +113,101 @@ function ContentEdit() {
   console.log(product);
   console.log(photos);
   // console.log(showPhotos);
+  const onChangeItem = (e) => {
+    let values = e.target.value
+    const { name, value } = e.target
+
+    if (
+      values === 'Tool' ||
+      values === 'Furniture' ||
+      values === 'HouseHold' ||
+      values === 'Garden' ||
+      values === 'Appliances'
+    ) {
+      setItem({
+        ...item,
+        category: 'Home & Garden',
+        subCategory: values
+      })
+    }
+    if (values === 'Video Games' || values === 'Books,Movie & Music') {
+      setItem({
+        ...item,
+        category: 'Entertainment',
+        subCategory: values
+      })
+    }
+    if (
+      values === 'Bags & Luggage' ||
+      values === "Women's Clothing & Shoes" ||
+      values === "Men's Clothing & Shoes" ||
+      values === 'Jewelry & Accessories'
+    ) {
+      setItem({
+        ...item,
+        category: 'Clothing & Accessories',
+        subCategory: values
+      })
+    }
+    if (
+      values === 'Health & Beauty' ||
+      values === 'Pet Supplies' ||
+      values === 'Baby & Kids' ||
+      values === 'Toy & Games'
+    ) {
+      setItem({
+        ...item,
+        category: 'Family',
+        subCategory: values
+      })
+    }
+    if (values === 'Electronics & Computers' || values === 'Moblie Phones') {
+      setItem({
+        ...item,
+        category: 'Electronics',
+        subCategory: values
+      })
+    }
+    if (
+      values === 'Bicycles' ||
+      values === 'Arts & Crafts' ||
+      values === 'Sports & Outdoors' ||
+      values === 'Auto Parts' ||
+      values === 'Musical & Intruments' ||
+      values === 'Antiques & Collectibles'
+    ) {
+      setItem({
+        ...item,
+        category: 'Hobbies',
+        subCategory: values
+      })
+    }
+    setProduct((prev) => ({ ...prev, [name]: value }))
+  }
+  console.log(product)
+  const onPublishSubmitEdit = async () => {
+    try {
+    const { title, price, condition, description } = product;
+    const myFormData = new FormData();
+      myFormData.append("title", title);
+      myFormData.append("condition", condition);
+      myFormData.append("description", description);
+      myFormData.append("price", price);
+      // myFormData.append("multiImage", photos);
+      if (photos.length > 0) {
+        for (let i = 0; i < photos.length; i++) {
+          myFormData.append("multiImage", photos[i]);
+        }
+      }
+      const res = await axios.put(`/product/update-product/${product.id}`, myFormData)
+      if (res) {
+        setLoading(false);
+        history.push("/mypage");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <>
       <div className={classes.flexPageCreateItem}>
@@ -154,7 +262,7 @@ function ContentEdit() {
                     id="contained-button-file"
                     multiple
                     type="file"
-                    // onChange={onChangeFilePhotos}
+                    onChange={onChangeFilePhotos}
                   />
                   <label htmlFor="contained-button-file">
                     <Button
@@ -199,7 +307,7 @@ function ContentEdit() {
                     id="contained-button-file"
                     multiple
                     type="file"
-                    // onChange={onChangeFilePhotos}
+                    onChange={onChangeFilePhotos}
                   />
                   <label htmlFor="contained-button-file">
                     <Button
@@ -220,7 +328,7 @@ function ContentEdit() {
               className={classes.InputTextField}
               variant="outlined"
               autoComplete="off"
-              //   onChange={onChangeItem}
+                onChange={onChangeItem}
               name="title"
               value={product?.title}
               InputLabelProps={{ className: classes.labelTextField }}
@@ -231,7 +339,7 @@ function ContentEdit() {
               autoComplete="off"
               value={product?.price}
               className={classes.InputTextField}
-              //   onChange={onChangeItem}
+                onChange={onChangeItem}
               variant="outlined"
               InputLabelProps={{ className: classes.labelTextField }}
             />
@@ -282,7 +390,7 @@ function ContentEdit() {
                 id="condition-field"
                 name="condition"
                 value={product?.condition}
-                // onChange={onChangeItem}
+                onChange={onChangeItem}
                 inputProps={{
                   name: "condition",
                   id: "condition-field",
@@ -299,7 +407,7 @@ function ContentEdit() {
             </FormControl>
             <TextField
               id="multiline"
-              //   onChange={onChangeItem}
+                onChange={onChangeItem}
               value={product?.description}
               autoComplete="off"
               className={classes.InputTextField}
@@ -311,7 +419,7 @@ function ContentEdit() {
             />
             <InputTag
               setItem={setItem}
-              //   onChageItem={onChangeItem}
+                onChageItem={onChangeItem}
               item={item}
               tags={tags}
               setTags={setTags}
@@ -349,9 +457,9 @@ function ContentEdit() {
             <Button
               variant="outlined"
               disabled={
-                item.title === "" && item.price === "" ? true : false
+                product?.title === "" && product?.price === "" ? true : false
               }
-              //   onClick={onPublishSubmit}
+                onClick={onPublishSubmitEdit}
               className={classes.ButtonPublish}
               endIcon={<MdEdit />}>
               Edit

@@ -5,12 +5,6 @@ export const RadioSort = [
   {
     primary: "Date listed: oldest first",
   },
-  {
-    primary: "Title (A-Z)",
-  },
-  {
-    primary: "Title (Z-A)",
-  },
 ];
 export const RadioStatus = [
   {
