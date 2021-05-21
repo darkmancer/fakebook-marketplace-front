@@ -33,9 +33,10 @@ function MyListing({ products }) {
   const onDelete = async (id) => {
     console.log(id)
     try {
-      const res = await axios.delete('/product/delete-product/' + id)
+      const res = await axios.delete("/product/delete-product/" + id);
       if (res) {
-        return setOpen(false)
+        window.location.reload();
+        return setOpen(false);
       }
     } catch (err) {
       console.log(err)
@@ -76,7 +77,7 @@ function MyListing({ products }) {
                   </Button>
 
                   <Button
-                    onClick={() => history.push('/editPage/' + product.id)}
+                    onClick={() => history.push("/editPage/" + product.id)}
                     className={classes.buttonShare}
                     startIcon={<MdEdit />}
                   >
@@ -98,7 +99,7 @@ function MyListing({ products }) {
                 aria-labelledby="draggable-dialog-title"
               >
                 <DialogTitle
-                  style={{ cursor: 'move' }}
+                  style={{ cursor: "move" }}
                   id="draggable-dialog-title"
                 >
                   Do you want to Delete?

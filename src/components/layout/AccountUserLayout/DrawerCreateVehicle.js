@@ -50,12 +50,8 @@ function DrawerCreateVehicle() {
       setShowPhotos([]);
       setPhotos([]);
     } else {
-      setShowPhotos((prev) =>
-        prev.filter((prev, index) => index !== idx)
-      );
-      setPhotos((prev) =>
-        prev.filter((prev, index) => index !== idx)
-      );
+      setShowPhotos((prev) => prev.filter((prev, index) => index !== idx));
+      setPhotos((prev) => prev.filter((prev, index) => index !== idx));
     }
   };
 
@@ -110,10 +106,7 @@ function DrawerCreateVehicle() {
           myFormData.append("multiImage", photos[i]);
         }
       }
-      const res = await axios.post(
-        "/product/create-product",
-        myFormData
-      );
+      const res = await axios.post("/product/create-product", myFormData);
       if (res) {
         setLoading(false);
         history.push("/mypage");
@@ -155,10 +148,7 @@ function DrawerCreateVehicle() {
       for (let i = 0; i < photos.length; i++) {
         myFormData.append("multiImage", photos[i]);
       }
-      const res = await axios.post(
-        "/product/create-product",
-        myFormData
-      );
+      const res = await axios.post("/product/create-product", myFormData);
       if (res) {
         setLoading(false);
         history.push("/mypage");
@@ -176,9 +166,7 @@ function DrawerCreateVehicle() {
       ]);
     } else {
       setPhotos(e.target.files);
-      setShowPhotos([
-        { file: URL.createObjectURL(e.target.files[0]) },
-      ]);
+      setShowPhotos([{ file: URL.createObjectURL(e.target.files[0]) }]);
     }
   };
   return (
@@ -186,20 +174,17 @@ function DrawerCreateVehicle() {
       <Paper className={classes.paperContainer}>
         <Toolbar />
         <div className={classes.div}>
-          <Box
-            style={{ display: "flex" }}
-            justifyContent="space-between">
+          <Box style={{ display: "flex" }} justifyContent="space-between">
             <Typography className={classes.HeadersTitle}>
               Vehicle For Sale
             </Typography>
-            <Button className={classes.ButtonCreate}>
-              Save Draft
-            </Button>
+            <Button className={classes.ButtonCreate}>Save Draft</Button>
             <IconButton
               aria-label="delete"
               className={classes.CloseButton}
               size="small"
-              onClick={handleCloseButton}>
+              onClick={handleCloseButton}
+            >
               <MdClose size="20" />
             </IconButton>
           </Box>
@@ -250,7 +235,8 @@ function DrawerCreateVehicle() {
             <Paper
               className={classes.PaperAddPhoto}
               variant="outlined"
-              style={{ border: "1px solid #616161" }}>
+              style={{ border: "1px solid #616161" }}
+            >
               <div>
                 <input
                   accept="image/*"
@@ -266,7 +252,8 @@ function DrawerCreateVehicle() {
                     color="primary"
                     component="span"
                     startIcon={<MdAddToPhotos />}
-                    className={classes.ButtonAddPhoto}>
+                    className={classes.ButtonAddPhoto}
+                  >
                     Add Photos
                   </Button>
                 </label>
@@ -310,7 +297,8 @@ function DrawerCreateVehicle() {
                     variant="contained"
                     color="primary"
                     component="span"
-                    className={classes.ButtonAddMultiPhoto}>
+                    className={classes.ButtonAddMultiPhoto}
+                  >
                     <MdAddToPhotos size="30" />
                   </Button>
                 </label>
@@ -367,7 +355,8 @@ function DrawerCreateVehicle() {
 
           <FormControl
             variant="outlined"
-            className={classes.InputTextFieldCategory}>
+            className={classes.InputTextFieldCategory}
+          >
             <InputLabel htmlFor="year-car">Year</InputLabel>
             <Select
               label="Year"
@@ -380,7 +369,8 @@ function DrawerCreateVehicle() {
                 classes: {
                   icon: classes.SelectIcon,
                 },
-              }}>
+              }}
+            >
               {year.map((year, idx) => (
                 <MenuItem key={idx} value={year}>
                   {year}
@@ -390,10 +380,9 @@ function DrawerCreateVehicle() {
           </FormControl>
           <FormControl
             variant="outlined"
-            className={classes.InputTextFieldCategory}>
-            <InputLabel htmlFor="tranmission-field">
-              Tranmission
-            </InputLabel>
+            className={classes.InputTextFieldCategory}
+          >
+            <InputLabel htmlFor="tranmission-field">Tranmission</InputLabel>
             <Select
               label="Tranmission"
               id="tranmission-field"
@@ -405,17 +394,17 @@ function DrawerCreateVehicle() {
                 classes: {
                   icon: classes.SelectIcon,
                 },
-              }}>
+              }}
+            >
               <MenuItem value="Automatic">Automatic</MenuItem>
               <MenuItem value="Manual">Manual</MenuItem>
             </Select>
           </FormControl>
           <FormControl
             variant="outlined"
-            className={classes.InputTextFieldCategory}>
-            <InputLabel htmlFor="condition-field">
-              Condition
-            </InputLabel>
+            className={classes.InputTextFieldCategory}
+          >
+            <InputLabel htmlFor="condition-field">Condition</InputLabel>
             <Select
               label="Condition"
               id="condition-field"
@@ -427,11 +416,10 @@ function DrawerCreateVehicle() {
                 classes: {
                   icon: classes.SelectIcon,
                 },
-              }}>
+              }}
+            >
               {condition.map((con, idx) => (
-                <MenuItem value={con.condition}>
-                  {con.condition}
-                </MenuItem>
+                <MenuItem value={con.condition}>{con.condition}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -471,19 +459,14 @@ function DrawerCreateVehicle() {
         <Button
           variant="outlined"
           onClick={handleOnPublish}
-          disabled={
-            item.title === "" && item.price === "" ? true : false
-          }
+          disabled={item.title === "" && item.price === "" ? true : false}
           className={classes.ButtonPublish}
-          endIcon={<MdPublic />}>
+          endIcon={<MdPublic />}
+        >
           Publish
         </Button>
       </Paper>
-      <PreviewVehicle
-        showPhotos={showPhotos}
-        item={item}
-        tags={tags}
-      />
+      <PreviewVehicle showPhotos={showPhotos} item={item} tags={tags} />
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
