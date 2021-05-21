@@ -33,10 +33,9 @@ function MyListing({ products }) {
   const onDelete = async (id) => {
     console.log(id);
     try {
-      const res = await axios.delete(
-        "/product//delete-product/" + id
-      );
+      const res = await axios.delete("/product/delete-product/" + id);
       if (res) {
+        window.location.reload();
         return setOpen(false);
       }
     } catch (err) {
@@ -65,31 +64,30 @@ function MyListing({ products }) {
                 <Typography className={classes.ListPrice}>
                   {product.price} Baht
                 </Typography>
-                <Typography className={classes.ListStatus}>
-                  In stock
-                </Typography>
+                <Typography className={classes.ListStatus}>In stock</Typography>
                 <Box className={classes.flexButtonInlist}>
                   {/* <Button className={classes.buttonMark}>
                     Mark Out of Stock
                   </Button> */}
                   <Button
                     className={classes.buttonListing}
-                    startIcon={<AiFillFire />}>
+                    startIcon={<AiFillFire />}
+                  >
                     Boost Listing
                   </Button>
 
                   <Button
-                    onClick={() =>
-                      history.push("/editPage/" + product.id)
-                    }
+                    onClick={() => history.push("/editPage/" + product.id)}
                     className={classes.buttonShare}
-                    startIcon={<MdEdit />}>
+                    startIcon={<MdEdit />}
+                  >
                     Edit
                   </Button>
                   <Button
                     className={classes.buttonListingEdit}
                     startIcon={<MdDelete />}
-                    onClick={() => handleOpenDel(product.id)}>
+                    onClick={() => handleOpenDel(product.id)}
+                  >
                     Delete
                   </Button>
                 </Box>
@@ -98,10 +96,12 @@ function MyListing({ products }) {
                 open={open}
                 onClose={handleClose}
                 // PaperComponent={PaperComponent}
-                aria-labelledby="draggable-dialog-title">
+                aria-labelledby="draggable-dialog-title"
+              >
                 <DialogTitle
                   style={{ cursor: "move" }}
-                  id="draggable-dialog-title">
+                  id="draggable-dialog-title"
+                >
                   Do you want to Delete?
                 </DialogTitle>
                 <DialogContent>
@@ -111,7 +111,8 @@ function MyListing({ products }) {
                   <Button
                     autoFocus
                     onClick={() => onDelete(product.id)}
-                    color="primary">
+                    color="primary"
+                  >
                     Yes! Delete it.
                   </Button>
                   <Button onClick={handleClose} color="primary">

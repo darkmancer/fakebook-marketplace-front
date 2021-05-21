@@ -51,12 +51,8 @@ function DrawerCreateHome() {
       setShowPhotos([]);
       setPhotos([]);
     } else {
-      setShowPhotos((prev) =>
-        prev.filter((prev, index) => index !== idx)
-      );
-      setPhotos((prev) =>
-        prev.filter((prev, index) => index !== idx)
-      );
+      setShowPhotos((prev) => prev.filter((prev, index) => index !== idx));
+      setPhotos((prev) => prev.filter((prev, index) => index !== idx));
     }
   };
 
@@ -159,9 +155,7 @@ function DrawerCreateHome() {
       ]);
     } else {
       setPhotos(e.target.files);
-      setShowPhotos([
-        { file: URL.createObjectURL(e.target.files[0]) },
-      ]);
+      setShowPhotos([{ file: URL.createObjectURL(e.target.files[0]) }]);
     }
   };
   // console.log(payload?.firstName);
@@ -172,22 +166,19 @@ function DrawerCreateHome() {
         <Paper className={classes.paperContainer}>
           <Toolbar />
           <div className={classes.div}>
-            <Box
-              style={{ display: "flex" }}
-              justifyContent="space-between">
+            <Box style={{ display: "flex" }} justifyContent="space-between">
               <Typography className={classes.HeadersTitle}>
                 New Home Listing
               </Typography>
-              <Button
-                className={classes.ButtonCreate}
-                onClick={onDraftSubmit}>
+              <Button className={classes.ButtonCreate} onClick={onDraftSubmit}>
                 Save Draft
               </Button>
               <IconButton
                 aria-label="delete"
                 className={classes.CloseButton}
                 size="small"
-                onClick={handleCloseButton}>
+                onClick={handleCloseButton}
+              >
                 <MdClose size="20" />
               </IconButton>
             </Box>
@@ -199,9 +190,7 @@ function DrawerCreateHome() {
                 src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
               />
               <div>
-                <h4 className={classes.NameAvatar}>
-                  {user?.firstName}
-                </h4>
+                <h4 className={classes.NameAvatar}>{user?.firstName}</h4>
                 <h5 className={classes.TextStatusAvatar}>
                   Listing to Marketplace
                 </h5>
@@ -216,7 +205,8 @@ function DrawerCreateHome() {
               <Paper
                 className={classes.PaperAddPhoto}
                 variant="outlined"
-                style={{ border: "1px solid #616161" }}>
+                style={{ border: "1px solid #616161" }}
+              >
                 <div>
                   <input
                     accept="image/*"
@@ -232,7 +222,8 @@ function DrawerCreateHome() {
                       color="primary"
                       component="span"
                       startIcon={<MdAddToPhotos />}
-                      className={classes.ButtonAddPhoto}>
+                      className={classes.ButtonAddPhoto}
+                    >
                       Add Photos
                     </Button>
                   </label>
@@ -276,7 +267,8 @@ function DrawerCreateHome() {
                       variant="contained"
                       color="primary"
                       component="span"
-                      className={classes.ButtonAddMultiPhoto}>
+                      className={classes.ButtonAddMultiPhoto}
+                    >
                       <MdAddToPhotos size="30" />
                     </Button>
                   </label>
@@ -305,10 +297,9 @@ function DrawerCreateHome() {
             />
             <FormControl
               variant="outlined"
-              className={classes.InputTextFieldCategory}>
-              <InputLabel htmlFor="home-for">
-                Home for Sale or Rent
-              </InputLabel>
+              className={classes.InputTextFieldCategory}
+            >
+              <InputLabel htmlFor="home-for">Home for Sale or Rent</InputLabel>
               <Select
                 label="Home for Sale or Rent"
                 id="home-for"
@@ -320,7 +311,8 @@ function DrawerCreateHome() {
                   classes: {
                     icon: classes.SelectIcon,
                   },
-                }}>
+                }}
+              >
                 <MenuItem value="RENT">RENT</MenuItem>
                 <MenuItem value="SALE">SALE</MenuItem>
               </Select>
@@ -328,10 +320,9 @@ function DrawerCreateHome() {
 
             <FormControl
               variant="outlined"
-              className={classes.InputTextFieldCategory}>
-              <InputLabel htmlFor="estate-type">
-                EstateType
-              </InputLabel>
+              className={classes.InputTextFieldCategory}
+            >
+              <InputLabel htmlFor="estate-type">EstateType</InputLabel>
               <Select
                 label="EstateType"
                 id="estate-type"
@@ -343,7 +334,8 @@ function DrawerCreateHome() {
                   classes: {
                     icon: classes.SelectIcon,
                   },
-                }}>
+                }}
+              >
                 <MenuItem value="Apartment">Apartment</MenuItem>
                 <MenuItem value="House">House</MenuItem>
                 <MenuItem value="Room only">Room only</MenuItem>
@@ -412,11 +404,10 @@ function DrawerCreateHome() {
           <Button
             variant="outlined"
             onClick={onPublishSubmit}
-            disabled={
-              item.title === "" && item.price === "" ? true : false
-            }
+            disabled={item.title === "" && item.price === "" ? true : false}
             className={classes.ButtonPublish}
-            endIcon={<MdPublic />}>
+            endIcon={<MdPublic />}
+          >
             Publish
           </Button>
         </Paper>
