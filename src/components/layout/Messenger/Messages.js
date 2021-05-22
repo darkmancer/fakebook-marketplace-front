@@ -1,84 +1,84 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import axios from "../../../config/axios";
-import { socket, SocketContext } from "../../../context/SocketContextProvider";
-import { Box, List, ListItem, ListItemText, Avatar } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import * as localStorage from "../../../services/localStorageService";
-import { PayloadContext } from "../../../context/PayloadContextProvider";
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import axios from '../../../config/axios'
+import { socket, SocketContext } from '../../../context/SocketContextProvider'
+import { Box, List, ListItem, ListItemText, Avatar } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import * as localStorage from '../../../services/localStorageService'
+import { PayloadContext } from '../../../context/PayloadContextProvider'
 
 const useStyles = makeStyles((theme) => ({
   text: {
-    display: "flex",
-    width: "fit-content",
+    display: 'flex',
+    width: 'fit-content'
   },
   textSender: {
-    display: "inline-block",
-    textAlign: "right",
+    display: 'inline-block',
+    textAlign: 'right',
     borderRadius: 5,
-    padding: theme.spacing(1),
+    padding: theme.spacing(1)
   },
   messageList: {
-    overflow: "auto",
-    height: "300px",
+    overflow: 'auto',
+    height: '300px'
   },
   colorBlue: {
-    backgroundColor: "#1092F3",
-    display: "inline-block",
-    width: "fit-content",
-    borderRadius: 5,
-    padding: theme.spacing(1),
+    backgroundColor: '#1092F3',
+    display: 'inline-block',
+    width: 'fit-content',
+    borderRadius: 10,
+    padding: theme.spacing(1)
   },
   colorGrey: {
-    backgroundColor: "#3A3B3C",
-    borderRadius: 5,
-    padding: theme.spacing(1),
+    backgroundColor: '#3A3B3C',
+    borderRadius: 10,
+    padding: theme.spacing(1)
   },
   avatarSeller: {
-    display: "flex",
-  },
-}));
+    display: 'flex'
+  }
+}))
 
 function Messages({ receiverId, seller }) {
-  const scrollRef = useRef();
-  const [texts, setTexts] = useState([]);
-  const [arriveMessages, setArriveMessages] = useState(null);
-  const { payload, setPayload } = useContext(PayloadContext);
-  const [sender, setSender] = useState([]);
-  const [receiver, setReceiver] = useState([]);
-  const [test, setTest] = useState([]);
-  console.log(test);
-  console.log(texts);
-  console.log(receiverId);
-  console.log(arriveMessages);
+  const scrollRef = useRef()
+  const [texts, setTexts] = useState([])
+  const [arriveMessages, setArriveMessages] = useState(null)
+  const { payload, setPayload } = useContext(PayloadContext)
+  const [sender, setSender] = useState([])
+  const [receiver, setReceiver] = useState([])
+  const [test, setTest] = useState([])
+  console.log(test)
+  console.log(texts)
+  console.log(receiverId)
+  console.log(arriveMessages)
 
   // console.log("sender", sender);
   // console.log("receiver", receiver);
 
-  console.log("arriveMessages", arriveMessages);
+  console.log('arriveMessages', arriveMessages)
 
   const getMessages = async () => {
     try {
-      const res = await axios.get(`/message/${receiverId}`);
+      const res = await axios.get(`/message/${receiverId}`)
 
-      console.log(res.data.messages);
-      setTexts(res.data.messages);
+      console.log(res.data.messages)
+      setTexts(res.data.messages)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   useEffect(() => {
-    getMessages();
-  }, []);
+    getMessages()
+  }, [])
 
   useEffect(() => {
-    socket.on("getMessage", (data) => {
+    socket.on('getMessage', (data) => {
       setArriveMessages({
         receiverId: `${receiverId}`,
-        text: data.text,
-      });
-    });
-  }, []);
+        text: data.text
+      })
+    })
+  }, [])
 
   // socket.on("hello", (data) => {
   //   io.emit("")
@@ -86,14 +86,14 @@ function Messages({ receiverId, seller }) {
   // });
 
   useEffect(() => {
-    arriveMessages && setTexts((prev) => [...prev, arriveMessages]);
-  }, [arriveMessages]);
+    arriveMessages && setTexts((prev) => [...prev, arriveMessages])
+  }, [arriveMessages])
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [texts]);
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [texts])
 
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <Box>
       <List className={classes.messageList}>
@@ -108,7 +108,7 @@ function Messages({ receiverId, seller }) {
               <Avatar
                 alt="receiver-profile"
                 src={seller?.Avatar}
-                style={{ display: "inline" }}
+                style={{ display: 'inline' }}
                 // className={classes.avatarSeller}
               />
             )}
@@ -126,7 +126,7 @@ function Messages({ receiverId, seller }) {
         ))}
       </List>
     </Box>
-  );
+  )
 }
 
-export default Messages;
+export default Messages

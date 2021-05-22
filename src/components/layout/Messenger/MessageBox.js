@@ -20,7 +20,7 @@ import IconButton from '@material-ui/core/IconButton'
 import axios from '../../../config/axios'
 
 const modalStyle = {
-  top: `30%`,
+  top: `40%`,
   right: `5%`
 }
 
@@ -65,11 +65,11 @@ function MessageBox(props) {
   const [newMessage, setNewMessage] = useState('')
   const { openChat, setOpenChat, productId } = props //seller fetch จากหน้า ProductDetail มาไม่ทันเลยใส่ isloading ไว้หน้า productdetail
   const { socket } = useContext(SocketContext)
-
   const [seller, setSeller] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   //id ที่รับเข้ามาคือ id.param ของ product
   console.log('seller', seller)
+
   const fetchSellerByProductId = async () => {
     try {
       const res = await axios.get(`/product/get-seller-product/${productId}`)
@@ -113,8 +113,8 @@ function MessageBox(props) {
   const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
-        <Avatar alt="receiver-profile" />
-        <Typography>
+        <Avatar alt="receiver-profile" style={{ margin: '10px' }} />
+        <Typography style={{ margin: '15px' }}>
           {seller?.firstName} {seller?.lastName}
         </Typography>
         <Button color="primary">
