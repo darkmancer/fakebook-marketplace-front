@@ -108,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
   NameText: {
     position: 'relative',
     right: 10
+  },
+  BoxMiddle: {
+    position: 'relative',
+    right: 35
   }
 }))
 
@@ -265,36 +269,38 @@ export default function SpringModal({
               </Box>
             </Box>
             <Divider className={classes.dividerLine} light />
-            <Box component="fieldset" borderColor="transparent">
-              <Typography variant="h6">Seller Ratings</Typography>
-              <Rating name="read-only" value="4" readOnly />
-              <Typography className={classes.RatingText}>
-                Ratings: Good
-              </Typography>
-              <Typography className={classes.RatingText}>
-                (Visit to the public after 0 ratings)
-              </Typography>
-            </Box>
-            <Box component="fieldset" borderColor="transparent">
-              <Typography variant="h6">About</Typography>
-              <Box
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-start'
-                }}
-              >
-                <Box className={classes.BoxText}>
-                  <Typography component="span">
-                    <RoomIcon /> Lives in {seller?.location}
-                  </Typography>
-                </Box>
-                <Box className={classes.BoxText}>
-                  <HowToRegIcon className={classes.Icon} />
-                  <Typography className={classes.Text} component="span">
-                    Joined MarketPlace in 2011
-                  </Typography>
+            <Box className={classes.BoxMiddle}>
+              <Box component="fieldset" borderColor="transparent">
+                <Typography variant="h6">Seller Ratings</Typography>
+                <Rating name="read-only" value="4" readOnly />
+                <Typography className={classes.RatingText}>
+                  Ratings: Good
+                </Typography>
+                <Typography className={classes.RatingText}>
+                  (Visit to the public after 0 ratings)
+                </Typography>
+              </Box>
+              <Box component="fieldset" borderColor="transparent">
+                <Typography variant="h6">About</Typography>
+                <Box
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start'
+                  }}
+                >
+                  <Box className={classes.BoxText}>
+                    <Typography component="span">
+                      <RoomIcon /> Lives in {seller?.location}
+                    </Typography>
+                  </Box>
+                  <Box className={classes.BoxText}>
+                    <HowToRegIcon className={classes.Icon} />
+                    <Typography className={classes.Text} component="span">
+                      Joined MarketPlace in 2011
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Box>
