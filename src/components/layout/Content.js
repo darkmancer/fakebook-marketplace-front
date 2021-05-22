@@ -12,14 +12,14 @@ import axios from '../../config/axios'
 import './Content.css'
 
 function Content() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState(null)
   const classes = useStylesContent()
   const history = useHistory()
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/product/get-all-product`)
-        console.log(res)
+
         setProducts(res.data.products)
       } catch (err) {
         console.log(`err`, err)
@@ -27,7 +27,6 @@ function Content() {
     }
     fetchProduct()
   }, [])
-  console.log('product', products)
   return (
     <Box>
       <Box className={classes.containerText}>

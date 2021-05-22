@@ -11,11 +11,12 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
   const [address, setAddress] = React.useState('')
   const classes = useStylesContent();
   const history = useHistory();
+  
   function handleClick() {
     setOpen(false)
     setTrigger(!trigger)
     history.push(`/select/product/${product.id}`)
-    console.log(product.id)
+  
     window.location.reload()
   }
   const convertLatLngToAddress = async() => {
@@ -25,13 +26,11 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
  
   React.useEffect(() => {
     const setAdd = async () => {
-      console.log('inside')
       const loName = await getAddress(product.location)
       setAddress(loName)
     }
     setAdd()
   }, [])
-  console.log(address)
 
   if (size === "mini") {
     return (

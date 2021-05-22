@@ -21,12 +21,12 @@ export function LocationName(loca) {
 
   const lat = loca.split(",")[0];
   const long = loca.split(",")[1];
-  console.log(lat, long);
+ 
   localStorage.setItem("CurLocation", `${lat},${long}`);
 
   Geocode.fromLatLng(lat, long).then(
     (response) => {
-      // console.log(response.results[0]);
+ 
       const { formatted_address } = response.results[0];
       localStorage.setItem("Address", formatted_address);
       name = response.plus_code.compound_code

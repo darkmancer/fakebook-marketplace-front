@@ -9,6 +9,7 @@ function AuthContextProvider({ children }) {
   //  const [state, dispatch] = useReducer(reducer, initialState, init)
   const [isAuthenticated, setIsAuthenticated] = useState(getToken())
   const [user, setUser] = useState()
+
   function DecodeToken() {
     if (isAuthenticated) {
       const dktoken = jwtDecode(getToken())
