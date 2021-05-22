@@ -153,6 +153,7 @@ export default function SpringModal({
   const [offset, setOffset] = useState(0)
   const [limit, setLimit] = useState(6)
   const classes = useStyles()
+  const [triggerFollow, setTriggerFollow] = useState(false)
   const handleOpen = () => {
     setOpen(true)
   }
@@ -160,6 +161,14 @@ export default function SpringModal({
   const handleClose = () => {
     setOpen(false)
   }
+    const follow = async () => {
+      setTriggerFollow((prev) => !prev)
+      const res = await axios.post(`/follower/follow/${seller.id}`)
+    }
+    const unFollow = async () => {
+      setTriggerFollow((prev) => !prev)
+      const res = await axios.delete(`/follower/unfollow/${seller.id}`)
+    }
   useEffect(() => {
     if (seller) {
       const fetchProducts = async () => {
@@ -239,21 +248,26 @@ export default function SpringModal({
                 </Box>
               </Box>
               <Box className={classes.FlexButton}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  className={classes.button}
-                >
-                  Follow
-                </Button>
-                {/* <Button
-                  variant="contained"
-                  size="small"
-                  className={classes.button}
-                  onClick={() => alert('Apply')}
-                >
-                  View Profile
-                </Button> */}
+                {triggerFollow ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.buttonSave}
+                    onClick={unFollow}
+                  >
+                    save
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="default"
+                    className={classes.buttonSave}
+                    onClick={follow}
+                  >
+                    save
+                  </Button>
+                )}
+            
                 <Button
                   variant="contained"
                   size="small"
