@@ -161,14 +161,16 @@ export default function SpringModal({
   const handleClose = () => {
     setOpen(false)
   }
-    const follow = async () => {
-      setTriggerFollow((prev) => !prev)
-      const res = await axios.post(`/follower/follow/${seller.id}`)
-    }
-    const unFollow = async () => {
-      setTriggerFollow((prev) => !prev)
-      const res = await axios.delete(`/follower/unfollow/${seller.id}`)
-    }
+  const follow = async () => {
+    setTriggerFollow((prev) => !prev)
+    const res = await axios.post(`/follower/follow/${seller.id}`)
+    console.log(res)
+  }
+  const unFollow = async () => {
+    setTriggerFollow((prev) => !prev)
+    const res = await axios.delete(`/follower/unfollow/${seller.id}`)
+    console.log(res)
+  }
   useEffect(() => {
     if (seller) {
       const fetchProducts = async () => {
@@ -251,23 +253,25 @@ export default function SpringModal({
                 {triggerFollow ? (
                   <Button
                     variant="contained"
-                    color="primary"
-                    className={classes.buttonSave}
+                    size="small"
+                    className={classes.button}
                     onClick={unFollow}
+                    color="primary"
                   >
-                    save
+                    Unfollow
                   </Button>
                 ) : (
                   <Button
                     variant="contained"
-                    color="default"
-                    className={classes.buttonSave}
+                    size="small"
+                    className={classes.button}
                     onClick={follow}
+                    color="default"
                   >
-                    save
+                    Follow
                   </Button>
                 )}
-            
+
                 <Button
                   variant="contained"
                   size="small"

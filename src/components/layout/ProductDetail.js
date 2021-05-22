@@ -105,7 +105,7 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
             <List>
               <ListItem>
                 <Typography variant="h5" component="h3">
-                  ฿{product.price} · {product.productStatus}
+                  ฿{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} · {product.productStatus}
                 </Typography>
               </ListItem>
               <ListItem>
