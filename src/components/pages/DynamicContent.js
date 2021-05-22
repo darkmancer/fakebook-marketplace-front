@@ -37,18 +37,18 @@ function Content({ category }) {
         }
       })
   }
-  const locationFilter = async (products) => {
-    return products?.filter((product) => {
-      if (calcDistance(product.location, geocode) <= +radius) return product
-    })
-  }
+  // const locationFilter = async (products) => {
+  //   return products?.filter((product) => {
+  //     if (calcDistance(product.location, geocode) <= +radius) return product
+  //   })
+  // }
   const fetchProduct = async () => {
     try {
       const res = await axios.get(`/product/get-by-category/${category}`)
 
       const filteredProducts = filterProducts(res.data.products)
-      const filteredProductsByLocation = await locationFilter(filteredProducts)
-      setProducts(filteredProductsByLocation)
+      // const filteredProductsByLocation = await locationFilter(filteredProducts)
+      setProducts(filteredProducts)
     } catch (err) {
       console.log(`err`, err)
     }
@@ -59,11 +59,11 @@ function Content({ category }) {
 
       if (res.data.products) {
         const filteredProducts = filterProducts(res.data.products)
-        const filteredProductsByLocation = await locationFilter(
-          filteredProducts
-        )
-        if (filteredProductsByLocation) {
-          setProducts(filteredProductsByLocation)
+        // const filteredProductsByLocation = await locationFilter(
+        //   filteredProducts
+        // )
+        if (filteredProducts) {
+          setProducts(filteredProducts)
         }
       } else {
         setProducts(res.data.products)

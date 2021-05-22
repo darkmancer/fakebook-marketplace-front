@@ -19,17 +19,17 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
   
     window.location.reload()
   }
-  const convertLatLngToAddress = async() => {
-    const address = await getAddress(product.location)
-    return address
-  } 
+  // const convertLatLngToAddress = async() => {
+  //   const address = await getAddress(product.location)
+  //   return address
+  // } 
  
   React.useEffect(() => {
     const setAdd = async () => {
       const loName = await getAddress(product.location)
       setAddress(loName)
     }
-    setAdd()
+    // setAdd()
   }, [])
 
   if (size === "mini") {
@@ -56,8 +56,8 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
           src={product?.Photos[0]?.post}
         />
         <Typography variant="body1" component="p">
-          {address?.includes('Thailand') ? '฿' : '$'}
-          {product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          {/* {address?.includes('Thailand') ? '฿' : '$'}  */}
+         ฿ {product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
         </Typography>
 
         <Typography variant="caption" component="p">
@@ -90,7 +90,7 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
           {product?.title}{" "}
         </Typography>
         <Typography variant="h6" component="p" style={{ color: "white" }}>
-         {address}
+         {/* {address} */}
         </Typography>
       </div>
     );
