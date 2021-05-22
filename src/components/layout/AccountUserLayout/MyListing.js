@@ -31,14 +31,20 @@ function MyListing({ products }) {
     setOpen(true)
   }
   const onDelete = async (id) => {
-    console.log(id)
     try {
       const res = await axios.delete('/product/delete-product/' + id)
+<<<<<<< HEAD
 
       setOpen(false)
       console.log(res)
 
       // return window.location.reload()
+=======
+      if (res) {
+        window.location.reload()
+        return setOpen(false)
+      }
+>>>>>>> dev
     } catch (err) {
       console.log(err)
     }
@@ -56,6 +62,7 @@ function MyListing({ products }) {
                   width="150px"
                   height="150px"
                   style={{ borderRadius: 6 }}
+                  onClick={() => history.push('/select/product/' + product.id)}
                 />
               </Box>
               <Box className={classes.contentInmyList}>

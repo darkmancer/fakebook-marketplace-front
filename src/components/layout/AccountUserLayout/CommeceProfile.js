@@ -1,48 +1,39 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Modal,
-  Paper,
-} from "@material-ui/core";
-import React from "react";
-import { useContext } from "react";
-import { MdAdd } from "react-icons/md";
-import { useHistory } from "react-router-dom";
-import { AccountContext } from "../../../context/AccountContextProvider";
-import CommenceProfileForm from "./CommenceProfileForm";
-import { useStyles } from "./UseStyleAccountPage";
+import { Avatar, Box, Button, Divider, Modal, Paper } from '@material-ui/core'
+import React from 'react'
+import { useContext } from 'react'
+import { MdAdd } from 'react-icons/md'
+import { useHistory } from 'react-router-dom'
+import { AccountContext } from '../../../context/AccountContextProvider'
+import CommenceProfileForm from './CommenceProfileForm'
+import { useStyles } from './UseStyleAccountPage'
 function CommeceProfile({ user, products }) {
-  const classes = useStyles();
-  const history = useHistory();
-  const { setOpen, open } = useContext(AccountContext);
+  const classes = useStyles()
+  const history = useHistory()
+  const { setOpen, open } = useContext(AccountContext)
 
   function getModalStyle() {
     return {
-      position: "absolute",
-      top: "10%",
-      left: "35%",
-      overflow: "scroll",
-      height: "100%",
-      display: "block",
-    };
+      position: 'absolute',
+      top: '10%',
+      left: '35%',
+      overflow: 'scroll',
+      height: '100%',
+      display: 'block'
+    }
   }
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   return (
     <>
       <Box className={classes.contentCommenceProfile}>
         <Paper className={classes.paperCommence}>
           <div>
-            <h4 style={{ color: "white", margin: 8 }}>
-              Your Commence Profile
-            </h4>
+            <h4 style={{ color: 'white', margin: 8 }}>Your Commerce Profile</h4>
 
             <div className={classes.FlexAvatar}>
               <Avatar
@@ -52,9 +43,7 @@ function CommeceProfile({ user, products }) {
                 src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
               />
               <div>
-                <h4 className={classes.NameAvatar}>
-                  {user?.firstName}
-                </h4>
+                <h4 className={classes.NameAvatar}>{user?.firstName}</h4>
                 <h5 className={classes.ActiveListings}>
                   {products.length} Active Listings
                 </h5>
@@ -62,16 +51,15 @@ function CommeceProfile({ user, products }) {
             </div>
             <Button
               onClick={() => {
-                history.push("/myListings");
+                history.push('/myListings')
               }}
               className={classes.buttonCreateNewListAvatar}
-              style={{ width: "250px" }}>
-              <MdAdd style={{ marginRight: "10px" }} />
+              style={{ width: '250px' }}
+            >
+              <MdAdd style={{ marginRight: '10px' }} />
               Create New Listing
             </Button>
-            <Button
-              className={classes.buttonProfile}
-              onClick={handleOpen}>
+            <Button className={classes.buttonProfile} onClick={handleOpen}>
               See Profile
             </Button>
           </div>
@@ -82,7 +70,8 @@ function CommeceProfile({ user, products }) {
         open={open}
         onClose={handleClose}
         aria-labelledby="title"
-        aria-describedby="description">
+        aria-describedby="description"
+      >
         <CommenceProfileForm
           getModalStyle={getModalStyle}
           user={user}
@@ -90,7 +79,7 @@ function CommeceProfile({ user, products }) {
         />
       </Modal>
     </>
-  );
+  )
 }
 
-export default CommeceProfile;
+export default CommeceProfile

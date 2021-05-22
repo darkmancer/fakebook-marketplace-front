@@ -38,7 +38,7 @@ function DrawerCreateItem() {
   const [loading, setLoading] = useState(false);
   const toggleBoost = () => {
     setBoost((prev) => !prev);
-    console.log(boost);
+  
   };
   const handleCloseButton = () => {
     history.push("/mylistings");
@@ -57,7 +57,7 @@ function DrawerCreateItem() {
   useEffect(() => {
     async function getLocation() {
       const currentLocation = await getCurrentLocation();
-      console.log(LocationName(currentLocation));
+  
     }
     getLocation();
   }, []);
@@ -65,7 +65,7 @@ function DrawerCreateItem() {
   const address = localStorage.getItem("Address");
   const [tags, setTags] = React.useState([]);
   const optional = tags.join(",");
-  console.log(tags, optional);
+
   const [item, setItem] = useState({
     title: "",
     price: "",
@@ -89,10 +89,9 @@ function DrawerCreateItem() {
     }
   };
 
-  console.log(photos);
+  
   const onPublishSubmit = async () => {
-    // console.log(item);
-    // console.log(photos);
+
     setLoading(true);
     try {
       const {
@@ -104,7 +103,7 @@ function DrawerCreateItem() {
         description,
         location,
       } = item;
-      console.log(photos);
+   
 
       const myFormData = new FormData();
       myFormData.append("title", title);
@@ -133,8 +132,7 @@ function DrawerCreateItem() {
     }
   };
   const onDraftSubmit = async () => {
-    // console.log(item);
-    // console.log(photos);
+  
     setLoading(true);
     try {
       const {
@@ -146,7 +144,7 @@ function DrawerCreateItem() {
         description,
         location,
       } = item;
-      console.log(photos);
+   
 
       const myFormData = new FormData();
       myFormData.append("title", title);
@@ -249,7 +247,7 @@ function DrawerCreateItem() {
   };
 
   const classes = useStyles();
-  console.log(item);
+ 
   return (
     <div className={classes.flexPageCreateItem}>
       <Paper className={classes.paperContainer}>

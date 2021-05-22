@@ -106,14 +106,19 @@ const publicRoutes = [
 
 function App() {
   const { isAuthenticated, user } = useContext(AuthContext)
+<<<<<<< HEAD
   // const { payload } = useContext(PayloadContext)
   // console.log(user)
   // console.log(payload)
+=======
+  const { payload } = useContext(PayloadContext)
+>>>>>>> dev
   return (
     <Switch>
       {isAuthenticated &&
         privateRoutes.map((route, index) => {
           return (
+<<<<<<< HEAD
             <>
               <Route
                 key={index}
@@ -123,6 +128,14 @@ function App() {
               />
               <Redirect to="/homepage" />
             </>
+=======
+            <Route
+              key={index}
+              exact
+              path={route.path}
+              component={route.component}
+            />
+>>>>>>> dev
           )
         })}
       {!isAuthenticated &&
@@ -134,8 +147,11 @@ function App() {
             component={route.component}
           />
         ))}
-
-      <Redirect to="/login" />
+      {!isAuthenticated ? (
+        <Redirect to="/login" />
+      ) : (
+        <Redirect to="/homepage" />
+      )}
     </Switch>
   )
 }

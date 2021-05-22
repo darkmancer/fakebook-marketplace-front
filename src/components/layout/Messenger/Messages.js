@@ -46,21 +46,16 @@ function Messages({ receiverId, seller }) {
   const [sender, setSender] = useState([]);
   const [receiver, setReceiver] = useState([]);
   const [test, setTest] = useState([]);
-  console.log(test);
-  console.log(texts);
-  console.log(receiverId);
-  console.log(arriveMessages);
+ 
+ 
 
-  // console.log("sender", sender);
-  // console.log("receiver", receiver);
-
-  console.log("arriveMessages", arriveMessages);
+ 
 
   const getMessages = async () => {
     try {
       const res = await axios.get(`/message/${receiverId}`);
 
-      console.log(res.data.messages);
+  
       setTexts(res.data.messages);
     } catch (err) {
       console.log(err);

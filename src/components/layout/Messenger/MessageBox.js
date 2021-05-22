@@ -81,7 +81,7 @@ function MessageBox(props) {
         text: newMessage,
         productId,
       });
-      console.log("res", res);
+     
       setNewMessage("");
       //setText([...text, res.data.messages.text]);
     } catch (err) {
