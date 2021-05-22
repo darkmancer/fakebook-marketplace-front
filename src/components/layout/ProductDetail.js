@@ -1,105 +1,101 @@
-import React, { useState, useEffect } from "react";
-import axios from "../../config/axios";
-import { useHistory } from "react-router-dom";
-import MessageIcon from "@material-ui/icons/Message";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import ShareIcon from "@material-ui/icons/Share";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import MessageBox from "./Messenger/MessageBox";
-import CommerceProfileModal from "./CommerceProfileModal";
-import { useStylesProductDetail } from "./UseStyleProductDetail";
-import NewCommerceProfileModal from "./NewCommerceProfileModal";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from 'react'
+import axios from '../../config/axios'
+import { useHistory } from 'react-router-dom'
+import MessageIcon from '@material-ui/icons/Message'
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import ShareIcon from '@material-ui/icons/Share'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import MessageBox from './Messenger/MessageBox'
+import CommerceProfileModal from './CommerceProfileModal'
+import { useStylesProductDetail } from './UseStyleProductDetail'
+import NewCommerceProfileModal from './NewCommerceProfileModal'
+import { makeStyles } from '@material-ui/core/styles'
 import {
   AppBar,
   Toolbar,
   Avatar,
   Box,
   Typography,
-  Button,
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+  Button
+} from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1)
+    }
   },
   small: {
     width: theme.spacing(3),
-    height: theme.spacing(3),
+    height: theme.spacing(3)
   },
   large: {
     width: theme.spacing(10),
-    height: theme.spacing(10),
-  },
-}));
+    height: theme.spacing(10)
+  }
+}))
 
 function ProductDetail({ product, trigger, setTrigger, id }) {
-  const [seller, setSeller] = useState(null);
-  const classes = { ...useStylesProductDetail(), ...useStyles() };
-  const [open, setOpen] = React.useState(false);
-  const [triggerSave, setTriggerSaved] = useState(false);
-  const [openChat, setOpenChat] = useState(false);
-  const [openPopup, setOpenPopup] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [seller, setSeller] = useState(null)
+  const classes = { ...useStylesProductDetail(), ...useStyles() }
+  const [open, setOpen] = React.useState(false)
+  const [triggerSave, setTriggerSaved] = useState(false)
+  const [openChat, setOpenChat] = useState(false)
+  const [openPopup, setOpenPopup] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   // const classes = useStylesProductDetail();
-  const history = useHistory();
+  const history = useHistory()
 
-  console.log(seller);
+  //console.log(seller);
   useEffect(() => {
     const fetchSeller = async () => {
       try {
-        const res = await axios.get(`/seller/${product.userId}`);
+        const res = await axios.get(`/seller/${product.userId}`)
         // const res = await axios.get(`/seller/${id}`);
 
-        setSeller(res.data.sellerProfile);
-        setIsLoading(false);
+        setSeller(res.data.sellerProfile)
+        setIsLoading(false)
       } catch (err) {
-        console.log(`err`, err);
+        console.log(`err`, err)
       }
-    };
+    }
     const fetchIsSaved = async () => {
-      const res = await axios.get(`/saved/isSaved/${product.id}`);
-      setTriggerSaved(res.data.saved);
-    };
-    fetchSeller();
-    fetchIsSaved();
-  }, [product]);
+      const res = await axios.get(`/saved/isSaved/${product.id}`)
+      setTriggerSaved(res.data.saved)
+    }
+    fetchSeller()
+    fetchIsSaved()
+  }, [product])
   const saveProduct = async () => {
-    setTriggerSaved((prev) => !prev);
-    const res = await axios.post(`/saved/createSaved/${product.id}`);
-    console.log(res);
-  };
+    setTriggerSaved((prev) => !prev)
+    const res = await axios.post(`/saved/createSaved/${product.id}`)
+    console.log(res)
+  }
   const unSaveProduct = async () => {
-    setTriggerSaved((prev) => !prev);
-    const res = await axios.delete(
-      `/saved/deleteSaved/${product.id}`
-    );
-    console.log(res);
-  };
-  console.log(triggerSave);
-  if (isLoading) return <p>loading</p>;
+    setTriggerSaved((prev) => !prev)
+    const res = await axios.delete(`/saved/deleteSaved/${product.id}`)
+    console.log(res)
+  }
+  console.log(triggerSave)
+  if (isLoading) return <p>loading</p>
   return (
     <>
-      <div style={{ overflow: "scroll" }}>
+      <div style={{ overflow: 'scroll' }}>
         <Drawer
           // className={classes.drawer}
           variant="permanent"
           classes={{
-            paper: classes.drawerPaper,
-          }}>
+            paper: classes.drawerPaper
+          }}
+        >
           <Toolbar />
           <div className={classes.closeButton}>
-            <CloseIcon
-              button
-              onClick={() => history.push("/homepage")}
-            />
+            <CloseIcon button onClick={() => history.push('/homepage')} />
           </div>
           <div className={classes.drawerContainer}>
             <List>
@@ -118,8 +114,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
               <ListItem>
                 <Typography variant="h9" component="h9">
                   {product.category}
-                  <NavigateNextIcon style={{ height: "12px" }} />
-                  {product.subCategory}{" "}
+                  <NavigateNextIcon style={{ height: '12px' }} />
+                  {product.subCategory}
                 </Typography>
               </ListItem>
             </List>
@@ -132,7 +128,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
                   variant="contained"
                   color="default"
                   className={classes.button}
-                  startIcon={<MessageIcon />}>
+                  startIcon={<MessageIcon />}
+                >
                   Message
                 </Button>
               </Box>
@@ -143,7 +140,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
                     color="primary"
                     className={classes.buttonSave}
                     startIcon={<BookmarkIcon />}
-                    onClick={unSaveProduct}>
+                    onClick={unSaveProduct}
+                  >
                     save
                   </Button>
                 ) : (
@@ -152,7 +150,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
                     color="default"
                     className={classes.buttonSave}
                     startIcon={<BookmarkIcon />}
-                    onClick={saveProduct}>
+                    onClick={saveProduct}
+                  >
                     save
                   </Button>
                 )}
@@ -163,7 +162,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
                   variant="contained"
                   color="default"
                   className={classes.button}
-                  startIcon={<ShareIcon />}>
+                  startIcon={<ShareIcon />}
+                >
                   share
                 </Button>
               </Box>
@@ -187,7 +187,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
               <Typography
                 variant="h5"
                 component="h2"
-                style={{ fontWeight: "600" }}>
+                style={{ fontWeight: '600' }}
+              >
                 <ListItem>Seller Information</ListItem>
               </Typography>
               <NewCommerceProfileModal
@@ -202,10 +203,7 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
         </Drawer>
       </div>
 
-      <CommerceProfileModal
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-      />
+      <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
 
       <MessageBox
         seller={seller}
@@ -214,6 +212,6 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
         productId={id}
       />
     </>
-  );
+  )
 }
-export default ProductDetail;
+export default ProductDetail
