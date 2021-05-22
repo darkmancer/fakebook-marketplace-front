@@ -44,12 +44,12 @@ function SelectProductPage() {
   const classes = useStyles()
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState(true)
-  console.log(id)
+ 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/product/${id}`)
-        console.log('selected product :>>>>', res.data.product)
+     
         setProduct(res.data.product)
         setIsLoading(false)
       } catch (err) {

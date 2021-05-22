@@ -51,8 +51,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
   // const classes = useStylesProductDetail();
   const history = useHistory()
 
-  console.log(seller)
-  console.log(`prop product detail`, product)
+  
+ 
   useEffect(() => {
     const fetchSeller = async () => {
       try {
@@ -75,14 +75,14 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
   const saveProduct = async () => {
     setTriggerSaved((prev) => !prev)
     const res = await axios.post(`/saved/createSaved/${product.id}`)
-    console.log(res)
+
   }
   const unSaveProduct = async () => {
     setTriggerSaved((prev) => !prev)
     const res = await axios.delete(`/saved/deleteSaved/${product.id}`)
-    console.log(res)
+  
   }
-  console.log(triggerSave)
+  
   if (isLoading) return <p>loading</p>
   return (
     <>

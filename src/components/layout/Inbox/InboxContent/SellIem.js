@@ -10,7 +10,7 @@ function SellItem({ talksUser, setOpenPopup, setOpenChat, seller }) {
     try {
       const res = await axios.get(`/message/${seller?.id}`);
 
-      console.log(res.data.messages);
+    
       //setTexts(res.data.messages);
     } catch (err) {
       console.log(err);

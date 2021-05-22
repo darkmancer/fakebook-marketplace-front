@@ -16,7 +16,7 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
     setOpen(false)
     setTrigger(!trigger)
     history.push(`/select/product/${product.id}`)
-    console.log(product.id)
+  
     window.location.reload()
   }
   const convertLatLngToAddress = async() => {

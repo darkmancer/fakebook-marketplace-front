@@ -20,7 +20,7 @@ function MyPage() {
   const getProductId = async () => {
     try {
       const res = await axios.get("/product/get-user-products/" + user?.id);
-      console.log(res.data.products)
+   
       setProducts(res.data.products);
       setIsLoading(false);
     } catch (err) {
@@ -33,7 +33,7 @@ function MyPage() {
   // const [haveList, setHaveList] = useState();
 
   if (isLoading) return <p>loading</p>;
-  console.log(products)
+
 
   return (
     <>

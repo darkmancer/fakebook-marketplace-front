@@ -21,8 +21,7 @@ function SellItemModal(props) {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-  console.log(value);
-  console.log(openPopup);
+ 
   const body = (
     <Box className={classes.paper} style={modalStyle}>
       <MuiThemeProvider theme={theme}>

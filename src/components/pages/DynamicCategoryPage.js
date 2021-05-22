@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CategoryPage() {
   const { category } = useParams()
-  console.log(`category`, category)
+
 
   const classes = useStyles()
 

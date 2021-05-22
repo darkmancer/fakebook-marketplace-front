@@ -99,7 +99,7 @@ function ContentEdit() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/product/${id}`);
-        console.log("PRODUCT :>>>", res);
+      
         setProduct(res.data.product);
         setLoading(false);
       } catch (err) {

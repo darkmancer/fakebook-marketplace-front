@@ -27,11 +27,11 @@ function CommerceProfileModal(props) {
 
   useEffect(() => {
     if (seller) {
-      console.log('seller :>>>', seller?.id)
+  
       const fetchProducts = async () => {
         try {
           const res = await axios.get(`/product/get-user-products/${seller.id}`)
-          console.log('USER PRODUCT SELLERID :>>>', res)
+       
           setProducts(res.data.products)
         } catch (err) {
           console.log(`err`, err)

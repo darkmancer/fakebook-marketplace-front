@@ -13,7 +13,7 @@ import { useStyles } from "./UseStyleAccountPage";
 function FollowerCommence() {
   const classes = useStyles();
   const [editMode, setEditMode] = useState(false);
-  console.log(editMode);
+  
   return (
     <Box className={classes.contentHaveListing}>
       <Paper className={classes.paperFollowing}>

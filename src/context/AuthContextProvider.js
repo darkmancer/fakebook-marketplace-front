@@ -10,7 +10,7 @@ function AuthContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(getToken())
   const [user, setUser] = useState()
 
-  console.log('userrrrr >>>>>>>', user)
+ 
 
   function DecodeToken() {
     if (isAuthenticated) {

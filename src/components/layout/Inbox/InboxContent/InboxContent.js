@@ -38,7 +38,7 @@ function InboxContent() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [list, setList] = React.useState("");
-  console.log(talksUser);
+
   const handleChange = (e) => {
     setValue(e.target.value);
   };
@@ -71,7 +71,7 @@ function InboxContent() {
   //   fetchIsSaved();
   // }, [product]);
 
-  console.log("payload", payload?.id);
+  
   const getTalk = async () => {
     //payload?.id= คนที่ติดเราเป็นทั้งคนติดต่อ ทั้ง เค้าติดต่อ
     try {

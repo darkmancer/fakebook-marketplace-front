@@ -39,7 +39,7 @@ function Header(props) {
     // role === "admin" ? setIsAdmin(false) : setIsAuthenticated(false);
     history.push("/login");
   };
-  console.log(user)
+
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>

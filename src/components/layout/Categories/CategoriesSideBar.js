@@ -90,7 +90,7 @@ function CategoriesSideBar({ category }) {
   const handleChangeMax = (event) => {
     setPriceMax(event.target.value)
   }
-  console.log(priceMin, priceMax)
+ 
   const [openPopup, setOpenPopup] = useState(false)
   return (
     <>
