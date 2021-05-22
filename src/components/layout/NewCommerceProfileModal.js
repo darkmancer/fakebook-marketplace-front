@@ -9,12 +9,8 @@ import {
   Container,
   Avatar,
   Button,
-<<<<<<< HEAD
-  Divider
-=======
   Divider,
   Box
->>>>>>> dev
 } from '@material-ui/core'
 import axios from '../../config/axios'
 import RoomIcon from '@material-ui/icons/Room'
