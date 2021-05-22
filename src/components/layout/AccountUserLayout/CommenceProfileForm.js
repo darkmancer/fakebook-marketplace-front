@@ -1,39 +1,32 @@
-import { Box, Button, Grid } from "@material-ui/core";
-import {
-  Avatar,
-  Divider,
-  Paper,
-  Typography,
-} from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
-import React, { useContext, useEffect, useState } from "react";
-import { MdHome } from "react-icons/md";
-import { AuthContext } from "../../../context/AuthContextProvider";
-import ProductCard from "../ProductCard"
-import CommenceProductCard from "./CommenceProductCard";
-import axios from "../../../config/axios";
-import { useStyles } from "./UseStyleAccountPage";
+import { Box, Button, Grid } from '@material-ui/core'
+import { Avatar, Divider, Paper, Typography } from '@material-ui/core'
+import { Rating } from '@material-ui/lab'
+import React, { useContext, useEffect, useState } from 'react'
+
+import { AuthContext } from '../../../context/AuthContextProvider'
+import ProductCard from '../ProductCard'
+
+import axios from '../../../config/axios'
+import { useStyles } from './UseStyleAccountPage'
 
 function CommenceProfileForm({ getModalStyle }) {
-  const [products, setProducts] = useState([]);
-  const [open,setOpen] = useState(false)
+  const [products, setProducts] = useState([])
+  const [open, setOpen] = useState(false)
   const getProductId = async () => {
     try {
-      const res = await axios.get(
-        "/product/get-user-products/" + user.id
-      );
-      setProducts(res.data.products);
+      const res = await axios.get('/product/get-user-products/' + user.id)
+      setProducts(res.data.products)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
   useEffect(() => {
-    getProductId();
-  }, []);
-  const { user } = useContext(AuthContext);
-  const classes = useStyles();
-  const [value, setValue] = React.useState(3);
-  const [modalStyle] = React.useState(getModalStyle);
+    getProductId()
+  }, [])
+  const { user } = useContext(AuthContext)
+  const classes = useStyles()
+  const [value, setValue] = React.useState(3)
+  const [modalStyle] = React.useState(getModalStyle)
   return (
     <div style={modalStyle} className={classes.paper}>
       <Paper className={classes.paperCommenceModal}>
@@ -46,7 +39,9 @@ function CommenceProfileForm({ getModalStyle }) {
           alt="name"
           src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
         />
-        <h1 className={classes.nameCommenceModal}>{user?.firstName} {user?.lastName}</h1>
+        <h1 className={classes.nameCommenceModal}>
+          {user?.firstName} {user?.lastName}
+        </h1>
         <div className={classes.FlexCenter}>
           <Button className={classes.buttonCommenceModal}>Edit</Button>
         </div>
@@ -87,7 +82,7 @@ function CommenceProfileForm({ getModalStyle }) {
               flexDirection: 'column',
               justifyContent: 'flex-start',
               alignItems: 'center',
-              overflow: 'scroll',
+              overflow: 'auto',
               height: '400px'
             }}
           >
@@ -98,7 +93,7 @@ function CommenceProfileForm({ getModalStyle }) {
                 flexWrap: 'wrap',
                 justifyContent: 'space-evenly',
                 alignItems: 'flex-start',
-                color: "white"
+                color: 'white'
               }}
             >
               {products?.map((product) => (
@@ -112,9 +107,7 @@ function CommenceProfileForm({ getModalStyle }) {
               ))}
             </div>
             <div>
-              <Button variant="contained">
-                See More
-              </Button>
+              <Button variant="contained">See More</Button>
             </div>
           </div>
         </Box>
@@ -123,4 +116,4 @@ function CommenceProfileForm({ getModalStyle }) {
   )
 }
 
-export default CommenceProfileForm;
+export default CommenceProfileForm
