@@ -13,7 +13,6 @@ import { PriceContext } from '../../context/PriceContextProvider'
 const useForceUpdate = () => useState()[1]
 
 function Content({ category }) {
-  
   const [products, setProducts] = useState([])
   const classes = useStylesContent()
   const { priceMin, priceMax, condition, search, sort } =
@@ -100,7 +99,7 @@ function Content({ category }) {
             {address} {radius}km
           </h5>
         </Box>
-         <Grid container spacing={1}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Grid
               container
@@ -143,7 +142,7 @@ function Content({ category }) {
                 : null}
             </Grid>
           </Grid>
-        </Grid> 
+        </Grid>
       </Box>
     </div>
   )
