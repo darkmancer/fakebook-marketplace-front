@@ -3,7 +3,7 @@ import { Modal, TextField, Box, Button } from '@material-ui/core'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { useStyles, theme, modalStyle } from './UseStyleFilterLocation'
 import { GeocodeContext } from '../../context/GeocodeContextProvider'
-import GoogleMaps from "../../utilities/GoogleMap"
+import MyMapComponent from "../../utilities/GoogleMap"
 
 import Geocode from 'react-geocode'
 const rad = [
@@ -134,7 +134,7 @@ function FilterLocationModal(props) {
           </Box>
         </MuiThemeProvider>
       </form>
-      <GoogleMaps></GoogleMaps>
+      <MyMapComponent isMarkerShown={true} geocode={geocode}></MyMapComponent>
       <Button className={classes.button} onClick={() => setOpenPopup(false)}>
         close
       </Button>
