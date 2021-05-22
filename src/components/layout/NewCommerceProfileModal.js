@@ -9,13 +9,16 @@ import {
   Container,
   Avatar,
   Button,
-  Divider
+  Divider,
+  Box
 } from '@material-ui/core'
 import axios from '../../config/axios'
 import RoomIcon from '@material-ui/icons/Room'
 import HomeWorkIcon from '@material-ui/icons/HomeWork'
 import HowToRegIcon from '@material-ui/icons/HowToReg'
 import ProductCard from './ProductCard'
+import { Paper } from '@material-ui/core'
+import { Rating } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,15 +29,27 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: '#242526',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(2),
+
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     width: '350px',
     color: 'white',
-    border: '1px solid grey',
+
     borderRadius: 5
+  },
+  BoxFlex: {
+    width: '90%',
+    margin: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  AvatarProfile: {
+    width: theme.spacing(10),
+    height: theme.spacing(10)
   },
   flexColCenter: {
     display: 'flex',
@@ -42,14 +57,57 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  ButtonSeeMore: {
+    textTransform: 'none',
+    margin: theme.spacing(2),
+    color: 'white',
+    backgroundColor: '#424242',
+    '&:hover': {
+      backgroundColor: '#616161'
+    }
+  },
+  FlexButton: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
   button: {
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: 'grey'
+    },
     margin: theme.spacing(1),
     backgroundColor: '#373A3B',
     color: 'white'
   },
   dividerLine: {
     backgroundColor: '#373A3B',
-    width: '90%'
+    width: '96%',
+    margin: theme.spacing(1)
+  },
+  marketListing: {
+    margin: theme.spacing(1, 0),
+    fontSize: '1.2rem'
+  },
+  BoxHeader: {
+    marginLeft: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  BoxText: {
+    display: 'flex'
+  },
+  Icon: {
+    margin: theme.spacing(1, 0.2)
+  },
+  Text: {
+    margin: theme.spacing(1.5, 2, 1, 0.5)
+  },
+  RatingText: {
+    color: '#616161'
+  },
+  NameText: {
+    position: 'relative',
+    right: 10
   }
 }))
 
@@ -132,16 +190,7 @@ export default function SpringModal({
   return (
     <div className={classes.contentCommenceProfile}>
       <Container onClick={() => setOpen(true)}>
-        <Avatar
-          alt="name"
-          src={seller?.avatar}
-          className={classes.large}
-          style={{
-            margin: '0px 15px 0px 0px',
-            width: '500',
-            height: '600'
-          }}
-        />
+        <Avatar alt="name" src={seller?.avatar} className={classes.large} />
         <div>
           <Typography variant="h6" component="h6">
             {seller?.firstName} {seller?.lastName} <br />
@@ -164,7 +213,7 @@ export default function SpringModal({
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <Paper className={classes.paper}>
             <Typography
               variant="h5"
               component="h6"
@@ -172,48 +221,63 @@ export default function SpringModal({
             >
               Commerce Profile
             </Typography>
-            <Container>
-              <Avatar
-                className={classes.large}
-                alt="name"
-                src={seller?.avatar}
-              />
-
-              <Typography variant="h6" component="h2">
-                {seller?.firstName} {seller?.lastName}
+            <Box className={classes.BoxFlex}>
+              <Box className={classes.BoxHeader}>
+                <Box>
+                  <Avatar
+                    className={classes.AvatarProfile}
+                    alt="name"
+                    src={seller?.avatar}
+                  />
+                  <Typography
+                    variant="h6"
+                    component="h2"
+                    className={classes.NameText}
+                  >
+                    {seller?.firstName} {seller?.lastName}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box className={classes.FlexButton}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  className={classes.button}
+                >
+                  Follow
+                </Button>
+                {/* <Button
+                  variant="contained"
+                  size="small"
+                  className={classes.button}
+                  onClick={() => alert('Apply')}
+                >
+                  View Profile
+                </Button> */}
+                <Button
+                  variant="contained"
+                  size="small"
+                  className={classes.button}
+                  onClick={() => alert('Apply')}
+                >
+                  Report
+                </Button>
+              </Box>
+            </Box>
+            <Divider className={classes.dividerLine} light />
+            <Box component="fieldset" borderColor="transparent">
+              <Typography variant="h6">Seller Ratings</Typography>
+              <Rating name="read-only" value="4" readOnly />
+              <Typography className={classes.RatingText}>
+                Ratings: Good
               </Typography>
-            </Container>
-            <Container style={{ padding: '0', display: 'flex-row' }}>
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button}
-              >
-                Follow
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button}
-                onClick={() => alert('Apply')}
-              >
-                View Profile
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button}
-                onClick={() => alert('Apply')}
-              >
-                Report
-              </Button>
-            </Container>
-            <Divider />
-            <Container>
-              <Typography variant="h6" component="p">
-                About
+              <Typography className={classes.RatingText}>
+                (Visit to the public after 0 ratings)
               </Typography>
-              <Container
+            </Box>
+            <Box component="fieldset" borderColor="transparent">
+              <Typography variant="h6">About</Typography>
+              <Box
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -221,18 +285,29 @@ export default function SpringModal({
                   justifyContent: 'flex-start'
                 }}
               >
-                <Typography variant="body2" component="span">
-                  <RoomIcon /> Lives in {seller?.location}
-                </Typography>
-                <Typography variant="body2" component="span">
-                  <HowToRegIcon /> Joined MarketPlace in 2011
-                </Typography>
-              </Container>
-            </Container>
-            <Divider className={classes.dividerLine} />
-            <Typography variant="body2" component="span">
+                <Box className={classes.BoxText}>
+                  <Typography component="span">
+                    <RoomIcon /> Lives in {seller?.location}
+                  </Typography>
+                </Box>
+                <Box className={classes.BoxText}>
+                  <HowToRegIcon className={classes.Icon} />
+                  <Typography className={classes.Text} component="span">
+                    Joined MarketPlace in 2011
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+            <Divider className={classes.dividerLine} light />
+
+            <Typography
+              className={classes.marketListing}
+              variant="body2"
+              component="span"
+            >
               MarketPlace Listing
             </Typography>
+
             <div
               style={{
                 width: '100%',
@@ -240,7 +315,7 @@ export default function SpringModal({
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
                 alignItems: 'center',
-                overflow: 'scroll',
+                overflow: 'auto',
                 height: '400px'
               }}
             >
@@ -266,12 +341,16 @@ export default function SpringModal({
                 ))}
               </div>
               <div>
-                <Button variant="contained" onClick={seeMore}>
+                <Button
+                  variant="contained"
+                  onClick={seeMore}
+                  className={classes.ButtonSeeMore}
+                >
                   See More
                 </Button>
               </div>
             </div>
-          </div>
+          </Paper>
         </Fade>
       </Modal>
     </div>

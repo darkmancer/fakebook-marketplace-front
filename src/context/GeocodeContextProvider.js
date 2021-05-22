@@ -19,7 +19,7 @@ function GeocodeContextProvider({ children }) {
       const currentAddress = await getAddress(currentLatLng)
       setAddress(currentAddress)
     }
-  
+
     getLocation()
   }, [])
 

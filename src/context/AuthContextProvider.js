@@ -10,8 +10,6 @@ function AuthContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(getToken())
   const [user, setUser] = useState()
 
- 
-
   function DecodeToken() {
     if (isAuthenticated) {
       const dktoken = jwtDecode(getToken())
@@ -21,7 +19,6 @@ function AuthContextProvider({ children }) {
   useEffect(() => {
     DecodeToken()
   }, [])
-
   return (
     <AuthContext.Provider
       value={{ isAuthenticated, setIsAuthenticated, user, setUser }}
