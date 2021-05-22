@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.2rem'
   },
   BoxHeader: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(2),
     display: 'flex',
     justifyContent: 'center'
   },
@@ -104,6 +104,10 @@ const useStyles = makeStyles((theme) => ({
   },
   RatingText: {
     color: '#616161'
+  },
+  NameText: {
+    position: 'relative',
+    right: 10
   }
 }))
 
@@ -225,8 +229,11 @@ export default function SpringModal({
                     alt="name"
                     src={seller?.avatar}
                   />
-
-                  <Typography variant="h6" component="h2">
+                  <Typography
+                    variant="h6"
+                    component="h2"
+                    className={classes.NameText}
+                  >
                     {seller?.firstName} {seller?.lastName}
                   </Typography>
                 </Box>
@@ -239,14 +246,14 @@ export default function SpringModal({
                 >
                   Follow
                 </Button>
-                <Button
+                {/* <Button
                   variant="contained"
                   size="small"
                   className={classes.button}
                   onClick={() => alert('Apply')}
                 >
                   View Profile
-                </Button>
+                </Button> */}
                 <Button
                   variant="contained"
                   size="small"

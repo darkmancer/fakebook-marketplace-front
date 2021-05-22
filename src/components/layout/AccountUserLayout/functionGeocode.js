@@ -19,34 +19,16 @@ export function LocationName(loca) {
 
   let name
 
-<<<<<<< HEAD
   const lat = loca.split(',')[0]
   const long = loca.split(',')[1]
-  // console.log(lat, long);
-  // localStorage.setItem("CurLocation", `${lat},${long}`);
+
+  // localStorage.setItem('CurLocation', `${lat},${long}`)
 
   Geocode.fromLatLng(lat, long).then(
     (response) => {
-      // console.log(response.results[0]);
       const { formatted_address } = response.results[0]
-      // localStorage.setItem("Address", formatted_address);
+      // localStorage.setItem('Address', formatted_address)
       name = response.plus_code.compound_code.split(' ').slice(1).join(' ')
-=======
-  const lat = loca.split(",")[0];
-  const long = loca.split(",")[1];
- 
-  localStorage.setItem("CurLocation", `${lat},${long}`);
-
-  Geocode.fromLatLng(lat, long).then(
-    (response) => {
- 
-      const { formatted_address } = response.results[0];
-      localStorage.setItem("Address", formatted_address);
-      name = response.plus_code.compound_code
-        .split(" ")
-        .slice(1)
-        .join(" ");
->>>>>>> dev
     },
     (error) => {
       console.error(error)

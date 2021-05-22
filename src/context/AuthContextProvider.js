@@ -9,30 +9,16 @@ function AuthContextProvider({ children }) {
   //  const [state, dispatch] = useReducer(reducer, initialState, init)
   const [isAuthenticated, setIsAuthenticated] = useState(getToken())
   const [user, setUser] = useState()
-<<<<<<< HEAD
-  function DecodeToken() {
-    if (isAuthenticated) {
-      const dktoken = jwtDecode(getToken())
-      localStorage.setItem('id', dktoken.id)
-
-=======
-
- 
 
   function DecodeToken() {
     if (isAuthenticated) {
       const dktoken = jwtDecode(getToken())
->>>>>>> dev
       return setUser(dktoken)
     }
   }
   useEffect(() => {
     DecodeToken()
   }, [])
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
   return (
     <AuthContext.Provider
       value={{ isAuthenticated, setIsAuthenticated, user, setUser }}
