@@ -13,7 +13,6 @@ import { PriceContext } from '../../context/PriceContextProvider'
 const useForceUpdate = () => useState()[1]
 
 function Content({ category }) {
-  
   const [products, setProducts] = useState([])
   const classes = useStylesContent()
   const { priceMin, priceMax, condition, search, sort } =
@@ -38,22 +37,18 @@ function Content({ category }) {
         }
       })
   }
-  const locationFilter = async (products) => {
-    return products?.filter((product) => {
-      console.log(product.location)
-      console.log(calcDistance(product.location, geocode))
-      console.log(+radius)
-      if (calcDistance(product.location, geocode) <= +radius) return product
-    })
-  }
+  // const locationFilter = async (products) => {
+  //   return products?.filter((product) => {
+  //     if (calcDistance(product.location, geocode) <= +radius) return product
+  //   })
+  // }
   const fetchProduct = async () => {
     try {
       const res = await axios.get(`/product/get-by-category/${category}`)
 
       const filteredProducts = filterProducts(res.data.products)
-      const filteredProductsByLocation = await locationFilter(filteredProducts)
-      setProducts(filteredProductsByLocation)
-      console.log(filteredProductsByLocation)
+      // const filteredProductsByLocation = await locationFilter(filteredProducts)
+      setProducts(filteredProducts)
     } catch (err) {
       console.log(`err`, err)
     }
@@ -62,14 +57,13 @@ function Content({ category }) {
     try {
       const res = await axios.get(`/product/get-all-product`)
 
-      console.log(`res.data`, res.data.products)
       if (res.data.products) {
         const filteredProducts = filterProducts(res.data.products)
-        const filteredProductsByLocation = await locationFilter(
-          filteredProducts
-        )
-        if (filteredProductsByLocation) {
-          setProducts(filteredProductsByLocation)
+        // const filteredProductsByLocation = await locationFilter(
+        //   filteredProducts
+        // )
+        if (filteredProducts) {
+          setProducts(filteredProducts)
         }
       } else {
         setProducts(res.data.products)
@@ -100,7 +94,7 @@ function Content({ category }) {
             {address} {radius}km
           </h5>
         </Box>
-         <Grid container spacing={1}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Grid
               container
@@ -143,7 +137,7 @@ function Content({ category }) {
                 : null}
             </Grid>
           </Grid>
-        </Grid> 
+        </Grid>
       </Box>
     </div>
   )

@@ -73,7 +73,6 @@ function FilterLocationModal(props) {
     Geocode.fromAddress(targetAddress).then(
       (response) => {
         const { lat, lng } = response.results[0].geometry.location
-        console.log(lat, lng)
         setGeocode(`${lat},${lng}`)
       },
       (error) => {
@@ -81,7 +80,6 @@ function FilterLocationModal(props) {
       }
     )
   }
-  console.log(geocode)
 
   const handleChangeRad = (event) => {
     setRadius(event.target.value);

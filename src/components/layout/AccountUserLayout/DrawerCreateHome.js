@@ -158,7 +158,6 @@ function DrawerCreateHome() {
       setShowPhotos([{ file: URL.createObjectURL(e.target.files[0]) }]);
     }
   };
-  // console.log(payload?.firstName);
 
   return (
     <>

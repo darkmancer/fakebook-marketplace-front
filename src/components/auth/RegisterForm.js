@@ -68,7 +68,6 @@ function RegisterForm({ getModalStyle }) {
         birthDate,
       });
       if (res) {
-        console.log(res);
         setIsAuthenticated(true);
         setToken(res.data.token);
         history.push("/homepage");
@@ -78,7 +77,6 @@ function RegisterForm({ getModalStyle }) {
       console.dir(err.response.message);
     }
   };
-  console.log(value);
   return (
     <>
       <div style={modalStyle} className={classes.paper}>

@@ -14,7 +14,7 @@ function GeocodeContextProvider({ children }) {
   useEffect(() => {
     async function getLocation() {
       const currentLatLng = await getCurrentLatLng()
-      console.log(currentLatLng)
+  
       setGeocode(currentLatLng)
       const currentAddress = await getAddress(currentLatLng)
       setAddress(currentAddress)

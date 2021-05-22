@@ -11,27 +11,26 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
   const [address, setAddress] = React.useState('')
   const classes = useStylesContent();
   const history = useHistory();
+  
   function handleClick() {
     setOpen(false)
     setTrigger(!trigger)
     history.push(`/select/product/${product.id}`)
-    console.log(product.id)
+  
     window.location.reload()
   }
-  const convertLatLngToAddress = async() => {
-    const address = await getAddress(product.location)
-    return address
-  } 
+  // const convertLatLngToAddress = async() => {
+  //   const address = await getAddress(product.location)
+  //   return address
+  // } 
  
   React.useEffect(() => {
     const setAdd = async () => {
-      console.log('inside')
       const loName = await getAddress(product.location)
       setAddress(loName)
     }
-    setAdd()
+    // setAdd()
   }, [])
-  console.log(address)
 
   if (size === "mini") {
     return (
@@ -57,8 +56,8 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
           src={product?.Photos[0]?.post}
         />
         <Typography variant="body1" component="p">
-          {address?.includes('Thailand') ? '฿' : '$'}
-          {product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          {/* {address?.includes('Thailand') ? '฿' : '$'}  */}
+         ฿ {product?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
         </Typography>
 
         <Typography variant="caption" component="p">
@@ -91,7 +90,7 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
           {product?.title}{" "}
         </Typography>
         <Typography variant="h6" component="p" style={{ color: "white" }}>
-         {address}
+         {/* {address} */}
         </Typography>
       </div>
     );

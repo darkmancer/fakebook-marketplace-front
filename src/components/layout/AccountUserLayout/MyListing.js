@@ -31,7 +31,7 @@ function MyListing({ products }) {
     setOpen(true)
   }
   const onDelete = async (id) => {
-    console.log(id)
+   
     try {
       const res = await axios.delete("/product/delete-product/" + id);
       if (res) {
