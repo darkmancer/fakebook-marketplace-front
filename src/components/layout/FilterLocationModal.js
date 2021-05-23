@@ -1,11 +1,23 @@
 import React, { useState, useContext } from 'react'
-import { Modal, TextField, Box, Button } from '@material-ui/core'
+import {
+  Modal,
+  TextField,
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Typography,
+  IconButton
+} from '@material-ui/core'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { useStyles, theme, modalStyle } from './UseStyleFilterLocation'
 import { GeocodeContext } from '../../context/GeocodeContextProvider'
-import MyMapComponent from "../../utilities/GoogleMap"
-
+import MyMapComponent from '../../utilities/GoogleMap'
+import { MdClose } from 'react-icons/md'
 import Geocode from 'react-geocode'
+import { Icon } from '@material-ui/core'
 const rad = [
   {
     value: '1',
@@ -86,40 +98,41 @@ function FilterLocationModal(props) {
   }
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2>Change Location</h2>
-
+      <Typography className={classes.Title}>Change Location</Typography>
+      <IconButton
+        className={classes.IconButtonClose}
+        onClick={() => setOpenPopup(false)}
+      >
+        <MdClose size="30" />
+      </IconButton>
       <form autoComplete="off">
-        <MuiThemeProvider theme={theme}>
-          <Box>
-            <TextField
-              InputProps={{
-                className: classes.multilineColor,
-                style: { backgroundColor: 'white', color: 'black' }
-              }}
-              className={classes.margin}
-              fullWidth
-              id="location"
-              label="Location"
-              variant="outlined"
-              onChange={handleChangeAddress}
-            />
-          </Box>
-          <Box>
-            {' '}
-            <TextField
+        <Box>
+          <TextField
+            // InputProps={{
+            //   className: classes.multilineColor,
+            //   style: { backgroundColor: 'white' }
+            // }}
+            // style={{ backgroundColor: 'white' }}
+
+            className={classes.multilineColor}
+            id="location"
+            placeholder="Location"
+            variant="outlined"
+            onChange={handleChangeAddress}
+          />
+        </Box>
+        <Box>
+          {/* <TextField
               id="radius-select-location"
               select
+              native
+              className={classes.multilineColor}
               value={radius}
               onChange={handleChangeRad}
-              SelectProps={{
-                native: true
-              }}
               defaultValues="60"
               variant="outlined"
               fullWidth
-              InputProps={{
-                className: classes.multilineColor
-              }}
+              InputProps={{}}
             >
               {rad.map((option) => (
                 <option
@@ -130,15 +143,53 @@ function FilterLocationModal(props) {
                   {option.label}
                 </option>
               ))}
-            </TextField>
-          </Box>
-        </MuiThemeProvider>
+            </TextField> */}
+          <FormControl variant="outlined" className={classes.multilineColor}>
+            <InputLabel
+              htmlFor="radius-select-location"
+              className={classes.label}
+            >
+              Radius
+            </InputLabel>
+            <Select
+              label="Radius"
+              id="radius-select-location"
+              onChange={handleChangeRad}
+              // style={{ color: 'white' }}
+              value={radius}
+              inputProps={{
+                name: 'radius',
+                id: 'radius-select-location',
+                classes: {
+                  icon: classes.SelectIcon
+                }
+              }}
+            >
+              {rad?.map((rad, idx) => {
+                return (
+                  <MenuItem key={idx} value={rad.value}>
+                    {rad.label}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </FormControl>
+        </Box>
       </form>
-      <MyMapComponent isMarkerShown={true} geocode={geocode}></MyMapComponent>
-      <Button className={classes.button} onClick={() => setOpenPopup(false)}>
+      <MyMapComponent
+        isMarkerShown={true}
+        geocode={geocode}
+        className={classes.Map}
+      ></MyMapComponent>
+      {/* <Button className={classes.button} onClick={() => setOpenPopup(false)}>
         close
+      </Button> */}
+      <Button
+        onClick={() => setOpenPopup(false)}
+        className={classes.ButtonApply}
+      >
+        Apply
       </Button>
-      <Button>Apply</Button>
     </div>
   )
 
