@@ -53,14 +53,14 @@ function Messages({
   const [receiver, setReceiver] = useState([])
   const [userTexts, setUserTexts] = useState([])
 
-  console.log('texts', texts)
-  console.log(receiverId)
-  console.log(arriveMessages)
+  // console.log('texts', texts)
+  // console.log(receiverId)
+  // console.log(arriveMessages)
 
   // console.log("sender", sender);
   // console.log("receiver", receiver);
 
-  console.log('arriveMessages', arriveMessages)
+  // console.log('arriveMessages', arriveMessages)
 
   const getMessages = async () => {
     try {
@@ -77,17 +77,17 @@ function Messages({
     getMessages()
   }, [])
 
-  const getMessagesByUserId = async () => {
-    try {
-      const res = await axios.get(`message/getTalkAndProduct`)
-      setUserTexts(res.data.arr)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-  useEffect(() => {
-    getMessagesByUserId()
-  }, [])
+  // const getMessagesByUserId = async () => {
+  //   try {
+  //     const res = await axios.get(`message/getTalkAndProduct`)
+  //     setUserTexts(res.data.arr)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+  // useEffect(() => {
+  //   getMessagesByUserId()
+  // }, [])
 
   useEffect(() => {
     socket.on('getMessage', (data) => {
@@ -97,7 +97,7 @@ function Messages({
       })
     })
   }, [])
-  console.log('userText', userTexts)
+  // console.log('userText', userTexts)
   // socket.on("hello", (data) => {
   //   io.emit("")
   //   setTest(data);
