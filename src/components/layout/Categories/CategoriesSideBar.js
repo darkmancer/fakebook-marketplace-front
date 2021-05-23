@@ -257,7 +257,7 @@ function CategoriesSideBar({ category }) {
             <ListItem
               button
               className={classes.root}
-              onClick={() => history.push('/category/vehicle')}
+              onClick={() => history.push('/category/Vehicle')}
             >
               <DriveEtaIcon />
               <Typography

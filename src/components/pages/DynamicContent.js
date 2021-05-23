@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Box, Grid, Container } from '@material-ui/core'
+import { Box, Grid, Container, Typography } from '@material-ui/core'
 import { useStylesContent } from '../layout/UseStyleContent'
 import RoomIcon from '@material-ui/icons/Room'
 import { GeocodeContext } from '../../context/GeocodeContextProvider'
@@ -86,13 +86,12 @@ function Content({ category }) {
       <Box>
         <Box className={classes.containerText}>
           <h2 className={classes.text}>
-            Today's Pick {priceMin} {priceMax} {condition} {search} {sort}{' '}
-            {geocode} {address} {radius}
+            {category ? `${category}` : "Today's Pick"}
           </h2>
-          <h5 className="location-text">
+          <Typography style={{ color: '#2D88FF' }}>
             <RoomIcon />
             {address} {radius}km
-          </h5>
+          </Typography>
         </Box>
         <Grid container spacing={1}>
           <Grid item xs={12}>

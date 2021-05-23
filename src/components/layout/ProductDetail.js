@@ -67,6 +67,8 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
       const res = await axios.get(`/saved/isSaved/${product.id}`)
       setTriggerSaved(res.data.saved)
     }
+    
+
     fetchSeller()
     fetchIsSaved()
   }, [product])
