@@ -3,9 +3,6 @@ import axios from '../../../../config/axios'
 import { useHistory } from 'react-router-dom'
 import {
   Grid,
-  Paper,
-  Tabs,
-  Tab,
   Button,
   Box,
   Divider,
@@ -17,7 +14,7 @@ import {
 import SellItemModal from '../SellItemModal/SellItemModal'
 import { useStyles } from './StylesInboxContent'
 import SellStep from './SellStep'
-import MessageBox from '../../Messenger/MessageBox'
+import MessageBoxBetweenUser from '../../Messenger/MessageBoxBetweenUser'
 import SellItem from './SellIem'
 import BuyItem from './BuyItem'
 import { AuthContext } from '../../../../context/AuthContextProvider'
@@ -35,13 +32,16 @@ function InboxContent() {
   const [talksUser, setTalksUser] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [chatUser, setChatUser] = useState([])
+  const [label, setLabel] = useState('')
+  const [showLabel, setShowLabel] = useState('')
+  const [chatId, setChatId] = useState([])
 
   const getArrOfProductIncUserId = async () => {
     try {
       const res = await axios.get(`/message/getTalkAndProduct`)
-
       console.log('data', res.data)
       setChatUser(res.data.arr)
+      //setChatId(res.data.arr)
       setIsLoading(false)
     } catch (err) {
       console.log(err)
@@ -65,6 +65,7 @@ function InboxContent() {
       mems[chatId] = true
     }
   }
+  console.log('arrOfSell', productSelling)
 
   const arrOfUserProductBuying = chatUser.filter(
     (i) => i.Product.userId !== user?.id
@@ -73,13 +74,13 @@ function InboxContent() {
   let obj = {}
   let productBuying = []
   for (let item of arrOfUserProductBuying) {
-    const { chatId } = SellItem
+    const { chatId } = item
     if (typeof obj[chatId] === 'undefined') {
       productBuying.push(item)
       obj[chatId] = true
     }
   }
-
+  console.log('arrOfBuy', arrOfUserProductBuying)
   const handleChange = (e) => {
     setValue(e.target.value)
   }
@@ -91,6 +92,11 @@ function InboxContent() {
     setShowSell(true)
     setShowBuy(false)
   }
+  const handleLabel = (e) => {
+    // console.log(e.target)
+    setShowLabel(e.target.value)
+  }
+  console.log('showlabel', showLabel)
 
   if (isLoading) return <h1>Loading</h1>
   return (
@@ -140,19 +146,48 @@ function InboxContent() {
                       Filter by label
                     </Typography>
 
-                    <Button className={classes.buttonColor}>All</Button>
-                    <Button className={classes.buttonColor}>
+                    <Button
+                      value="all"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
+                      All
+                    </Button>
+                    <Button
+                      value="pending"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
                       Pending Payment
                     </Button>
-                    <Button className={classes.buttonColor}>Paid</Button>
-                    <Button className={classes.buttonColor}>
+                    <Button
+                      value="toBeShipped"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
                       To Be shipped
                     </Button>
-                    <Button className={classes.buttonColor}>Shipped</Button>
-                    <Button className={classes.buttonColor}>
+                    <Button
+                      value="shipped"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
+                      Shipped
+                    </Button>
+                    <Button
+                      value="cashOnDelivery"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
                       Cash on delivery
                     </Button>
-                    <Button className={classes.buttonColor}>Complete</Button>
+                    <Button
+                      value="complete"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
+                      Complete
+                    </Button>
                   </Box>
                 </>
               ) : (
@@ -162,7 +197,6 @@ function InboxContent() {
                     <SellItem
                       user={user}
                       seller={seller}
-                      talksUser={talksUser}
                       setOpenPopup={setOpenPopup}
                       setOpenChat={setOpenChat}
                       productSelling={productSelling}
@@ -173,6 +207,8 @@ function InboxContent() {
               <SellItemModal
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
+                label={label}
+                setLabel={setLabel}
               />
             </Box>
           )}
@@ -193,12 +229,8 @@ function InboxContent() {
         </Box>
       </Grid>
 
-      <MessageBox
-        openChat={openChat}
-        setOpenChat={setOpenChat}
-        productBuying={productBuying}
-        productSelling={productSelling}
-      />
+      {/* id of user should send at this */}
+      <MessageBoxBetweenUser openChat={openChat} setOpenChat={setOpenChat} />
     </Grid>
   )
 }

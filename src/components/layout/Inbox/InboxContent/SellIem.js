@@ -7,36 +7,58 @@ import MessageIcon from '@material-ui/icons/Message'
 import { Image } from '@material-ui/icons'
 import { useStyles } from './StylesInboxContent'
 import LensIcon from '@material-ui/icons/Lens'
+import { AuthContext } from '../../../../context/AuthContextProvider'
+import { MessageIncProductContext } from '../../../../context/MessageIncProductProvider'
+
 function SellItem({
   talksUser,
   setOpenPopup,
   setOpenChat,
   seller,
-  user,
+
   productSelling
 }) {
   const classes = useStyles()
-  console.log('productSelling', productSelling)
-  // const arr = productSelling.map((i, index) =>
-  //   i.senderId !== i.Product.userId
-  //     ? i
-  //     : null || i.receiverId !== i.Product.userId
-  //     ? i
-  //     : null
-  // )
-  // console.log('arr', arr)
+  const [receiverId, setReceiverId] = useState('')
+  const { user } = useContext(AuthContext)
+  const { messages, setMessages } = useContext(MessageIncProductContext)
+  // console.log('receiverId', receiverId)
+  // console.log('productSelling', productSelling)
+
+  const onHandleClick = async (i) => {
+    let newId =
+      i.receiverId !== user?.id
+        ? i.receiverId
+        : null || i.sender.id !== user?.id
+        ? i.sender.id
+        : null
+    console.log('newId', newId)
+    console.log('product', i.productId)
+
+    try {
+      const res = await axios.get(
+        `/message/getMessageIncProduct/${newId}/${i.productId}`
+      )
+      setMessages(res.data.messages)
+      setOpenChat(true)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>
       {productSelling.map((i, index) => (
         <>
-          <Box className={classes.paperSelling}>
+          <Box button className={classes.paperSelling}>
             <Box className={classes.title}>
               <Avatar
                 variant="square"
+                style={{ width: '100px', height: '100px' }}
                 alt="selling-pic"
-                src={`${i.Product.Photos.post}`}
+                src={i.Product?.Photos[0]?.post}
               />
+
               {i.Receiver.id !== i.Product.userId ? (
                 <Typography className={classes.text} variant="body1">
                   {i.Receiver.firstName}
@@ -59,7 +81,7 @@ function SellItem({
               <Button
                 style={{ color: 'grey' }}
                 button
-                onClick={() => setOpenChat(true)}
+                onClick={() => onHandleClick(i)}
               >
                 <MessageIcon />
               </Button>

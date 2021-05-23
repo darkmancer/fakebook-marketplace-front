@@ -4,6 +4,7 @@ import { socket, SocketContext } from '../../../context/SocketContextProvider'
 import { Box, List, ListItem, ListItemText, Avatar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { AuthContext } from '../../../context/AuthContextProvider'
+import { MessageIncProductContext } from '../../../context/MessageIncProductProvider'
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -37,35 +38,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Messages({
-  receiverId,
-  seller,
-  productId,
-  productBuying,
-  productSelling
-}) {
+function MessagesBetweenUser({ receiverId, seller }) {
   const scrollRef = useRef()
   const [texts, setTexts] = useState([])
   const [arriveMessages, setArriveMessages] = useState(null)
   const { user } = useContext(AuthContext)
-  const [sender, setSender] = useState([])
-  const [receiver, setReceiver] = useState([])
-  const [userTexts, setUserTexts] = useState([])
+  const { messages } = useContext(MessageIncProductContext)
 
-  const getMessages = async () => {
-    try {
-      const res = await axios.get(`message/getMessageByProductId/${productId}`)
-
-      console.log('data', res.data)
-      setTexts(res.data.messages)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    getMessages()
-  }, [])
+  console.log(messages)
 
   useEffect(() => {
     socket.on('getMessage', (data) => {
@@ -90,14 +70,14 @@ function Messages({
   return (
     <Box>
       <List className={classes.messageList}>
-        {texts.map((text, index) => (
+        {messages.map((text, index) => (
           <ListItem
             ref={scrollRef}
             className={
               text.senderId === user.id ? classes.textSender : classes.text
             }
           >
-            {text.senderId == user.id ? null : (
+            {text.receiverId == receiverId ? null : (
               <Avatar
                 alt="receiver-profile"
                 src={seller?.Avatar}
@@ -121,4 +101,4 @@ function Messages({
   )
 }
 
-export default Messages
+export default MessagesBetweenUser

@@ -24,8 +24,9 @@ function BuyItem({
             <Box className={classes.title}>
               <Avatar
                 variant="square"
-                alt="selling-pic"
-                src={`${i.Product.Photos.post}`}
+                alt="buy-pic"
+                style={{ width: '100px', height: '100px' }}
+                src={i.Product?.Photos[0]?.post}
               />
               {i.Receiver.id === i.Product.userId ? (
                 <Typography className={classes.text} variant="body1">

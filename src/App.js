@@ -104,8 +104,9 @@ const publicRoutes = [
 ]
 
 function App() {
-  const { isAuthenticated, user } = useContext(AuthContext)
-  const { payload } = useContext(PayloadContext)
+  const { user, isAuthenticated } = useContext(AuthContext)
+
+  console.log('user', user)
   return (
     <Switch>
       {isAuthenticated &&
@@ -117,15 +118,14 @@ function App() {
             component={route.component}
           />
         ))}
-      {!isAuthenticated &&
-        publicRoutes.map((route, index) => (
-          <Route
-            key={index}
-            exact
-            path={route.path}
-            component={route.component}
-          />
-        ))}
+      {publicRoutes.map((route, index) => (
+        <Route
+          key={index}
+          exact
+          path={route.path}
+          component={route.component}
+        />
+      ))}
 
       <Redirect to="/login" />
     </Switch>

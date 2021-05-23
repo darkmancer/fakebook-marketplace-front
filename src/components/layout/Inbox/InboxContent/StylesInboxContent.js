@@ -44,7 +44,11 @@ export const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     padding: theme.spacing(1),
     backgroundColor: '#4E4F50',
-    borderRadius: 5
+    borderRadius: 5,
+    '&:hover': {
+      borderRadius: 6,
+      backgroundColor: '#3e5e85'
+    }
   },
   title: {
     display: 'flex',
