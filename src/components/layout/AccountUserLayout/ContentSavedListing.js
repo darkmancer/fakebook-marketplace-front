@@ -16,12 +16,12 @@ function ContentSavedListing() {
   useEffect(() => {
     getSaved()
   }, [])
-
+  console.log(showSave)
   return (
     <>
       <Box className={classes.boxSaved}>
         {showSave?.map((item, idx) => {
-          return item.Product.Photos.map((photo) => {
+       
             return (
               <Paper
                 className={classes.paperSaved}
@@ -31,8 +31,8 @@ function ContentSavedListing() {
               >
                 <Box>
                   <img
-                    src={photo.post}
-                    alt="kuy"
+                    src={item?.Product?.Photos[0]?.post}
+                    alt=""
                     style={{
                       width: 205,
                       height: 150,
@@ -51,7 +51,7 @@ function ContentSavedListing() {
                 </Box>
               </Paper>
             )
-          })
+          
         })}
       </Box>
     </>

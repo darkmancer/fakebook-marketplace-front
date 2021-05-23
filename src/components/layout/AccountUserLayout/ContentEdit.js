@@ -193,6 +193,12 @@ function ContentEdit() {
           myFormData.append("multiImage", photos[i]);
         }
       }
+    
+   
+      if (product.productStatus === "Draft") {
+         myFormData.append('productStatus', 'Available')
+       
+      }
       const res = await axios.put(`/product/update-product/${product.id}`, myFormData)
       if (res) {
         setLoading(false);
@@ -202,24 +208,54 @@ function ContentEdit() {
       console.log(err);
     }
   }
+  const onDraftSubmit = async () => {
+    try {
+      const { title, price, condition, description } = product
+      const myFormData = new FormData()
+      myFormData.append('title', title)
+      myFormData.append('condition', condition)
+      myFormData.append('description', description)
+      myFormData.append('price', price)
+      // myFormData.append("multiImage", photos);
+      if (photos.length > 0) {
+        for (let i = 0; i < photos.length; i++) {
+          myFormData.append('multiImage', photos[i])
+        }
+      }
+      if (product.status === 'Draft') {
+        myFormData.append('productStatus', 'Available')
+      }
+      const res = await axios.put(
+        `/product/update-product/${product.id}`,
+        myFormData
+      )
+      if (res) {
+        setLoading(false)
+        history.push('/mypage')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <>
       <div className={classes.flexPageCreateItem}>
         <Paper className={classes.paperContainer}>
           <Toolbar />
           <div className={classes.div}>
-            <Box
-              style={{ display: "flex" }}
-              justifyContent="space-between">
+            <Box style={{ display: 'flex' }} justifyContent="space-between">
               <Typography className={classes.HeadersTitle}>
                 Item for Sale
               </Typography>
-
+              <Button className={classes.ButtonCreate} onClick={onDraftSubmit}>
+                Save Draft
+              </Button>
               <IconButton
                 aria-label="delete"
                 className={classes.CloseButton}
                 size="small"
-                onClick={handleCloseButton}>
+                onClick={handleCloseButton}
+              >
                 <MdClose size="20" />
               </IconButton>
             </Box>
@@ -231,9 +267,7 @@ function ContentEdit() {
                 src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
               />
               <div>
-                <h4 className={classes.NameAvatar}>
-                  {user?.firstName}
-                </h4>
+                <h4 className={classes.NameAvatar}>{user?.firstName}</h4>
                 <h5 className={classes.TextStatusAvatar}>
                   Listing to Marketplace
                 </h5>
@@ -248,7 +282,8 @@ function ContentEdit() {
               <Paper
                 className={classes.PaperAddPhoto}
                 variant="outlined"
-                style={{ border: "1px solid #616161" }}>
+                style={{ border: '1px solid #616161' }}
+              >
                 <div>
                   <input
                     accept="image/*"
@@ -264,7 +299,8 @@ function ContentEdit() {
                       color="primary"
                       component="span"
                       startIcon={<MdAddToPhotos />}
-                      className={classes.ButtonAddPhoto}>
+                      className={classes.ButtonAddPhoto}
+                    >
                       Add Photos
                     </Button>
                   </label>
@@ -283,7 +319,7 @@ function ContentEdit() {
                         style={{
                           borderRadius: 10,
                           margin: 8,
-                          display: "block",
+                          display: 'block'
                         }}
                       />
                       <MdCancel
@@ -292,7 +328,7 @@ function ContentEdit() {
                         size="18"
                       />
                     </Box>
-                  );
+                  )
                 })}
                 <Box>
                   <input
@@ -308,7 +344,8 @@ function ContentEdit() {
                       variant="contained"
                       color="primary"
                       component="span"
-                      className={classes.ButtonAddMultiPhoto}>
+                      className={classes.ButtonAddMultiPhoto}
+                    >
                       <MdAddToPhotos size="30" />
                     </Button>
                   </label>
@@ -322,7 +359,7 @@ function ContentEdit() {
               className={classes.InputTextField}
               variant="outlined"
               autoComplete="off"
-                onChange={onChangeItem}
+              onChange={onChangeItem}
               name="title"
               value={product?.title}
               InputLabelProps={{ className: classes.labelTextField }}
@@ -333,7 +370,7 @@ function ContentEdit() {
               autoComplete="off"
               value={product?.price}
               className={classes.InputTextField}
-                onChange={onChangeItem}
+              onChange={onChangeItem}
               variant="outlined"
               InputLabelProps={{ className: classes.labelTextField }}
             />
@@ -375,10 +412,9 @@ function ContentEdit() {
             </FormControl> */}
             <FormControl
               variant="outlined"
-              className={classes.InputTextFieldCategory}>
-              <InputLabel htmlFor="condition-field">
-                Condition
-              </InputLabel>
+              className={classes.InputTextFieldCategory}
+            >
+              <InputLabel htmlFor="condition-field">Condition</InputLabel>
               <Select
                 label="Condition"
                 id="condition-field"
@@ -386,22 +422,21 @@ function ContentEdit() {
                 value={product?.condition}
                 onChange={onChangeItem}
                 inputProps={{
-                  name: "condition",
-                  id: "condition-field",
+                  name: 'condition',
+                  id: 'condition-field',
                   classes: {
-                    icon: classes.SelectIcon,
-                  },
-                }}>
+                    icon: classes.SelectIcon
+                  }
+                }}
+              >
                 {condition.map((con, idx) => (
-                  <MenuItem value={con.condition}>
-                    {con.condition}
-                  </MenuItem>
+                  <MenuItem value={con.condition}>{con.condition}</MenuItem>
                 ))}
               </Select>
             </FormControl>
             <TextField
               id="multiline"
-                onChange={onChangeItem}
+              onChange={onChangeItem}
               value={product?.description}
               autoComplete="off"
               className={classes.InputTextField}
@@ -413,7 +448,7 @@ function ContentEdit() {
             />
             <InputTag
               setItem={setItem}
-                onChageItem={onChangeItem}
+              onChageItem={onChangeItem}
               item={item}
               tags={tags}
               setTags={setTags}
@@ -451,11 +486,12 @@ function ContentEdit() {
             <Button
               variant="outlined"
               disabled={
-                product?.title === "" && product?.price === "" ? true : false
+                product?.title === '' && product?.price === '' ? true : false
               }
-                onClick={onPublishSubmitEdit}
+              onClick={onPublishSubmitEdit}
               className={classes.ButtonPublish}
-              endIcon={<MdEdit />}>
+              endIcon={<MdEdit />}
+            >
               Edit
             </Button>
           </Box>
@@ -474,7 +510,7 @@ function ContentEdit() {
       </div>
       );
     </>
-  );
+  )
 }
 
 export default ContentEdit;

@@ -13,7 +13,7 @@ import React, { useEffect } from 'react'
 import { useStyles } from './UseStyleAccountPage'
 import { AiFillFire } from 'react-icons/ai'
 // import { RiShareForwardFill } from "react-icons/ri";
-
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled'
 import axios from '../../../config/axios'
 import { useState } from 'react'
 import { MdClose, MdDelete, MdDone, MdEdit } from 'react-icons/md'
@@ -26,7 +26,7 @@ function MyListing({ products, getProductId }) {
   const [open, setOpen] = React.useState(false)
   // const [sold, setSold] = useState(false)
   useEffect(() => {
-    getProductId()
+  
   }, [products])
   const handleButtonMark = async (id) => {
     // setSold((sold) => !sold)
@@ -93,7 +93,7 @@ function MyListing({ products, getProductId }) {
                   ) : (
                     <Button
                       className={classes.buttonMarked}
-                      startIcon={<MdClose />}
+                      startIcon={<PlayCircleFilledIcon />}
                       onClick={() => handleButtonMarked(product.id)}
                     >
                       Mark As Available

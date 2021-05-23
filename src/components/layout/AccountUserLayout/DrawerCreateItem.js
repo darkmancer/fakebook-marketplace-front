@@ -161,8 +161,8 @@ function DrawerCreateItem() {
           myFormData.append('multiImage', photos[i])
         }
       }
-console.log(myFormData)
 
+      
       const res = await axios.post('/product/create-product', myFormData)
       if (res) {
         setLoading(false)

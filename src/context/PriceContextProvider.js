@@ -9,6 +9,7 @@ function PriceContextProvider({ children }) {
   const [priceMax, setPriceMax] = useState(0)
   const [condition, setCondition] = useState(null)
   const [search, setSearch] = useState(null)
+  const [search2, setSearch2] = useState(null)
   const [sort, setSort] = useState('')
 
   return (
@@ -23,7 +24,9 @@ function PriceContextProvider({ children }) {
         search,
         setSearch,
         sort,
-        setSort
+        setSort,
+        search2,
+        setSearch2
       }}
     >
       {children}
