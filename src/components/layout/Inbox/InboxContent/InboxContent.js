@@ -24,7 +24,6 @@ import { AuthContext } from '../../../../context/AuthContextProvider'
 
 function InboxContent() {
   const classes = useStyles()
-  const history = useHistory()
   const [value, setValue] = React.useState('')
   const [showSell, setShowSell] = useState(false)
   const [showBuy, setShowBuy] = useState(false)
@@ -43,6 +42,7 @@ function InboxContent() {
 
       console.log('data', res.data)
       setChatUser(res.data.arr)
+      setIsLoading(false)
     } catch (err) {
       console.log(err)
     }
@@ -55,7 +55,6 @@ function InboxContent() {
   const arrOfUserProductSelling = chatUser.filter(
     (i) => i.Product.userId === user?.id
   )
-  console.log('arr', arrOfUserProductSelling)
 
   let mems = {}
   let productSelling = []
@@ -66,7 +65,6 @@ function InboxContent() {
       mems[chatId] = true
     }
   }
-  console.log(productSelling)
 
   const arrOfUserProductBuying = chatUser.filter(
     (i) => i.Product.userId !== user?.id
@@ -81,7 +79,6 @@ function InboxContent() {
       obj[chatId] = true
     }
   }
-  console.log('productBuying', productBuying)
 
   const handleChange = (e) => {
     setValue(e.target.value)
@@ -95,7 +92,7 @@ function InboxContent() {
     setShowBuy(false)
   }
 
-  if (isLoading) return <p>Loading</p>
+  if (isLoading) return <h1>Loading</h1>
   return (
     <Grid
       container
