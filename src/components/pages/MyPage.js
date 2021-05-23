@@ -43,7 +43,11 @@ function MyPage() {
         {products.length === 0 ? (
           <ContentAccount className={classes.content} />
         ) : (
-          <MyListing className={classes.content} products={products} />
+          <MyListing
+            className={classes.content}
+            products={products}
+            getProductId={getProductId}
+          />
         )}
         <ContentListing className={classes.content} />
 

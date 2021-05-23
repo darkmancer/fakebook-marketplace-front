@@ -9,20 +9,37 @@ import {
   Paper,
   Typography
 } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useStyles } from './UseStyleAccountPage'
 import { AiFillFire } from 'react-icons/ai'
 // import { RiShareForwardFill } from "react-icons/ri";
 
 import axios from '../../../config/axios'
 import { useState } from 'react'
-import { MdDelete, MdEdit } from 'react-icons/md'
+import { MdClose, MdDelete, MdDone, MdEdit } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
-function MyListing({ products }) {
+
+function MyListing({ products, getProductId }) {
   const classes = useStyles()
   // /get-user-products/:userId
   const history = useHistory()
   const [open, setOpen] = React.useState(false)
+  // const [sold, setSold] = useState(false)
+  useEffect(() => {
+    getProductId()
+  }, [products])
+  const handleButtonMark = async (id) => {
+    // setSold((sold) => !sold)
+    console.log(id)
+
+    const res = await axios.patch('/product/sold/' + id)
+    console.log(res.data)
+  }
+  const handleButtonMarked = async (id) => {
+    // setSold((sold) => !sold)
+    const res = await axios.patch('/product/available/' + id)
+    console.log(res.data)
+  }
 
   const handleClose = () => {
     setOpen(false)
@@ -66,9 +83,23 @@ function MyListing({ products }) {
                 </Typography>
                 <Typography className={classes.ListStatus}>In stock</Typography>
                 <Box className={classes.flexButtonInlist}>
-                  {/* <Button className={classes.buttonMark}>
-                    Mark Out of Stock
-                  </Button> */}
+                  {product?.productStatus === 'Available' ? (
+                    <Button
+                      className={classes.buttonMark}
+                      startIcon={<MdDone />}
+                      onClick={() => handleButtonMark(product.id)}
+                    >
+                      Mark As Sold
+                    </Button>
+                  ) : (
+                    <Button
+                      className={classes.buttonMarked}
+                      startIcon={<MdClose />}
+                      onClick={() => handleButtonMarked(product.id)}
+                    >
+                      Mark As Available
+                    </Button>
+                  )}
                   <Button
                     className={classes.buttonListing}
                     startIcon={<AiFillFire />}

@@ -13,64 +13,66 @@ import {
   Avatar,
   Paper,
   Typography,
-  Backdrop,
-} from "@material-ui/core";
-import React, { useState } from "react";
-import { useStyles } from "./UseStyleCreatePage";
-import { year, condition } from "./CategoryMap";
-import InputTag from "./InputTag";
-import axios from "../../../config/axios";
+  Backdrop
+} from '@material-ui/core'
+import React, { useState } from 'react'
+import { useStyles } from './UseStyleCreatePage'
+import { year, condition } from './CategoryMap'
+import InputTag from './InputTag'
+import axios from '../../../config/axios'
 
 import {
   MdAddToPhotos,
   MdLocationOn,
   MdCancel,
   MdClose,
-  MdPublic,
-} from "react-icons/md";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { IconButton } from "@material-ui/core";
-import PreviewVehicle from "./PreviewVehicle";
+  MdPublic
+} from 'react-icons/md'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { IconButton } from '@material-ui/core'
+import PreviewVehicle from './PreviewVehicle'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/AuthContextProvider'
 
 function DrawerCreateVehicle() {
-  const classes = useStyles();
-  const history = useHistory();
-  const [loading, setLoading] = useState(false);
-
+  const classes = useStyles()
+  const history = useHistory()
+  const [loading, setLoading] = useState(false)
+  const { user } = useContext(AuthContext)
   const handleCloseButton = () => {
-    history.push("/mylistings");
-  };
-  const [photos, setPhotos] = useState([]);
-  const [showPhotos, setShowPhotos] = useState([]);
-  const [tags, setTags] = React.useState([]);
-  const optional = tags.join(",");
+    history.push('/mylistings')
+  }
+  const [photos, setPhotos] = useState([])
+  const [showPhotos, setShowPhotos] = useState([])
+  const [tags, setTags] = React.useState([])
+  const optional = tags.join(',')
 
   const handleDelete = (idx) => () => {
     if (photos.length === 1) {
-      setShowPhotos([]);
-      setPhotos([]);
+      setShowPhotos([])
+      setPhotos([])
     } else {
-      setShowPhotos((prev) => prev.filter((prev, index) => index !== idx));
-      setPhotos((prev) => prev.filter((prev, index) => index !== idx));
+      setShowPhotos((prev) => prev.filter((prev, index) => index !== idx))
+      setPhotos((prev) => prev.filter((prev, index) => index !== idx))
     }
-  };
+  }
 
   const [item, setItem] = useState({
-    title: "",
-    price: "",
-    condition: "",
-    description: "",
-    model: "",
-    brand: "",
-    mileage: "",
-    location: "",
-    year: "",
-    tranmission: "",
-  });
+    title: '',
+    price: '',
+    condition: '',
+    description: '',
+    model: '',
+    brand: '',
+    mileage: '',
+    location: '',
+    year: '',
+    tranmission: ''
+  })
   const onChangeItem = (e) => {
-    const { name, value } = e.target;
-    setItem((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value } = e.target
+    setItem((prev) => ({ ...prev, [name]: value }))
+  }
   const handleOnDraft = async () => {
     const {
       title,
@@ -82,39 +84,39 @@ function DrawerCreateVehicle() {
       mileage,
       location,
       year,
-      tranmission,
-    } = item;
+      tranmission
+    } = item
     try {
-      const myFormData = new FormData();
-      myFormData.append("title", title);
-      myFormData.append("price", price);
-      myFormData.append("model", model);
-      myFormData.append("brand", brand);
-      myFormData.append("mileage", mileage);
-      myFormData.append("location", location);
-      myFormData.append("optional", optional);
-      myFormData.append("year", year);
-      myFormData.append("tranmission", tranmission);
-      myFormData.append("category", "Vehicle");
-      myFormData.append("subCategory", "Vehicle");
-      myFormData.append("productType", "VEHICLE");
-      myFormData.append("productStatus", "Draft");
-      myFormData.append("condition", condition);
-      myFormData.append("description", description);
+      const myFormData = new FormData()
+      myFormData.append('title', title)
+      myFormData.append('price', price)
+      myFormData.append('model', model)
+      myFormData.append('brand', brand)
+      myFormData.append('mileage', mileage)
+      myFormData.append('location', location)
+      myFormData.append('optional', optional)
+      myFormData.append('year', year)
+      myFormData.append('tranmission', tranmission)
+      myFormData.append('category', 'Vehicle')
+      myFormData.append('subCategory', 'Vehicle')
+      myFormData.append('productType', 'VEHICLE')
+      myFormData.append('productStatus', 'Draft')
+      myFormData.append('condition', condition)
+      myFormData.append('description', description)
       if (photos.length > 0) {
         for (let i = 0; i < photos.length; i++) {
-          myFormData.append("multiImage", photos[i]);
+          myFormData.append('multiImage', photos[i])
         }
       }
-      const res = await axios.post("/product/create-product", myFormData);
+      const res = await axios.post('/product/create-product', myFormData)
       if (res) {
-        setLoading(false);
-        history.push("/mypage");
+        setLoading(false)
+        history.push('/mypage')
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
   const handleOnPublish = async () => {
     const {
       title,
@@ -126,59 +128,61 @@ function DrawerCreateVehicle() {
       mileage,
       location,
       year,
-      tranmission,
-    } = item;
+      tranmission
+    } = item
     try {
-      const myFormData = new FormData();
-      myFormData.append("title", title);
-      myFormData.append("price", price);
-      myFormData.append("model", model);
-      myFormData.append("brand", brand);
-      myFormData.append("mileage", mileage);
-      myFormData.append("location", location);
-      myFormData.append("optional", optional);
-      myFormData.append("year", year);
-      myFormData.append("tranmission", tranmission);
-      myFormData.append("category", "Vehicle");
-      myFormData.append("subCategory", "Vehicle");
-      myFormData.append("productType", "VEHICLE");
-      myFormData.append("productStatus", "Single Item");
-      myFormData.append("condition", condition);
-      myFormData.append("description", description);
+      const myFormData = new FormData()
+      myFormData.append('title', title)
+      myFormData.append('price', price)
+      myFormData.append('model', model)
+      myFormData.append('brand', brand)
+      myFormData.append('mileage', mileage)
+      myFormData.append('location', location)
+      myFormData.append('optional', optional)
+      myFormData.append('year', year)
+      myFormData.append('tranmission', tranmission)
+      myFormData.append('category', 'Vehicle')
+      myFormData.append('subCategory', 'Vehicle')
+      myFormData.append('productType', 'VEHICLE')
+      myFormData.append('productStatus', 'Single Item')
+      myFormData.append('condition', condition)
+      myFormData.append('description', description)
       for (let i = 0; i < photos.length; i++) {
-        myFormData.append("multiImage", photos[i]);
+        myFormData.append('multiImage', photos[i])
       }
-      const res = await axios.post("/product/create-product", myFormData);
+      const res = await axios.post('/product/create-product', myFormData)
       if (res) {
-        setLoading(false);
-        history.push("/mypage");
+        setLoading(false)
+        history.push('/mypage')
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
   const onChangeFilePhotos = (e) => {
     if (photos.length !== 0) {
-      setPhotos((prev) => [...prev, e.target.files[0]]);
+      setPhotos((prev) => [...prev, e.target.files[0]])
       setShowPhotos([
         ...showPhotos,
-        { file: URL.createObjectURL(e.target.files[0]) },
-      ]);
+        { file: URL.createObjectURL(e.target.files[0]) }
+      ])
     } else {
-      setPhotos(e.target.files);
-      setShowPhotos([{ file: URL.createObjectURL(e.target.files[0]) }]);
+      setPhotos(e.target.files)
+      setShowPhotos([{ file: URL.createObjectURL(e.target.files[0]) }])
     }
-  };
+  }
   return (
     <div className={classes.flexPageCreateItem}>
       <Paper className={classes.paperContainer}>
         <Toolbar />
         <div className={classes.div}>
-          <Box style={{ display: "flex" }} justifyContent="space-between">
+          <Box style={{ display: 'flex' }} justifyContent="space-between">
             <Typography className={classes.HeadersTitle}>
               Vehicle For Sale
             </Typography>
-            <Button className={classes.ButtonCreate}>Save Draft</Button>
+            <Button className={classes.ButtonCreate} onClick={handleOnDraft}>
+              Save Draft
+            </Button>
             <IconButton
               aria-label="delete"
               className={classes.CloseButton}
@@ -193,10 +197,12 @@ function DrawerCreateVehicle() {
               style={{ marginRight: 10 }}
               className={classes.AvatarCreateDrawer}
               alt="name"
-              src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
+              src={user?.avatar}
             />
             <div>
-              <h4 className={classes.NameAvatar}>Chiwawa</h4>
+              <h4 className={classes.NameAvatar}>
+                {user?.firstName} {user?.lastName}
+              </h4>
               <h5 className={classes.TextStatusAvatar}>
                 Listing to Marketplace
               </h5>
@@ -235,7 +241,7 @@ function DrawerCreateVehicle() {
             <Paper
               className={classes.PaperAddPhoto}
               variant="outlined"
-              style={{ border: "1px solid #616161" }}
+              style={{ border: '1px solid #616161' }}
             >
               <div>
                 <input
@@ -272,7 +278,7 @@ function DrawerCreateVehicle() {
                       style={{
                         borderRadius: 10,
                         margin: 8,
-                        display: "block",
+                        display: 'block'
                       }}
                     />
                     <MdCancel
@@ -281,7 +287,7 @@ function DrawerCreateVehicle() {
                       size="18"
                     />
                   </Box>
-                );
+                )
               })}
               <Box>
                 <input
@@ -364,11 +370,11 @@ function DrawerCreateVehicle() {
               name="year"
               onChange={onChangeItem}
               inputProps={{
-                name: "year",
-                id: "year-car",
+                name: 'year',
+                id: 'year-car',
                 classes: {
-                  icon: classes.SelectIcon,
-                },
+                  icon: classes.SelectIcon
+                }
               }}
             >
               {year.map((year, idx) => (
@@ -389,11 +395,11 @@ function DrawerCreateVehicle() {
               name="tranmission"
               onChange={onChangeItem}
               inputProps={{
-                name: "tranmission",
-                id: "tranmission-field",
+                name: 'tranmission',
+                id: 'tranmission-field',
                 classes: {
-                  icon: classes.SelectIcon,
-                },
+                  icon: classes.SelectIcon
+                }
               }}
             >
               <MenuItem value="Automatic">Automatic</MenuItem>
@@ -411,11 +417,11 @@ function DrawerCreateVehicle() {
               name="condition"
               onChange={onChangeItem}
               inputProps={{
-                name: "condition",
-                id: "condition-field",
+                name: 'condition',
+                id: 'condition-field',
                 classes: {
-                  icon: classes.SelectIcon,
-                },
+                  icon: classes.SelectIcon
+                }
               }}
             >
               {condition.map((con, idx) => (
@@ -441,7 +447,7 @@ function DrawerCreateVehicle() {
                 <InputAdornment position="start">
                   <MdLocationOn className={classes.iconTag} />
                 </InputAdornment>
-              ),
+              )
             }}
           />
 
@@ -459,19 +465,24 @@ function DrawerCreateVehicle() {
         <Button
           variant="outlined"
           onClick={handleOnPublish}
-          disabled={item.title === "" && item.price === "" ? true : false}
+          disabled={item.title === '' && item.price === '' ? true : false}
           className={classes.ButtonPublish}
           endIcon={<MdPublic />}
         >
           Publish
         </Button>
       </Paper>
-      <PreviewVehicle showPhotos={showPhotos} item={item} tags={tags} />
+      <PreviewVehicle
+        showPhotos={showPhotos}
+        item={item}
+        tags={tags}
+        user={user}
+      />
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
     </div>
-  );
+  )
 }
 
-export default DrawerCreateVehicle;
+export default DrawerCreateVehicle

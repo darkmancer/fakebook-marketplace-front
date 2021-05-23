@@ -9,6 +9,7 @@ import { useStyles } from './UseStyleAccountPage'
 function CommeceProfile({ user, products }) {
   const classes = useStyles()
   const history = useHistory()
+
   const { setOpen, open } = useContext(AccountContext)
 
   function getModalStyle() {
@@ -40,7 +41,7 @@ function CommeceProfile({ user, products }) {
                 style={{ marginRight: 10 }}
                 className={classes.AvatarCommence}
                 alt="name"
-                src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
+                src={user?.avatar}
               />
               <div>
                 <h4 className={classes.NameAvatar}>{user?.firstName}</h4>
