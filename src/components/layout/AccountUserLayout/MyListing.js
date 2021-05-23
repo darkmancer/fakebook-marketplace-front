@@ -51,7 +51,6 @@ function MyListing({ products, getProductId }) {
     try {
       const res = await axios.delete('/product/delete-product/' + id)
       if (res) {
-        window.location.reload()
         return setOpen(false)
       }
     } catch (err) {

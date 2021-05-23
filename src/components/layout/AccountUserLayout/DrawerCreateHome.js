@@ -12,7 +12,9 @@ import {
   Switch,
   Avatar,
   Paper,
-  Typography
+  Typography,
+  Backdrop,
+  CircularProgress
 } from '@material-ui/core'
 
 import { useStyles } from './UseStyleCreatePage'
@@ -31,10 +33,13 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { IconButton } from '@material-ui/core'
 import { PayloadContext } from '../../../context/PayloadContextProvider'
 import { AuthContext } from '../../../context/AuthContextProvider'
+import axios from '../../../config/axios'
 
 function DrawerCreateHome() {
   const classes = useStyles()
   const history = useHistory()
+  const [loading, setLoading] = useState(false)
+
   // const { payload } = useContext(PayloadContext);
   const { user } = useContext(AuthContext)
 
@@ -110,7 +115,8 @@ function DrawerCreateHome() {
       console.log(err)
     }
   }
-  const onPublishSubmit = () => {
+  const onPublishSubmit = async () => {
+    setLoading(true)
     const {
       title,
       price,
@@ -141,6 +147,11 @@ function DrawerCreateHome() {
       myFormData.append('productStatus', 'Available')
       for (let i = 0; i < photos.length; i++) {
         myFormData.append('multiImage', photos[i])
+      }
+      const res = await axios.post('/product/create-product', myFormData)
+      if (res) {
+        setLoading(false)
+        history.push('/mypage')
       }
     } catch (err) {
       console.log(err)
@@ -418,6 +429,9 @@ function DrawerCreateHome() {
           item={item}
           tags={tags}
         />
+        <Backdrop className={classes.backdrop} open={loading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </div>
     </>
   )
