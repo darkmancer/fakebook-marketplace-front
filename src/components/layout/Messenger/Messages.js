@@ -38,16 +38,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function Messages({ receiverId, seller }) {
+function Messages({
+  receiverId,
+  seller,
+  productId,
+  productBuying,
+  productSelling
+}) {
   const scrollRef = useRef()
   const [texts, setTexts] = useState([])
   const [arriveMessages, setArriveMessages] = useState(null)
   const { payload, setPayload } = useContext(PayloadContext)
   const [sender, setSender] = useState([])
   const [receiver, setReceiver] = useState([])
-  const [test, setTest] = useState([])
-  console.log(test)
-  console.log(texts)
+  const [userTexts, setUserTexts] = useState([])
+
+  console.log('texts', texts)
   console.log(receiverId)
   console.log(arriveMessages)
 
@@ -58,9 +64,9 @@ function Messages({ receiverId, seller }) {
 
   const getMessages = async () => {
     try {
-      const res = await axios.get(`/message/${receiverId}`)
+      const res = await axios.get(`message/getMessageByProductId/${productId}`)
 
-      console.log(res.data.messages)
+      //console.log('data', res.data)
       setTexts(res.data.messages)
     } catch (err) {
       console.log(err)
@@ -71,6 +77,18 @@ function Messages({ receiverId, seller }) {
     getMessages()
   }, [])
 
+  const getMessagesByUserId = async () => {
+    try {
+      const res = await axios.get(`message/getTalkAndProduct`)
+      setUserTexts(res.data.arr)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  useEffect(() => {
+    getMessagesByUserId()
+  }, [])
+
   useEffect(() => {
     socket.on('getMessage', (data) => {
       setArriveMessages({
@@ -79,7 +97,7 @@ function Messages({ receiverId, seller }) {
       })
     })
   }, [])
-
+  console.log('userText', userTexts)
   // socket.on("hello", (data) => {
   //   io.emit("")
   //   setTest(data);
@@ -88,6 +106,10 @@ function Messages({ receiverId, seller }) {
   useEffect(() => {
     arriveMessages && setTexts((prev) => [...prev, arriveMessages])
   }, [arriveMessages])
+
+  // useEffect(() => {
+  //   arriveMessages && setUserTexts((prev) => [...prev, arriveMessages])
+  // }, [arriveMessages])
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })

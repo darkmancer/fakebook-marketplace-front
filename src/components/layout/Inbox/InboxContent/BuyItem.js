@@ -7,28 +7,18 @@ import MessageIcon from '@material-ui/icons/Message'
 import { Image } from '@material-ui/icons'
 import { useStyles } from './StylesInboxContent'
 import LensIcon from '@material-ui/icons/Lens'
-function SellItem({
+function BuyItem({
   talksUser,
   setOpenPopup,
   setOpenChat,
   seller,
   user,
-  productSelling
+  productBuying
 }) {
   const classes = useStyles()
-  console.log('productSelling', productSelling)
-  // const arr = productSelling.map((i, index) =>
-  //   i.senderId !== i.Product.userId
-  //     ? i
-  //     : null || i.receiverId !== i.Product.userId
-  //     ? i
-  //     : null
-  // )
-  // console.log('arr', arr)
-
   return (
     <>
-      {productSelling.map((i, index) => (
+      {productBuying.map((i, index) => (
         <>
           <Box className={classes.paperSelling}>
             <Box className={classes.title}>
@@ -37,12 +27,12 @@ function SellItem({
                 alt="selling-pic"
                 src={`${i.Product.Photos.post}`}
               />
-              {i.Receiver.id !== i.Product.userId ? (
+              {i.Receiver.id === i.Product.userId ? (
                 <Typography className={classes.text} variant="body1">
                   {i.Receiver.firstName}
                 </Typography>
               ) : null}
-              {i.Sender.id !== i.Product.userId ? (
+              {i.Sender.id === i.Product.userId ? (
                 <Typography className={classes.text} variant="body1">
                   {i.Sender.firstName}
                 </Typography>
@@ -55,17 +45,18 @@ function SellItem({
                 {i.Product.title}
               </Typography>
             </Box>
+
             <Box>
               <Button
-                style={{ color: 'grey' }}
                 button
+                style={{ color: 'grey' }}
                 onClick={() => setOpenChat(true)}
               >
                 <MessageIcon />
               </Button>
               <Button
-                style={{ color: 'grey' }}
                 button
+                style={{ color: 'grey' }}
                 onClick={() => setOpenPopup(true)}
               >
                 <MoreHorizIcon />
@@ -77,4 +68,4 @@ function SellItem({
     </>
   )
 }
-export default SellItem
+export default BuyItem

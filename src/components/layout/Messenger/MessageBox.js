@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
 function MessageBox(props) {
   const classes = useStyles()
   const [newMessage, setNewMessage] = useState('')
-  const { openChat, setOpenChat, productId } = props //seller fetch จากหน้า ProductDetail มาไม่ทันเลยใส่ isloading ไว้หน้า productdetail
+  const { openChat, setOpenChat, productId, productBuying, productSelling } =
+    props
   const { socket } = useContext(SocketContext)
   const [seller, setSeller] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -74,7 +75,7 @@ function MessageBox(props) {
     try {
       const res = await axios.get(`/product/get-seller-product/${productId}`)
       //console.log('res-seller-productId', res.data.product.User)
-      setSeller(res.data.product.User)
+      setSeller(res.data.product?.User)
       setIsLoading(false)
     } catch (err) {
       console.log(err)
@@ -94,9 +95,9 @@ function MessageBox(props) {
     socket.emit('sendMessage', { text: newMessage })
 
     try {
-      const res = await axios.post(`/message/${productId}`, {
+      const res = await axios.post(`/message/${seller?.id}`, {
         text: newMessage,
-        receiverId: seller?.id
+        productId: productId
       })
       console.log('res', res)
       setNewMessage('')
@@ -124,7 +125,13 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages receiverId={seller?.id} seller={seller} />
+      <Messages
+        receiverId={seller?.id}
+        seller={seller}
+        productId={productId}
+        productBuying={productBuying}
+        productSelling={productSelling}
+      />
 
       <Box className={classes.chatFooter}>
         <TextField
