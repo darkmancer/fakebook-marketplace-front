@@ -5,13 +5,17 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { AuthContext } from '../../../context/AuthContextProvider'
 import ProductCard from '../ProductCard'
-
+import { MdModeEdit } from 'react-icons/md'
 import axios from '../../../config/axios'
 import { useStyles } from './UseStyleAccountPage'
 
 function CommenceProfileForm({ getModalStyle }) {
   const [products, setProducts] = useState([])
   const [open, setOpen] = useState(false)
+  const { user } = useContext(AuthContext)
+  const [showAvatar, setShowAvatar] = useState({ avatar: user.avatar })
+  const [editAvatar, setEditAvatar] = useState({ avatar: '' })
+
   const getProductId = async () => {
     try {
       const res = await axios.get('/product/get-user-products/' + user.id)
@@ -22,10 +26,50 @@ function CommenceProfileForm({ getModalStyle }) {
   }
   useEffect(() => {
     getProductId()
-  }, [])
-  const { user } = useContext(AuthContext)
+  }, [user])
+
+  const onChangeFilePhotos = (e) => {
+    console.log('e.target.files')
+    console.log(e.target.files)
+    console.log(e.target.files[0])
+    if (e.target.files[0]) {
+      console.log('CCK')
+      setShowAvatar({ avatar: URL.createObjectURL(e.target.files[0]) })
+      setEditAvatar({
+        avatar: e.target.files[0]
+      })
+      //สักครู่นะครับ
+    } else {
+      setShowAvatar({ avatar: null })
+      setShowAvatar({ avatar: '' })
+    }
+  }
+
+  const handleEdit = async (e) => {
+    // if ()
+    // const { avatar } = editAvatar
+    console.log('editAvatar.avatar')
+    console.log(editAvatar.avatar)
+    if (editAvatar) {
+      const myFormData = new FormData()
+      myFormData.append('image', editAvatar.avatar)
+      try {
+        await axios.patch('/upload-avatar', myFormData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      console.log('pongtai')
+    }
+  }
+  console.log('show', showAvatar)
+  console.log('edit', editAvatar)
   const classes = useStyles()
-  const [value, setValue] = React.useState(3)
+  const [value, setValue] = React.useState(4)
   const [modalStyle] = React.useState(getModalStyle)
   return (
     <div style={modalStyle} className={classes.paper}>
@@ -34,16 +78,34 @@ function CommenceProfileForm({ getModalStyle }) {
           <h2 className={classes.CommenceHeaderModal}>Commerce Profile</h2>
         </div>
         <Divider className={classes.DividerModal} light />
-        <Avatar
-          className={classes.AvatarCommenceModal}
-          alt="name"
-          src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
+        <input
+          accept="image/*"
+          style={{ display: 'none' }}
+          // className={classes.inputPhoto}
+          id="contained-button-file"
+          multiple
+          type="file"
+          onChange={onChangeFilePhotos}
         />
+        <label htmlFor="contained-button-file">
+          <Avatar
+            id="contained-butto-file"
+            className={classes.AvatarCommenceModal}
+            src={showAvatar?.avatar}
+            alt={user?.firstName}
+          />
+        </label>
         <h1 className={classes.nameCommenceModal}>
           {user?.firstName} {user?.lastName}
         </h1>
         <div className={classes.FlexCenter}>
-          <Button className={classes.buttonCommenceModal}>Edit</Button>
+          <Button
+            className={classes.buttonEdit}
+            startIcon={<MdModeEdit />}
+            onClick={handleEdit}
+          >
+            Edit Avatar
+          </Button>
         </div>
         <br></br>
         <Divider className={classes.DividerModal} light />
@@ -107,7 +169,9 @@ function CommenceProfileForm({ getModalStyle }) {
               ))}
             </div>
             <div>
-              <Button variant="contained">See More</Button>
+              <Button variant="contained" className={classes.ButtonSeeMore}>
+                See More
+              </Button>
             </div>
           </div>
         </Box>

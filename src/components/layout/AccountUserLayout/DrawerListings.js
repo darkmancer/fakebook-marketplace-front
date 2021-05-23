@@ -8,30 +8,31 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-  Toolbar,
-} from "@material-ui/core";
-import React from "react";
-import { useState } from "react";
-import { MdHelp, MdLocalOffer, MdLoyalty } from "react-icons/md";
-import { useHistory } from "react-router-dom";
+  Toolbar
+} from '@material-ui/core'
+import React from 'react'
+import { useState } from 'react'
+import { MdHelp, MdLocalOffer, MdLoyalty } from 'react-icons/md'
+import { useHistory } from 'react-router-dom'
 
-import { useStyles } from "./UseStyleAccountPage";
+import { useStyles } from './UseStyleAccountPage'
 
 function DrawerListings() {
-  const classes = useStyles();
-  const history = useHistory();
-  const [onClicked, setOnClicked] = useState(false);
+  const classes = useStyles()
+  const history = useHistory()
+  const [onClicked, setOnClicked] = useState(false)
   const handleOnClicked = () => {
-    setOnClicked((prevonClicked) => !prevonClicked);
-  };
+    setOnClicked((prevonClicked) => !prevonClicked)
+  }
   return (
     <>
       <Drawer
         // className={classes.root}
         variant="permanent"
         classes={{
-          paper: classes.drawerPaper,
-        }}>
+          paper: classes.drawerPaper
+        }}
+      >
         <Toolbar />
         <div className={classes.div}>
           <h2>Create New Listing</h2>
@@ -46,7 +47,8 @@ function DrawerListings() {
                     ? classes.buttonListings
                     : classes.buttonListingsClicked
                 }
-                onClick={handleOnClicked}>
+                onClick={handleOnClicked}
+              >
                 <ListItemIcon className={classes.ListIcon}>
                   <MdLocalOffer />
                 </ListItemIcon>
@@ -58,18 +60,20 @@ function DrawerListings() {
             <List>
               <ListItem
                 className={classes.buttonListAccount}
-                onClick={() => history.push("/mypage")}>
+                onClick={() => history.push('/mypage')}
+              >
                 <ListItemIcon className={classes.ListIcon}>
                   <MdLoyalty />
                 </ListItemIcon>
                 <ListItemText primary="Your Listings" />
-                <ListItemSecondaryAction>
+                {/* <ListItemSecondaryAction>
                   1 active
-                </ListItemSecondaryAction>
+                </ListItemSecondaryAction> */}
               </ListItem>
               <ListItem
                 className={classes.buttonListAccount}
-                onClick={() => alert("Help yourself Bitch!")}>
+                onClick={() => alert('Help yourself Bitch!')}
+              >
                 <ListItemIcon className={classes.ListIcon}>
                   <MdHelp />
                 </ListItemIcon>
@@ -80,7 +84,7 @@ function DrawerListings() {
         </Box>
       </Drawer>
     </>
-  );
+  )
 }
 
-export default DrawerListings;
+export default DrawerListings

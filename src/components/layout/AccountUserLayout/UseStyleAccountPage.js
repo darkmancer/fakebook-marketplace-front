@@ -1,499 +1,535 @@
-import { makeStyles } from "@material-ui/core";
-const drawerWidth = 300;
+import { makeStyles } from '@material-ui/core'
+const drawerWidth = 300
 export const useStyles = makeStyles((theme) => ({
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: 240,
-      flexShrink: 0,
+      flexShrink: 0
     },
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
   //ถ้า sm ขึ้นไปจะทำอะไร
   content: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: 240,
       flexGrow: 1,
-      padding: theme.spacing(2),
+      padding: theme.spacing(2)
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       flexShrink: 0,
-      padding: theme.spacing(1),
-    },
+      padding: theme.spacing(1)
+    }
   },
   appBar: {
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${240}px)`,
-    },
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${240}px)`
+    }
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#242526",
-    color: "white",
-    borderColor: "grey",
+    backgroundColor: '#242526',
+    color: 'white',
+    borderColor: 'grey'
   },
   drawerContainer: {
-    overflow: "auto",
+    overflow: 'auto'
   },
   drawerSpacing: {
-    margin: theme.spacing(0, 1),
+    margin: theme.spacing(0, 1)
   },
 
   dividerLine: {
-    backgroundColor: "grey",
+    backgroundColor: 'grey'
   },
   searchInput: {
     margin: theme.spacing(1),
-    width: "25ch",
-    backgroundColor: "grey",
+    width: '25ch',
+    backgroundColor: 'grey'
   },
   div: {
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(2)
   },
   buttonListAccount: {
     padding: theme.spacing(2),
-    "&:hover": {
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#424242",
-    },
+      backgroundColor: '#424242'
+    }
   },
   buttonListFilter: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2)
   },
 
   ListIcon: {
-    "&.MuiListItemIcon-root": {
-      minWidth: "30px",
-      color: "white",
-    },
+    '&.MuiListItemIcon-root': {
+      minWidth: '30px',
+      color: 'white'
+    }
   },
   AvatarProfile: {
     width: theme.spacing(3),
-    height: theme.spacing(3),
+    height: theme.spacing(3)
   },
   buttonCreateNewList: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(0, 2),
     width: 260,
-    color: "#2D88FF",
-    backgroundColor: "#2D88FF33",
-    "&:hover": {
+    color: '#2D88FF',
+    backgroundColor: '#2D88FF33',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#424242",
-    },
+      backgroundColor: '#424242'
+    }
   },
   buttonManageList: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(1, 2),
     width: 260,
-    color: "#E4E6EB",
-    backgroundColor: "#FFFFFF1A",
-    "&:hover": {
+    color: '#E4E6EB',
+    backgroundColor: '#FFFFFF1A',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#424242",
-    },
+      backgroundColor: '#424242'
+    }
   },
   divider: {
-    color: "#424242",
-    backgroundColor: "#424242",
-    width: "96%",
-    margin: "auto",
+    color: '#424242',
+    backgroundColor: '#424242',
+    width: '96%',
+    margin: 'auto'
   },
   RadioCheck: {
-    color: "#424242",
-    "&.MuiRadio-colorSecondary.Mui-checked": {
-      color: "#2D88FF",
-    },
+    color: '#424242',
+    '&.MuiRadio-colorSecondary.Mui-checked': {
+      color: '#2D88FF'
+    }
   },
   paperContent: {
-    position: "relative",
+    position: 'relative',
     top: 260,
     left: 600,
-    textAlign: "center",
-    width: "30ch",
+    textAlign: 'center',
+    width: '30ch'
   },
   buttonListings: {
     padding: theme.spacing(2),
 
-    "&:hover": {
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#424242",
-    },
+      backgroundColor: '#424242'
+    }
   },
   buttonListingsClicked: {
-    backgroundColor: "#2196f3",
+    backgroundColor: '#2196f3',
     borderRadius: 6,
     padding: theme.spacing(2),
-    "&:hover": {
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#42a5f5",
-    },
+      backgroundColor: '#42a5f5'
+    }
     // "$.MuiListItem-button": {
     //   borderRadius: 6,
     // },
   },
   boxContentListType: {
-    display: "flex",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    position: "relative",
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
     left: 120,
-    height: 600,
+    height: 600
   },
   divCategoryList: {
-    maxWidth: "200px",
+    maxWidth: '200px',
     height: 180,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    backgroundColor: "#242526",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: '#242526',
     borderRadius: 6,
-    textAlign: "center",
+    textAlign: 'center',
     margin: theme.spacing(0, 1),
     padding: theme.spacing(3, 1, 2, 1),
-    "&:hover": {
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#424242",
-    },
+      backgroundColor: '#424242'
+    }
   },
   AvatarList: {
     width: theme.spacing(7),
-    height: theme.spacing(7),
+    height: theme.spacing(7)
   },
   contentList: {
-    color: "#bdbdbd",
+    color: '#bdbdbd'
   },
   FlexListCate: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   contentHaveListing: {
-    position: "fixed",
+    position: 'fixed',
     top: 80,
-    left: 400,
+    left: 400
   },
   contentListing: {
-    position: "absolute",
+    position: 'absolute',
 
     top: 180,
-    left: 400,
+    left: 400
   },
   contentCommenceProfile: {
-    position: "fixed",
+    position: 'fixed',
     top: 80,
-    left: 1120,
+    left: 1120
   },
   paperSearchListing: {
-    backgroundColor: "#242526",
-    width: "80ch",
-    display: "flex",
+    backgroundColor: '#242526',
+    width: '80ch',
+    display: 'flex',
     borderRadius: 10,
     padding: theme.spacing(1, 1),
 
-    justifyContent: "space-between",
+    justifyContent: 'space-between'
   },
   contentInmyList: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
   },
   flexButtonInlist: {
     margin: theme.spacing(3.7, 0, 0, 0),
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   paperListing: {
-    backgroundColor: "#242526",
-    width: "80ch",
-    display: "flex",
+    backgroundColor: '#242526',
+    width: '80ch',
+    display: 'flex',
     borderRadius: 10,
 
     padding: theme.spacing(1, 1),
-    margin: theme.spacing(1, 0),
+    margin: theme.spacing(1, 0)
     // justifyContent: "space-between",
   },
 
   paperCommence: {
-    backgroundColor: "#242526",
-    width: "30ch",
-    display: "flex",
+    backgroundColor: '#242526',
+    width: '30ch',
+    display: 'flex',
     borderRadius: 10,
     padding: theme.spacing(1, 1),
 
-    justifyContent: "space-between",
+    justifyContent: 'space-between'
   },
   ButtonSearch: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: '#f5f5f5',
     borderRadius: 20,
     margin: theme.spacing(2),
     height: 40,
-    "&.MuiFormControl-root": {
-      flexDirection: "row",
-    },
+    '&.MuiFormControl-root': {
+      flexDirection: 'row'
+    }
   },
   iconSearch: {
-    color: "#424242",
-    marginRight: 10,
+    color: '#424242',
+    marginRight: 10
   },
   FlexAvatar: {
-    display: "flex",
-    margin: theme.spacing(2, 1),
+    display: 'flex',
+    margin: theme.spacing(2, 1)
   },
   NameAvatar: {
-    color: "white",
-    margin: theme.spacing(0.5),
+    color: 'white',
+    margin: theme.spacing(0.5)
   },
   ActiveListings: {
-    color: "#bdbdbd",
-    margin: theme.spacing(0.5),
+    color: '#bdbdbd',
+    margin: theme.spacing(0.5)
   },
   AvatarCommence: {
     width: theme.spacing(6),
-    height: theme.spacing(6),
+    height: theme.spacing(6)
   },
   buttonCreateNewListAvatar: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
     width: 250,
-    color: "#2D88FF",
-    backgroundColor: "#2D88FF33",
-    "&:hover": {
+    color: '#2D88FF',
+    backgroundColor: '#2D88FF33',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#2851A3",
-    },
+      backgroundColor: '#2851A3'
+    }
   },
   buttonMark: {
-    textTransform: "none",
-    padding: theme.spacing(0.5),
-    margin: theme.spacing(0.5, 0.5),
-    width: 160,
-    color: "white",
-    backgroundColor: "#424242",
-    "&:hover": {
-      borderRadius: 6,
-      backgroundColor: "#616161",
-    },
-  },
-  buttonListing: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
     width: 140,
-    color: "white",
-    height: 45,
-    backgroundColor: "#424242",
-    "&:hover": {
+    color: 'white',
+    borderRadius: 6,
+    backgroundColor: '#424242',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#616161",
-    },
+      backgroundColor: '#616161'
+    }
+  },
+  buttonMarked: {
+    textTransform: 'none',
+    backgroundColor: '#2196f3',
+    borderRadius: 6,
+    width: 150,
+    color: 'white',
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    '&:hover': {
+      borderRadius: 6,
+      backgroundColor: '#42a5f5'
+    }
+  },
+  buttonListing: {
+    textTransform: 'none',
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 120,
+    color: 'white',
+    height: 45,
+    backgroundColor: '#424242',
+    '&:hover': {
+      borderRadius: 6,
+      backgroundColor: '#616161'
+    }
   },
   buttonShare: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
     width: 100,
-    color: "white",
+    color: 'white',
     height: 45,
-    backgroundColor: "#424242",
-    "&:hover": {
+    backgroundColor: '#424242',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#616161",
-    },
+      backgroundColor: '#616161'
+    }
   },
   buttonListingEdit: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
     width: 100,
-    color: "white",
+    color: 'white',
     height: 45,
-    backgroundColor: "#424242",
-    "&:hover": {
+    backgroundColor: '#424242',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#616161",
-    },
+      backgroundColor: '#616161'
+    }
   },
 
   buttonProfile: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
     width: 250,
-    color: "white",
-    backgroundColor: "#424242",
-    "&:hover": {
+    color: 'white',
+    backgroundColor: '#424242',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#616161",
-    },
+      backgroundColor: '#616161'
+    }
   },
   paper: {
-    position: "absolute",
-    width: "60ch",
+    position: 'absolute',
+    width: '60ch',
     borderRadius: 4,
-    overflow: "scroll",
+    overflow: 'scroll'
   },
   paperCommenceModal: {
-    backgroundColor: "#242526",
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
+    backgroundColor: '#242526',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column'
   },
   CommenceHeaderModal: {
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white'
   },
   AvatarCommenceModal: {
     width: theme.spacing(10),
     height: theme.spacing(10),
     margin: theme.spacing(2, 0, 0, 0),
-    position: "relative",
-    left: 220,
+    position: 'relative',
+    left: 220
   },
   nameCommenceModal: {
-    color: "white",
-    textAlign: "center",
+    color: 'white',
+    textAlign: 'center'
   },
   buttonCommenceModal: {
-    textTransform: "none",
+    textTransform: 'none',
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.5, 0.5),
     width: 100,
-    color: "white",
+    color: 'white',
     borderRadius: 6,
-    backgroundColor: "#424242",
-    "&:hover": {
+    backgroundColor: '#424242',
+    '&:hover': {
       borderRadius: 6,
-      backgroundColor: "#616161",
-    },
+      backgroundColor: '#616161'
+    }
+  },
+  buttonEdit: {
+    textTransform: 'none',
+    padding: theme.spacing(0.5),
+    margin: theme.spacing(0.5, 0.5),
+    width: 130,
+    color: 'white',
+    borderRadius: 6,
+    backgroundColor: '#424242',
+    '&:hover': {
+      borderRadius: 6,
+      backgroundColor: '#616161'
+    }
   },
   FlexCenter: {
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center'
   },
   DividerModal: {
-    width: "96%",
-    margin: "auto",
-    backgroundColor: "#616161",
+    width: '96%',
+    margin: 'auto',
+    backgroundColor: '#616161'
   },
   RatingModal: {
-    color: "#616161",
-    fontSize: 36,
+    color: '#616161',
+    fontSize: 36
   },
   RatingText: {
-    color: "#616161",
-    fontSize: 20,
+    color: '#616161',
+    fontSize: 20
   },
   RatingsubText: {
-    color: "#616161",
-    fontSize: 14,
+    color: '#616161',
+    fontSize: 14
   },
   RatingHead: {
-    color: "white",
-    fontSize: 24,
+    color: 'white',
+    fontSize: 24
   },
   FlexIcon: {
-    display: "flex",
-    alignItems: "center",
-    flexWrap: "wrap",
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap'
   },
   IconHome: {
     marginRight: 5,
-    color: "white",
+    color: 'white'
   },
   TextHome: {
-    color: "white",
+    color: 'white',
     fontSize: 20,
-    margin: theme.spacing(0, 1),
+    margin: theme.spacing(0, 1)
   },
   paperImg: {
     borderRadius: 6,
     margin: theme.spacing(1),
     height: theme.spacing(16),
-    width: theme.spacing(16),
+    width: theme.spacing(16)
   },
   GridFlex: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   ListTitle: {
-    color: "white",
+    color: 'white'
   },
   ListPrice: {
-    color: "white",
+    color: 'white'
   },
   ListStatus: {
-    color: "grey",
+    color: 'grey'
   },
   textCommeceForm: {
-    color: "white",
+    color: 'white'
   },
   textHeaderFollowing: {
-    color: "white",
-    fontSize: "1.2rem",
-    margin: theme.spacing(1),
+    color: 'white',
+    fontSize: '1.2rem',
+    margin: theme.spacing(1)
   },
   boxSaved: {
-    position: "relative",
+    position: 'relative',
     top: 100,
     left: 360,
     maxWidth: 1100,
-    display: "flex",
-    flexWrap: "wrap",
-    overflow: "none",
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflow: 'none'
   },
   paperSaved: {
     width: 220,
-    display: "flex",
+    display: 'flex',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
     height: 260,
-    backgroundColor: "#242526",
-    flexDirection: "column",
+    backgroundColor: '#242526',
+    flexDirection: 'column'
   },
   editMode: {
     // position: "relative",
     // right: 20,
     // top: 3,
-    color: "#2d88ff",
-    margin: theme.spacing(1.4),
+    color: '#2d88ff',
+    margin: theme.spacing(1.4)
   },
   flexHeaderFollwering: {
-    width: "90%",
-    display: "flex",
-    justifyContent: "space-between",
+    width: '90%',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   paperFollowing: {
-    backgroundColor: "#242526",
-    width: "60ch",
-    display: "flex",
+    backgroundColor: '#242526',
+    width: '60ch',
+    display: 'flex',
     borderRadius: 10,
     padding: theme.spacing(1, 1),
 
-    flexDirection: "column",
+    flexDirection: 'column'
   },
   paperContentFollowing: {
     margin: theme.spacing(2),
-    width: "90%",
-    backgroundColor: "#242526",
+    width: '90%',
+    backgroundColor: '#242526'
   },
   Namefollowing: {
-    color: "white",
-    margin: theme.spacing(1, 1.5),
+    color: 'white',
+    margin: theme.spacing(1, 1.5)
   },
   ListingPostingText: {
-    color: "grey",
-    margin: theme.spacing(0, 1.5),
+    color: 'grey',
+    margin: theme.spacing(0, 1.5)
   },
   flexSpace: {
-    display: "flex",
-    justifyContent: "space-between",
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   IconDel: {
-    color: "white",
-    margin: theme.spacing(0, 2, 0.5, 0),
+    color: 'white',
+    margin: theme.spacing(0, 2, 0.5, 0)
   },
-}));
+  ButtonSeeMore: {
+    textTransform: 'none',
+    margin: theme.spacing(2),
+    color: 'white',
+    backgroundColor: '#424242',
+    '&:hover': {
+      backgroundColor: '#616161'
+    }
+  }
+}))

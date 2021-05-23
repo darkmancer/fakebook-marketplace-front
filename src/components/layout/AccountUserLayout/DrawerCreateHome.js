@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState } from 'react'
 import {
   Box,
   Toolbar,
@@ -12,66 +12,66 @@ import {
   Switch,
   Avatar,
   Paper,
-  Typography,
-} from "@material-ui/core";
+  Typography
+} from '@material-ui/core'
 
-import { useStyles } from "./UseStyleCreatePage";
+import { useStyles } from './UseStyleCreatePage'
 
-import InputTag from "./InputTag";
+import InputTag from './InputTag'
 
-import PreviewHome from "./PreviewHome";
+import PreviewHome from './PreviewHome'
 import {
   MdAddToPhotos,
   MdLocationOn,
   MdCancel,
   MdClose,
-  MdPublic,
-} from "react-icons/md";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { IconButton } from "@material-ui/core";
-import { PayloadContext } from "../../../context/PayloadContextProvider";
-import { AuthContext } from "../../../context/AuthContextProvider";
+  MdPublic
+} from 'react-icons/md'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { IconButton } from '@material-ui/core'
+import { PayloadContext } from '../../../context/PayloadContextProvider'
+import { AuthContext } from '../../../context/AuthContextProvider'
 
 function DrawerCreateHome() {
-  const classes = useStyles();
-  const history = useHistory();
+  const classes = useStyles()
+  const history = useHistory()
   // const { payload } = useContext(PayloadContext);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext)
 
   const handleCloseButton = () => {
-    history.push("/mylistings");
-  };
-  const [photos, setPhotos] = useState([]);
-  const [showPhotos, setShowPhotos] = useState([]);
-  const [tags, setTags] = React.useState([]);
-  const optional = tags.join(",");
+    history.push('/mylistings')
+  }
+  const [photos, setPhotos] = useState([])
+  const [showPhotos, setShowPhotos] = useState([])
+  const [tags, setTags] = React.useState([])
+  const optional = tags.join(',')
 
   const handleDelete = (idx) => () => {
     if (photos.length === 1) {
-      setShowPhotos([]);
-      setPhotos([]);
+      setShowPhotos([])
+      setPhotos([])
     } else {
-      setShowPhotos((prev) => prev.filter((prev, index) => index !== idx));
-      setPhotos((prev) => prev.filter((prev, index) => index !== idx));
+      setShowPhotos((prev) => prev.filter((prev, index) => index !== idx))
+      setPhotos((prev) => prev.filter((prev, index) => index !== idx))
     }
-  };
+  }
 
   const [item, setItem] = useState({
-    title: "",
-    price: "",
-    estateFor: "",
-    estateType: "",
-    description: "",
-    bedroom: "",
-    bathroom: "",
-    location: "",
-    area: "",
-    address: "",
-  });
+    title: '',
+    price: '',
+    estateFor: '',
+    estateType: '',
+    description: '',
+    bedroom: '',
+    bathroom: '',
+    location: '',
+    area: '',
+    address: ''
+  })
   const onChangeItem = (e) => {
-    const { name, value } = e.target;
-    setItem((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value } = e.target
+    setItem((prev) => ({ ...prev, [name]: value }))
+  }
   const onDraftSubmit = () => {
     const {
       title,
@@ -82,34 +82,34 @@ function DrawerCreateHome() {
       bedroom,
       bathroom,
       address,
-      area,
-    } = item;
+      area
+    } = item
     try {
-      const myFormData = new FormData();
-      myFormData.append("title", title);
-      myFormData.append("category", "Property Rental");
-      myFormData.append("subCategory", "Property Rental");
-      myFormData.append("estateFor", estateFor);
-      myFormData.append("estateType", estateType);
-      myFormData.append("description", description);
-      myFormData.append("optional", optional);
-      myFormData.append("location", address);
-      myFormData.append("numberOfBedroom", bedroom);
-      myFormData.append("numberOfBathroom", bathroom);
-      myFormData.append("price", price);
-      myFormData.append("area", area);
+      const myFormData = new FormData()
+      myFormData.append('title', title)
+      myFormData.append('category', 'Property Rental')
+      myFormData.append('subCategory', 'Property Rental')
+      myFormData.append('estateFor', estateFor)
+      myFormData.append('estateType', estateType)
+      myFormData.append('description', description)
+      myFormData.append('optional', optional)
+      myFormData.append('location', address)
+      myFormData.append('numberOfBedroom', bedroom)
+      myFormData.append('numberOfBathroom', bathroom)
+      myFormData.append('price', price)
+      myFormData.append('area', area)
 
-      myFormData.append("productType", "HOME");
-      myFormData.append("productStatus", "Draft");
+      myFormData.append('productType', 'HOME')
+      myFormData.append('productStatus', 'Draft')
       if (photos.length > 0) {
         for (let i = 0; i < photos.length; i++) {
-          myFormData.append("multiImage", photos[i]);
+          myFormData.append('multiImage', photos[i])
         }
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
   const onPublishSubmit = () => {
     const {
       title,
@@ -120,44 +120,44 @@ function DrawerCreateHome() {
       bedroom,
       bathroom,
       address,
-      area,
-    } = item;
+      area
+    } = item
     try {
-      const myFormData = new FormData();
-      myFormData.append("title", title);
-      myFormData.append("category", "Property Rental");
-      myFormData.append("subCategory", "Property Rental");
-      myFormData.append("estateFor", estateFor);
-      myFormData.append("estateType", estateType);
-      myFormData.append("description", description);
-      myFormData.append("optional", optional);
-      myFormData.append("location", address);
-      myFormData.append("numberOfBedroom", bedroom);
-      myFormData.append("numberOfBathroom", bathroom);
-      myFormData.append("price", price);
-      myFormData.append("area", area);
+      const myFormData = new FormData()
+      myFormData.append('title', title)
+      myFormData.append('category', 'Property Rental')
+      myFormData.append('subCategory', 'Property Rental')
+      myFormData.append('estateFor', estateFor)
+      myFormData.append('estateType', estateType)
+      myFormData.append('description', description)
+      myFormData.append('optional', optional)
+      myFormData.append('location', address)
+      myFormData.append('numberOfBedroom', bedroom)
+      myFormData.append('numberOfBathroom', bathroom)
+      myFormData.append('price', price)
+      myFormData.append('area', area)
 
-      myFormData.append("productType", "HOME");
-      myFormData.append("productStatus", "Available");
+      myFormData.append('productType', 'HOME')
+      myFormData.append('productStatus', 'Available')
       for (let i = 0; i < photos.length; i++) {
-        myFormData.append("multiImage", photos[i]);
+        myFormData.append('multiImage', photos[i])
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
   const onChangeFilePhotos = (e) => {
     if (photos.length !== 0) {
-      setPhotos((prev) => [...prev, e.target.files[0]]);
+      setPhotos((prev) => [...prev, e.target.files[0]])
       setShowPhotos([
         ...showPhotos,
-        { file: URL.createObjectURL(e.target.files[0]) },
-      ]);
+        { file: URL.createObjectURL(e.target.files[0]) }
+      ])
     } else {
-      setPhotos(e.target.files);
-      setShowPhotos([{ file: URL.createObjectURL(e.target.files[0]) }]);
+      setPhotos(e.target.files)
+      setShowPhotos([{ file: URL.createObjectURL(e.target.files[0]) }])
     }
-  };
+  }
 
   return (
     <>
@@ -165,7 +165,7 @@ function DrawerCreateHome() {
         <Paper className={classes.paperContainer}>
           <Toolbar />
           <div className={classes.div}>
-            <Box style={{ display: "flex" }} justifyContent="space-between">
+            <Box style={{ display: 'flex' }} justifyContent="space-between">
               <Typography className={classes.HeadersTitle}>
                 New Home Listing
               </Typography>
@@ -186,10 +186,12 @@ function DrawerCreateHome() {
                 style={{ marginRight: 10 }}
                 className={classes.AvatarCreateDrawer}
                 alt="name"
-                src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
+                src={user?.avatar}
               />
               <div>
-                <h4 className={classes.NameAvatar}>{user?.firstName}</h4>
+                <h4 className={classes.NameAvatar}>
+                  {user?.firstName} {user?.lastName}
+                </h4>
                 <h5 className={classes.TextStatusAvatar}>
                   Listing to Marketplace
                 </h5>
@@ -204,7 +206,7 @@ function DrawerCreateHome() {
               <Paper
                 className={classes.PaperAddPhoto}
                 variant="outlined"
-                style={{ border: "1px solid #616161" }}
+                style={{ border: '1px solid #616161' }}
               >
                 <div>
                   <input
@@ -241,7 +243,7 @@ function DrawerCreateHome() {
                         style={{
                           borderRadius: 10,
                           margin: 8,
-                          display: "block",
+                          display: 'block'
                         }}
                       />
                       <MdCancel
@@ -250,7 +252,7 @@ function DrawerCreateHome() {
                         size="18"
                       />
                     </Box>
-                  );
+                  )
                 })}
                 <Box>
                   <input
@@ -305,11 +307,11 @@ function DrawerCreateHome() {
                 name="estateFor"
                 onChange={onChangeItem}
                 inputProps={{
-                  name: "estateFor",
-                  id: "home-for",
+                  name: 'estateFor',
+                  id: 'home-for',
                   classes: {
-                    icon: classes.SelectIcon,
-                  },
+                    icon: classes.SelectIcon
+                  }
                 }}
               >
                 <MenuItem value="RENT">RENT</MenuItem>
@@ -328,11 +330,11 @@ function DrawerCreateHome() {
                 name="estateType"
                 onChange={onChangeItem}
                 inputProps={{
-                  name: "estateType",
-                  id: "estate-type",
+                  name: 'estateType',
+                  id: 'estate-type',
                   classes: {
-                    icon: classes.SelectIcon,
-                  },
+                    icon: classes.SelectIcon
+                  }
                 }}
               >
                 <MenuItem value="Apartment">Apartment</MenuItem>
@@ -403,7 +405,7 @@ function DrawerCreateHome() {
           <Button
             variant="outlined"
             onClick={onPublishSubmit}
-            disabled={item.title === "" && item.price === "" ? true : false}
+            disabled={item.title === '' && item.price === '' ? true : false}
             className={classes.ButtonPublish}
             endIcon={<MdPublic />}
           >
@@ -418,7 +420,7 @@ function DrawerCreateHome() {
         />
       </div>
     </>
-  );
+  )
 }
 
-export default DrawerCreateHome;
+export default DrawerCreateHome
