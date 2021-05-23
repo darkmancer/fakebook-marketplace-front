@@ -31,7 +31,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { IconButton } from '@material-ui/core'
 import { PayloadContext } from '../../../context/PayloadContextProvider'
 import { AuthContext } from '../../../context/AuthContextProvider'
-
+import { getLatLng } from '../../../utilities/Geocode'
 function DrawerCreateHome() {
   const classes = useStyles()
   const history = useHistory()
@@ -72,7 +72,7 @@ function DrawerCreateHome() {
     const { name, value } = e.target
     setItem((prev) => ({ ...prev, [name]: value }))
   }
-  const onDraftSubmit = () => {
+  const onDraftSubmit = async() => {
     const {
       title,
       price,
@@ -81,9 +81,10 @@ function DrawerCreateHome() {
       description,
       bedroom,
       bathroom,
-      address,
+      location,
       area
     } = item
+     const locationLatLng = await getLatLng(location)
     try {
       const myFormData = new FormData()
       myFormData.append('title', title)
@@ -93,7 +94,7 @@ function DrawerCreateHome() {
       myFormData.append('estateType', estateType)
       myFormData.append('description', description)
       myFormData.append('optional', optional)
-      myFormData.append('location', address)
+      myFormData.append('location', locationLatLng)
       myFormData.append('numberOfBedroom', bedroom)
       myFormData.append('numberOfBathroom', bathroom)
       myFormData.append('price', price)
@@ -110,7 +111,7 @@ function DrawerCreateHome() {
       console.log(err)
     }
   }
-  const onPublishSubmit = () => {
+  const onPublishSubmit = async() => {
     const {
       title,
       price,
@@ -119,9 +120,10 @@ function DrawerCreateHome() {
       description,
       bedroom,
       bathroom,
-      address,
+      location,
       area
     } = item
+      const locationLatLng = await getLatLng(location)
     try {
       const myFormData = new FormData()
       myFormData.append('title', title)
@@ -131,7 +133,7 @@ function DrawerCreateHome() {
       myFormData.append('estateType', estateType)
       myFormData.append('description', description)
       myFormData.append('optional', optional)
-      myFormData.append('location', address)
+      myFormData.append('location', locationLatLng)
       myFormData.append('numberOfBedroom', bedroom)
       myFormData.append('numberOfBathroom', bathroom)
       myFormData.append('price', price)
@@ -381,7 +383,7 @@ function DrawerCreateHome() {
             />
             <TextField
               label="Property address"
-              name="address"
+              name="location"
               className={classes.InputTextField}
               onChange={onChangeItem}
               variant="outlined"

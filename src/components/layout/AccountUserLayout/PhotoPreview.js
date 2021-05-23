@@ -79,7 +79,7 @@ function PhotoPreview({ showPhotos, item, tags, address, user }) {
               </div>
             </Typography>
             <Typography className={classes.contentPreview}>
-              Location : {address}
+              Location : {item.location}
             </Typography>
 
             <Divider className={classes.DividerModal} light />

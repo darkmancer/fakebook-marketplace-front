@@ -33,6 +33,7 @@ import { IconButton } from '@material-ui/core'
 import PreviewVehicle from './PreviewVehicle'
 import { useContext } from 'react'
 import { AuthContext } from '../../../context/AuthContextProvider'
+import { getLatLng } from '../../../utilities/Geocode'
 
 function DrawerCreateVehicle() {
   const classes = useStyles()
@@ -86,6 +87,8 @@ function DrawerCreateVehicle() {
       year,
       tranmission
     } = item
+    const locationLatLng = await getLatLng(location)
+
     try {
       const myFormData = new FormData()
       myFormData.append('title', title)
@@ -93,7 +96,7 @@ function DrawerCreateVehicle() {
       myFormData.append('model', model)
       myFormData.append('brand', brand)
       myFormData.append('mileage', mileage)
-      myFormData.append('location', location)
+      myFormData.append('location', locationLatLng)
       myFormData.append('optional', optional)
       myFormData.append('year', year)
       myFormData.append('tranmission', tranmission)
@@ -130,6 +133,7 @@ function DrawerCreateVehicle() {
       year,
       tranmission
     } = item
+    const locationLatLng = await getLatLng(location)
     try {
       const myFormData = new FormData()
       myFormData.append('title', title)
@@ -137,7 +141,7 @@ function DrawerCreateVehicle() {
       myFormData.append('model', model)
       myFormData.append('brand', brand)
       myFormData.append('mileage', mileage)
-      myFormData.append('location', location)
+      myFormData.append('location', locationLatLng)
       myFormData.append('optional', optional)
       myFormData.append('year', year)
       myFormData.append('tranmission', tranmission)

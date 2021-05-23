@@ -33,6 +33,7 @@ import { useHistory } from 'react-router-dom'
 import { getCurrentLocation, LocationName } from './functionGeocode'
 import axios from '../../../config/axios'
 import { AuthContext } from '../../../context/AuthContextProvider'
+import {getLatLng} from "../../../utilities/Geocode"
 function DrawerCreateItem() {
   const history = useHistory()
   const [boost, setBoost] = useState(false)
@@ -62,7 +63,7 @@ function DrawerCreateItem() {
     }
     getLocation()
   }, [])
-  const location = localStorage.getItem('CurLocation')
+ 
   const address = localStorage.getItem('Address')
   const [tags, setTags] = React.useState([])
   const optional = tags.join(',')
@@ -74,7 +75,7 @@ function DrawerCreateItem() {
     subCategory: '',
     condition: '',
     description: '',
-    location: location
+    location: ''
   })
   const onChangeFilePhotos = (e) => {
     setShowPhotos([...showPhotos])
@@ -102,7 +103,7 @@ function DrawerCreateItem() {
         description,
         location
       } = item
-
+      const locationLatLng = await getLatLng(location)
       const myFormData = new FormData()
       myFormData.append('title', title)
       myFormData.append('category', category)
@@ -110,7 +111,7 @@ function DrawerCreateItem() {
       myFormData.append('condition', condition)
       myFormData.append('description', description)
       myFormData.append('optional', optional)
-      myFormData.append('location', location)
+      myFormData.append('location', locationLatLng)
       myFormData.append('price', price)
       myFormData.append('boost', boost)
       myFormData.append('productType', 'ITEM')
@@ -160,6 +161,8 @@ function DrawerCreateItem() {
           myFormData.append('multiImage', photos[i])
         }
       }
+console.log(myFormData)
+
       const res = await axios.post('/product/create-product', myFormData)
       if (res) {
         setLoading(false)
@@ -465,7 +468,7 @@ function DrawerCreateItem() {
             name="location"
             multiline
             rows={4}
-            // onChange={onChangeItem}
+            onChange={onChangeItem}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
