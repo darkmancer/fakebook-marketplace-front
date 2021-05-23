@@ -27,7 +27,7 @@ function MyListing({ products, getProductId }) {
   // const [sold, setSold] = useState(false)
   useEffect(() => {
     getProductId()
-  }, [])
+  }, [products])
   const handleButtonMark = async (id) => {
     // setSold((sold) => !sold)
     console.log(id)

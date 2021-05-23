@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core'
 const drawerWidth = 300
 export const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff'
+  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: 240,
@@ -513,7 +517,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   ListingPostingText: {
     color: 'grey',
-    margin: theme.spacing(0, 1.5)
+    position: 'relative',
+    top: 8.5,
+    left: 40
   },
   flexSpace: {
     display: 'flex',
@@ -521,7 +527,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   IconDel: {
     color: 'white',
-    margin: theme.spacing(0, 2, 0.5, 0)
+    position: 'relative',
+    bottom: 5,
+    right: 20
   },
   ButtonSeeMore: {
     textTransform: 'none',

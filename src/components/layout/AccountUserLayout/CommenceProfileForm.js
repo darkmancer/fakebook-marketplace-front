@@ -1,4 +1,10 @@
-import { Box, Button, Grid } from '@material-ui/core'
+import {
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Grid
+} from '@material-ui/core'
 import { Avatar, Divider, Paper, Typography } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import React, { useContext, useEffect, useState } from 'react'
@@ -12,10 +18,19 @@ import { useStyles } from './UseStyleAccountPage'
 function CommenceProfileForm({ getModalStyle }) {
   const [products, setProducts] = useState([])
   const [open, setOpen] = useState(false)
-  const { user } = useContext(AuthContext)
+  const { user, setUser } = useContext(AuthContext)
   const [showAvatar, setShowAvatar] = useState({ avatar: user.avatar })
   const [editAvatar, setEditAvatar] = useState({ avatar: '' })
+  const [isLoading, setIsLoading] = useState(false)
+  const getFetchUserProfile = async () => {
+    try {
+      const res = await axios.get('/seller/' + user.id)
 
+      setUser(res.data.sellerProfile)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   const getProductId = async () => {
     try {
       const res = await axios.get('/product/get-user-products/' + user.id)
@@ -26,19 +41,15 @@ function CommenceProfileForm({ getModalStyle }) {
   }
   useEffect(() => {
     getProductId()
-  }, [user])
+    getFetchUserProfile()
+  }, [])
 
   const onChangeFilePhotos = (e) => {
-    console.log('e.target.files')
-    console.log(e.target.files)
-    console.log(e.target.files[0])
     if (e.target.files[0]) {
-      console.log('CCK')
       setShowAvatar({ avatar: URL.createObjectURL(e.target.files[0]) })
       setEditAvatar({
         avatar: e.target.files[0]
       })
-      //สักครู่นะครับ
     } else {
       setShowAvatar({ avatar: null })
       setShowAvatar({ avatar: '' })
@@ -46,28 +57,24 @@ function CommenceProfileForm({ getModalStyle }) {
   }
 
   const handleEdit = async (e) => {
-    // if ()
-    // const { avatar } = editAvatar
-    console.log('editAvatar.avatar')
-    console.log(editAvatar.avatar)
-    if (editAvatar) {
-      const myFormData = new FormData()
-      myFormData.append('image', editAvatar.avatar)
-      try {
-        await axios.patch('/upload-avatar', myFormData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-      } catch (err) {
-        console.log(err)
+    setIsLoading(true)
+    const myFormData = new FormData()
+    myFormData.append('image', editAvatar.avatar)
+    try {
+      const res = await axios.patch('/upload-avatar', myFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      if (res) {
+        setEditAvatar('')
+        return setIsLoading(false)
       }
-    } else {
-      console.log('pongtai')
+    } catch (err) {
+      console.log(err)
     }
   }
-  console.log('show', showAvatar)
-  console.log('edit', editAvatar)
+
   const classes = useStyles()
   const [value, setValue] = React.useState(4)
   const [modalStyle] = React.useState(getModalStyle)
@@ -100,6 +107,7 @@ function CommenceProfileForm({ getModalStyle }) {
         </h1>
         <div className={classes.FlexCenter}>
           <Button
+            disabled={editAvatar.avatar === '' ? true : false}
             className={classes.buttonEdit}
             startIcon={<MdModeEdit />}
             onClick={handleEdit}
@@ -176,6 +184,9 @@ function CommenceProfileForm({ getModalStyle }) {
           </div>
         </Box>
       </Paper>
+      <Backdrop className={classes.backdrop} open={isLoading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   )
 }

@@ -44,20 +44,20 @@ function DrawerMenuAccount() {
   const { setOpen, open } = useContext(AccountContext)
   const [openStatus, setOpenStatus] = React.useState(false)
   const [selectedValue, setSelectedValue] = React.useState()
-  function getModalStyle() {
-    return {
-      position: 'absolute',
-      top: '10%',
-      left: '35%',
-      overflow: 'scroll',
-      height: '100%',
-      display: 'block'
-    }
-  }
+  // function getModalStyle() {
+  //   return {
+  //     position: 'absolute',
+  //     top: '10%',
+  //     left: '35%',
+  //     overflow: 'scroll',
+  //     height: '100%',
+  //     display: 'block'
+  //   }
+  // }
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  // const handleClose = () => {
+  //   setOpen(false)
+  // }
 
   // const handleClick = () => {
   //   setOpenColl((prevOpen) => !prevOpen)
@@ -153,9 +153,9 @@ function DrawerMenuAccount() {
               <MdAdd style={{ marginRight: '10px' }} />
               Create New Listing
             </Button>
-            <Button className={classes.buttonManageList}>
+            {/* <Button className={classes.buttonManageList}>
               Manage Listings
-            </Button>
+            </Button> */}
           </List>
 
           <Divider className={classes.divider} />

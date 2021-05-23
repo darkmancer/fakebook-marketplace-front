@@ -463,10 +463,8 @@ function DrawerCreateItem() {
             variant="outlined"
             label="Location"
             name="location"
-            value={address}
             multiline
             rows={4}
-            readOnly
             // onChange={onChangeItem}
             InputProps={{
               startAdornment: (
