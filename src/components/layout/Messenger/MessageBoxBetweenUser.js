@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+//ฝั่งbuy
 function MessageBoxBetweenUser(props) {
   const classes = useStyles()
   const [newMessage, setNewMessage] = useState('')
@@ -72,15 +73,29 @@ function MessageBoxBetweenUser(props) {
   const [seller, setSeller] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [chatUser, setChatUser] = useState([])
-  const { messages, setMessages } = useContext(MessageIncProductContext)
+  const {
+    messages,
+    setMessages,
+    newReceiverIdForSell,
+    newReceiverIdForBuy,
+    newProductIdForBuy,
+    newProductIdForSell
+  } = useContext(MessageIncProductContext)
 
+  console.log('newReceiverIdSell', newReceiverIdForSell)
+  console.log('newReceiverIdBuy', newReceiverIdForBuy)
+  console.log('newproductSell', newProductIdForSell)
+  console.log('newproductBuy', newProductIdForBuy)
+  console.log('messages', messages.productId)
   //id ที่รับเข้ามาคือ id.param ของ product
   console.log('seller', seller)
   console.log(user)
 
   const fetchSellerByProductId = async () => {
     try {
-      const res = await axios.get(`/product/get-seller-product/${productId}`)
+      const res = await axios.get(
+        `/product/get-seller-product/${newProductIdForBuy}`
+      )
       //console.log('res-seller-productId', res.data.product.User)
       setSeller(res.data.product?.User)
       setIsLoading(false)
@@ -95,21 +110,21 @@ function MessageBoxBetweenUser(props) {
 
   const handleSendTexts = async (e) => {
     e.preventDefault()
-    socket.emit('join_productId', messages.productId)
+    socket.emit('join_productId', newProductIdForBuy)
 
-    socket.emit('sendMessageFromBetweenUser', {
+    socket.emit('sendMessage', {
       text: newMessage,
-      productId: messages.productId,
-      senderId: user.id
+      productId: newProductIdForBuy,
+      senderId: user.id,
+      receiverId: newReceiverIdForBuy
     })
     try {
-      const res = await axios.post(`/message/${user.id}`, {
+      const res = await axios.post(`/message/${newReceiverIdForBuy}`, {
         text: newMessage,
-        productId: productId
+        productId: newProductIdForBuy
       })
       console.log('res', res)
       setNewMessage('')
-      //setText([...text, res.data.messages.text]);
     } catch (err) {
       console.log(err)
     }
@@ -136,8 +151,9 @@ function MessageBoxBetweenUser(props) {
       <MessagesBetweenUser
         receiverId={seller?.id}
         seller={seller}
-        productId={productId}
+        productId={newProductIdForBuy}
       />
+
       <Box className={classes.chatFooter}>
         <TextField
           fullWidth

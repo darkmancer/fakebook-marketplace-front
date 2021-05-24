@@ -7,6 +7,8 @@ import MessageIcon from '@material-ui/icons/Message'
 import { Image } from '@material-ui/icons'
 import { useStyles } from './StylesInboxContent'
 import LensIcon from '@material-ui/icons/Lens'
+import { MessageIncProductContext } from '../../../../context/MessageIncProductProvider'
+
 function BuyItem({
   talksUser,
   setOpenPopup,
@@ -16,6 +18,37 @@ function BuyItem({
   productBuying
 }) {
   const classes = useStyles()
+  const {
+    messages,
+    setMessages,
+    setNewReceiverIdForBuy,
+    setNewProductIdForBuy
+  } = useContext(MessageIncProductContext)
+
+  console.log('productBuy', productBuying)
+
+  const onHandleClick = async (i) => {
+    let newId =
+      i.receiverId !== user?.id
+        ? i.receiverId
+        : null || i.senderId !== user?.id
+        ? i.senderId
+        : null
+    console.log('newId', newId) //newId = receiverId in controller
+    console.log('product', i.productId)
+
+    setNewProductIdForBuy(i.productId)
+    setNewReceiverIdForBuy(newId)
+    try {
+      const res = await axios.get(
+        `/message/getMessageIncProduct/${newId}/${i.productId}`
+      )
+      setMessages(res.data.messages)
+      setOpenChat(true)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <>
       {productBuying.map((i, index) => (
@@ -51,7 +84,7 @@ function BuyItem({
               <Button
                 button
                 style={{ color: 'grey' }}
-                onClick={() => setOpenChat(true)}
+                onClick={() => onHandleClick(i)}
               >
                 <MessageIcon />
               </Button>

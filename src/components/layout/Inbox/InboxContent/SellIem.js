@@ -13,7 +13,7 @@ import { MessageIncProductContext } from '../../../../context/MessageIncProductP
 function SellItem({
   talksUser,
   setOpenPopup,
-  setOpenChat,
+  setOpenChatSell,
   seller,
 
   productSelling
@@ -21,7 +21,12 @@ function SellItem({
   const classes = useStyles()
   const [receiverId, setReceiverId] = useState('')
   const { user } = useContext(AuthContext)
-  const { messages, setMessages } = useContext(MessageIncProductContext)
+  const {
+    messages,
+    setMessages,
+    setNewReceiverIdForSell,
+    setNewProductIdForSell
+  } = useContext(MessageIncProductContext)
   // console.log('receiverId', receiverId)
   // console.log('productSelling', productSelling)
 
@@ -29,18 +34,21 @@ function SellItem({
     let newId =
       i.receiverId !== user?.id
         ? i.receiverId
-        : null || i.sender.id !== user?.id
-        ? i.sender.id
+        : null || i.senderId !== user?.id
+        ? i.senderId
         : null
-    console.log('newId', newId)
-    console.log('product', i.productId)
+    setNewReceiverIdForSell(newId)
+    setNewProductIdForSell(i.productId)
+
+    console.log('newIdSell', newId)
+    console.log('productSell', i.productId)
 
     try {
       const res = await axios.get(
         `/message/getMessageIncProduct/${newId}/${i.productId}`
       )
       setMessages(res.data.messages)
-      setOpenChat(true)
+      setOpenChatSell(true)
     } catch (err) {
       console.log(err)
     }
@@ -79,8 +87,8 @@ function SellItem({
             </Box>
             <Box>
               <Button
-                style={{ color: 'grey' }}
                 button
+                style={{ color: 'grey' }}
                 onClick={() => onHandleClick(i)}
               >
                 <MessageIcon />

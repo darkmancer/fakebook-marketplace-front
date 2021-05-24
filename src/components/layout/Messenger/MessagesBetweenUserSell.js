@@ -38,18 +38,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function MessagesBetweenUser({ receiverId, seller }) {
+function MessagesBetweenUserSell({ receiverId, seller }) {
   const scrollRef = useRef()
   const [texts, setTexts] = useState([])
   const [arriveMessages, setArriveMessages] = useState(null)
   const { user } = useContext(AuthContext)
-  const { newProductIdForBuy, newReceiverIdForBuy } = useContext(
+  const { messages, newProductIdForSell, newReceiverIdForSell } = useContext(
     MessageIncProductContext
   )
+
   const getMessagesIncProduct = async () => {
     try {
       const res = await axios.get(
-        `/message/getMessageIncProduct/${newReceiverIdForBuy}/${newProductIdForBuy}`
+        `/message/getMessageIncProduct/${newReceiverIdForSell}/${newProductIdForSell}`
       )
 
       console.log('data', res.data)
@@ -116,4 +117,4 @@ function MessagesBetweenUser({ receiverId, seller }) {
   )
 }
 
-export default MessagesBetweenUser
+export default MessagesBetweenUserSell

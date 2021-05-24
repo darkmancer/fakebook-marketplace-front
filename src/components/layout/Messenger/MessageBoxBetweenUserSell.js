@@ -19,6 +19,8 @@ import SendIcon from '@material-ui/icons/Send'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 import axios from '../../../config/axios'
+import { MessageIncProductContext } from '../../../context/MessageIncProductProvider'
+import MessagesBetweenUserSell from './MessagesBetweenUserSell'
 
 const modalStyle = {
   top: `40%`,
@@ -61,25 +63,39 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function MessageBox(props) {
+//ฝั่งbuy
+function MessageBoxBetweenUserSell(props) {
   const classes = useStyles()
   const [newMessage, setNewMessage] = useState('')
-  const { openChat, setOpenChat, productId } = props
+  const { openChatSell, setOpenChatSell } = props
   const { socket } = useContext(SocketContext)
   const { user } = useContext(AuthContext)
-
   const [seller, setSeller] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [chatUser, setChatUser] = useState([])
+  const {
+    messages,
+    setMessages,
+    newReceiverIdForSell,
+    newReceiverIdForBuy,
+    newProductIdForBuy,
+    newProductIdForSell
+  } = useContext(MessageIncProductContext)
+
+  console.log('newReceiverIdSell', newReceiverIdForSell)
+  console.log('newReceiverIdBuy', newReceiverIdForBuy)
+  console.log('newproductSell', newProductIdForSell)
+  console.log('newproductBuy', newProductIdForBuy)
+  console.log('messages', messages.productId)
   //id ที่รับเข้ามาคือ id.param ของ product
   console.log('seller', seller)
   console.log(user)
 
   const fetchSellerByProductId = async () => {
     try {
-      const res = await axios.get(`/product/get-seller-product/${productId}`)
+      const res = await axios.get(`/profile/${newReceiverIdForSell}`)
       //console.log('res-seller-productId', res.data.product.User)
-      setSeller(res.data.product?.User)
+      setSeller(res.data.sellerProfile)
       setIsLoading(false)
     } catch (err) {
       console.log(err)
@@ -90,74 +106,30 @@ function MessageBox(props) {
     fetchSellerByProductId()
   }, [])
 
-  const getArrOfProductIncUserId = async () => {
-    try {
-      const res = await axios.get(`/message/getTalkAndProduct`)
-      console.log('data', res.data)
-      setChatUser(res.data.arr)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    getArrOfProductIncUserId()
-  }, [])
-
-  const arrOfUserProductSelling = chatUser.filter(
-    (i) => i.Product.userId === user?.id
-  )
-
-  let mems = {}
-  let productSelling = []
-  for (let item of arrOfUserProductSelling) {
-    const { chatId } = item
-    if (typeof mems[chatId] === 'undefined') {
-      productSelling.push(item)
-      mems[chatId] = true
-    }
-  }
-
-  const arrOfUserProductBuying = chatUser.filter(
-    (i) => i.Product.userId !== user?.id
-  )
-
-  console.log('arrOfBuy', arrOfUserProductBuying)
-  let obj = {}
-  let productBuying = []
-  for (let item of arrOfUserProductBuying) {
-    const { chatId } = item
-    if (typeof obj[chatId] === 'undefined') {
-      productBuying.push(item)
-      obj[chatId] = true
-    }
-  }
-
   const handleSendTexts = async (e) => {
     e.preventDefault()
-    socket.emit('join_productId', productId)
+    socket.emit('join_productId', newProductIdForSell)
+
     socket.emit('sendMessage', {
       text: newMessage,
-      productId: productId,
+      productId: newProductIdForSell,
       senderId: user.id,
-      receiverId: seller?.id
+      receiverId: newReceiverIdForSell
     })
-
     try {
-      const res = await axios.post(`/message/${seller?.id}`, {
+      const res = await axios.post(`/message/${newReceiverIdForSell}`, {
         text: newMessage,
-        productId: productId
+        productId: newProductIdForSell
       })
       console.log('res', res)
       setNewMessage('')
-      //setText([...text, res.data.messages.text]);
     } catch (err) {
       console.log(err)
     }
   }
 
   const handleOnClose = () => {
-    setOpenChat(false)
+    setOpenChatSell(false)
   }
 
   const body = (
@@ -168,19 +140,18 @@ function MessageBox(props) {
           {seller?.firstName} {seller?.lastName}
         </Typography>
         <Button color="primary">
-          <CloseIcon onClick={handleOnClose} />
+          <CloseIcon onClick={() => setOpenChatSell(false)} />
         </Button>
       </Box>
 
       <Divider className={classes.dividerColor} />
 
-      <Messages
+      <MessagesBetweenUserSell
         receiverId={seller?.id}
         seller={seller}
-        productId={productId}
-        productBuying={productBuying}
-        productSelling={productSelling}
+        productId={newProductIdForSell}
       />
+
       <Box className={classes.chatFooter}>
         <TextField
           fullWidth
@@ -202,7 +173,7 @@ function MessageBox(props) {
     </Paper>
   )
 
-  return <Modal open={openChat}>{body}</Modal>
+  return <Modal open={openChatSell}>{body}</Modal>
 }
 
-export default MessageBox
+export default MessageBoxBetweenUserSell

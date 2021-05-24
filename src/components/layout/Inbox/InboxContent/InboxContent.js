@@ -18,6 +18,7 @@ import MessageBoxBetweenUser from '../../Messenger/MessageBoxBetweenUser'
 import SellItem from './SellIem'
 import BuyItem from './BuyItem'
 import { AuthContext } from '../../../../context/AuthContextProvider'
+import MessageBoxBetweenUserSell from '../../Messenger/MessageBoxBetweenUserSell'
 
 function InboxContent() {
   const classes = useStyles()
@@ -26,6 +27,7 @@ function InboxContent() {
   const [showBuy, setShowBuy] = useState(false)
   const [openPopup, setOpenPopup] = useState(false)
   const [openChat, setOpenChat] = useState(false)
+  const [openChatSell, setOpenChatSell] = useState(false)
   const [showStep, setShowStep] = useState(false)
   const [seller, setSeller] = useState(null)
   const { user } = useContext(AuthContext)
@@ -198,7 +200,7 @@ function InboxContent() {
                       user={user}
                       seller={seller}
                       setOpenPopup={setOpenPopup}
-                      setOpenChat={setOpenChat}
+                      setOpenChatSell={setOpenChatSell}
                       productSelling={productSelling}
                     />
                   </Box>
@@ -229,8 +231,11 @@ function InboxContent() {
         </Box>
       </Grid>
 
-      {/* id of user should send at this */}
       <MessageBoxBetweenUser openChat={openChat} setOpenChat={setOpenChat} />
+      <MessageBoxBetweenUserSell
+        openChatSell={openChatSell}
+        setOpenChaSell={setOpenChatSell}
+      />
     </Grid>
   )
 }
