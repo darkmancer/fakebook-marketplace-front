@@ -97,6 +97,7 @@ function MessageBoxBetweenUserSell(props) {
       //console.log('res-seller-productId', res.data.product.User)
       console.log('data', res.data.sellerProfile)
       setSeller(res.data.sellerProfile)
+
       setIsLoading(false)
     } catch (err) {
       console.log(err)
@@ -155,6 +156,7 @@ function MessageBoxBetweenUserSell(props) {
 
       <Box className={classes.chatFooter}>
         <TextField
+          style={{ overflow: 'hidden' }}
           fullWidth
           margin="normal"
           multiline

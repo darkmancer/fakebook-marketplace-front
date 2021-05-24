@@ -93,11 +93,11 @@ function MessageBoxBetweenUser(props) {
 
   const fetchSellerByProductId = async () => {
     try {
-      const res = await axios.get(
-        `/product/get-seller-product/${newProductIdForBuy}`
-      )
+      const res = await axios.get(`/profile/${newReceiverIdForBuy}`)
       //console.log('res-seller-productId', res.data.product.User)
-      setSeller(res.data.product?.User)
+      console.log('data', res.data.sellerProfile)
+      setSeller(res.data.sellerProfile)
+
       setIsLoading(false)
     } catch (err) {
       console.log(err)
@@ -137,7 +137,11 @@ function MessageBoxBetweenUser(props) {
   const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
-        <Avatar alt="receiver-profile" style={{ margin: '10px' }} />
+        <Avatar
+          alt="receiver-profile"
+          src={seller?.avatar}
+          style={{ margin: '10px' }}
+        />
         <Typography style={{ margin: '15px' }}>
           {seller?.firstName} {seller?.lastName}
         </Typography>
@@ -156,6 +160,7 @@ function MessageBoxBetweenUser(props) {
 
       <Box className={classes.chatFooter}>
         <TextField
+          style={{ overflow: 'hidden' }}
           fullWidth
           margin="normal"
           multiline

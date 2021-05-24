@@ -90,49 +90,6 @@ function MessageBox(props) {
     fetchSellerByProductId()
   }, [])
 
-  const getArrOfProductIncUserId = async () => {
-    try {
-      const res = await axios.get(`/message/getTalkAndProduct`)
-      console.log('data', res.data)
-      setChatUser(res.data.arr)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    getArrOfProductIncUserId()
-  }, [])
-
-  const arrOfUserProductSelling = chatUser.filter(
-    (i) => i.Product.userId === user?.id
-  )
-
-  let mems = {}
-  let productSelling = []
-  for (let item of arrOfUserProductSelling) {
-    const { chatId } = item
-    if (typeof mems[chatId] === 'undefined') {
-      productSelling.push(item)
-      mems[chatId] = true
-    }
-  }
-
-  const arrOfUserProductBuying = chatUser.filter(
-    (i) => i.Product.userId !== user?.id
-  )
-
-  console.log('arrOfBuy', arrOfUserProductBuying)
-  let obj = {}
-  let productBuying = []
-  for (let item of arrOfUserProductBuying) {
-    const { chatId } = item
-    if (typeof obj[chatId] === 'undefined') {
-      productBuying.push(item)
-      obj[chatId] = true
-    }
-  }
-
   const handleSendTexts = async (e) => {
     e.preventDefault()
     socket.emit('join_productId', productId)
@@ -163,7 +120,11 @@ function MessageBox(props) {
   const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
-        <Avatar alt="receiver-profile" style={{ margin: '10px' }} />
+        <Avatar
+          alt="receiver-profile"
+          style={{ margin: '10px' }}
+          src={seller?.avatar}
+        />
         <Typography style={{ margin: '15px' }}>
           {seller?.firstName} {seller?.lastName}
         </Typography>
@@ -174,15 +135,10 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages
-        receiverId={seller?.id}
-        seller={seller}
-        productId={productId}
-        productBuying={productBuying}
-        productSelling={productSelling}
-      />
+      <Messages receiverId={seller?.id} seller={seller} productId={productId} />
       <Box className={classes.chatFooter}>
         <TextField
+          style={{ overflow: 'hidden' }}
           fullWidth
           margin="normal"
           multiline

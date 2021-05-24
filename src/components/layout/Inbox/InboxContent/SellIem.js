@@ -45,7 +45,7 @@ function SellItem({
 
     try {
       const res = await axios.get(
-        `/message/getMessageIncProduct/${newId}/${i.productId}`
+        `/message/getMessageWithProduct/${newId}/${i.productId}`
       )
       setMessages(res.data.messages)
       setOpenChatSell(true)
@@ -54,56 +54,60 @@ function SellItem({
     }
   }
 
+  console.log('name', productSelling)
   return (
     <>
-      {productSelling.map((i, index) => (
-        <>
-          <Box button className={classes.paperSelling} key={index}>
-            <Box className={classes.title}>
-              <Avatar
-                variant="square"
-                style={{ width: '100px', height: '100px' }}
-                alt="selling-pic"
-                src={i.Product?.Photos[0]?.post}
-              />
+      {productSelling
+        .slice(0)
+        .reverse()
+        .map((i, index) => (
+          <>
+            <Box button className={classes.paperSelling} key={index}>
+              <Box className={classes.title}>
+                <Avatar
+                  variant="square"
+                  style={{ width: '100px', height: '100px' }}
+                  alt="selling-pic"
+                  src={i?.Product.Photos[0]?.post}
+                />
 
-              {i.Receiver.id !== i.Product.userId ? (
+                {i?.Receiver.id !== i?.Product.userId ? (
+                  <Typography className={classes.text} variant="body1">
+                    {i?.Receiver?.firstName}
+                  </Typography>
+                ) : null}
+                {i?.Sender.id !== i?.Product.userId ? (
+                  <Typography className={classes.text} variant="body1">
+                    {i?.Sender?.firstName}
+                  </Typography>
+                ) : null}
+                <LensIcon
+                  fontSize="small"
+                  style={{ color: 'white', margin: '8px' }}
+                />
                 <Typography className={classes.text} variant="body1">
-                  {i.Receiver.firstName}
+                  {i?.Product.title}
                 </Typography>
-              ) : null}
-              {i.Sender.id !== i.Product.userId ? (
-                <Typography className={classes.text} variant="body1">
-                  {i.Sender.firstName}
-                </Typography>
-              ) : null}
-              <LensIcon
-                fontSize="small"
-                style={{ color: 'white', margin: '8px' }}
-              />
-              <Typography className={classes.text} variant="body1">
-                {i.Product.title}
-              </Typography>
+              </Box>
+              <Box>
+                <Button
+                  button
+                  style={{ color: 'grey' }}
+                  onClick={() => onHandleClick(i)}
+                >
+                  <MessageIcon />
+                </Button>
+                <Button
+                  style={{ color: 'grey' }}
+                  button
+                  onClick={() => setOpenPopup(true)}
+                >
+                  <MoreHorizIcon />
+                </Button>
+              </Box>
             </Box>
-            <Box>
-              <Button
-                button
-                style={{ color: 'grey' }}
-                onClick={() => onHandleClick(i)}
-              >
-                <MessageIcon />
-              </Button>
-              <Button
-                style={{ color: 'grey' }}
-                button
-                onClick={() => setOpenPopup(true)}
-              >
-                <MoreHorizIcon />
-              </Button>
-            </Box>
-          </Box>
-        </>
-      ))}
+          </>
+        ))}
     </>
   )
 }

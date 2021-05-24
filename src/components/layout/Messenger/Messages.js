@@ -54,7 +54,9 @@ function Messages({
 
   const getMessages = async () => {
     try {
-      const res = await axios.get(`message/getMessageByProductId/${productId}`)
+      const res = await axios.get(
+        `/message/getMessageWithProduct/${seller?.id}/${productId}`
+      )
 
       console.log('data', res.data)
       setTexts(res.data.messages)

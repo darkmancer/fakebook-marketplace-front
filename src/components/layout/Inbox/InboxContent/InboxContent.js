@@ -39,6 +39,7 @@ function InboxContent() {
   const [chatId, setChatId] = useState([])
 
   const getArrOfProductIncUserId = async () => {
+    
     try {
       const res = await axios.get(`/message/getTalkAndProduct`)
       console.log('data', res.data)

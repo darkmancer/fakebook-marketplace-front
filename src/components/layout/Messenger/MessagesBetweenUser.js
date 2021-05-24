@@ -49,7 +49,7 @@ function MessagesBetweenUser({ receiverId, seller }) {
   const getMessagesIncProduct = async () => {
     try {
       const res = await axios.get(
-        `/message/getMessageIncProduct/${newReceiverIdForBuy}/${newProductIdForBuy}`
+        `/message/getMessageWithProduct/${newReceiverIdForBuy}/${newProductIdForBuy}`
       )
 
       console.log('data', res.data)
@@ -96,7 +96,7 @@ function MessagesBetweenUser({ receiverId, seller }) {
             {text.receiverId !== user.id ? null : (
               <Avatar
                 alt="receiver-profile"
-                src={seller?.Avatar}
+                src={seller?.avatar}
                 style={{ display: 'inline' }}
               />
             )}
