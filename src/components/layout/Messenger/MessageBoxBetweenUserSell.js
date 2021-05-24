@@ -95,6 +95,7 @@ function MessageBoxBetweenUserSell(props) {
     try {
       const res = await axios.get(`/profile/${newReceiverIdForSell}`)
       //console.log('res-seller-productId', res.data.product.User)
+      console.log('data', res.data.sellerProfile)
       setSeller(res.data.sellerProfile)
       setIsLoading(false)
     } catch (err) {
@@ -128,14 +129,14 @@ function MessageBoxBetweenUserSell(props) {
     }
   }
 
-  const handleOnClose = () => {
-    setOpenChatSell(false)
-  }
-
   const body = (
     <Paper square={false} className={classes.paper} style={modalStyle}>
       <Box className={classes.chatHeader}>
-        <Avatar alt="receiver-profile" style={{ margin: '10px' }} />
+        <Avatar
+          alt="receiver-profile"
+          style={{ margin: '10px' }}
+          src={seller?.avatar}
+        />
         <Typography style={{ margin: '15px' }}>
           {seller?.firstName} {seller?.lastName}
         </Typography>
@@ -166,7 +167,7 @@ function MessageBoxBetweenUserSell(props) {
             className: classes.searchInput
           }}
         />
-        <Button onClick={(e) => handleSendTexts(e)} color="primary">
+        <Button onClick={handleSendTexts} color="primary">
           <SendIcon />
         </Button>
       </Box>

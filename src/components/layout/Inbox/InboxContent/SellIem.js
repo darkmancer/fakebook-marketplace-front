@@ -58,7 +58,7 @@ function SellItem({
     <>
       {productSelling.map((i, index) => (
         <>
-          <Box button className={classes.paperSelling}>
+          <Box button className={classes.paperSelling} key={index}>
             <Box className={classes.title}>
               <Avatar
                 variant="square"

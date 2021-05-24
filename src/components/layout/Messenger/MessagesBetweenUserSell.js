@@ -98,6 +98,7 @@ function MessagesBetweenUserSell({ receiverId, seller }) {
               <Avatar
                 alt="receiver-profile"
                 src={seller?.Avatar}
+                src={text.Avatar?.Photos[0]?.post}
                 style={{ display: 'inline' }}
               />
             )}

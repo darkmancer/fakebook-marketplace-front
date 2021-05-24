@@ -234,7 +234,7 @@ function InboxContent() {
       <MessageBoxBetweenUser openChat={openChat} setOpenChat={setOpenChat} />
       <MessageBoxBetweenUserSell
         openChatSell={openChatSell}
-        setOpenChaSell={setOpenChatSell}
+        setOpenChatSell={setOpenChatSell}
       />
     </Grid>
   )
