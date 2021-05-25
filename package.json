@@ -20,6 +20,7 @@
     "react-geocode": "^0.2.3",
     "react-google-maps": "^9.4.5",
     "react-icons": "^4.2.0",
+    "react-load-script": "^0.0.6",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spring": "^9.1.2",

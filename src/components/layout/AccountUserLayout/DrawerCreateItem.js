@@ -33,7 +33,7 @@ import { useHistory } from 'react-router-dom'
 import { getCurrentLocation, LocationName } from './functionGeocode'
 import axios from '../../../config/axios'
 import { AuthContext } from '../../../context/AuthContextProvider'
-import {getLatLng} from "../../../utilities/Geocode"
+import { getLatLng } from '../../../utilities/Geocode'
 function DrawerCreateItem() {
   const history = useHistory()
   const [boost, setBoost] = useState(false)
@@ -63,7 +63,7 @@ function DrawerCreateItem() {
     }
     getLocation()
   }, [])
- 
+
   const address = localStorage.getItem('Address')
   const [tags, setTags] = React.useState([])
   const optional = tags.join(',')
@@ -131,7 +131,7 @@ function DrawerCreateItem() {
     }
   }
   const onDraftSubmit = async () => {
-    setLoading(true)
+    // setLoading(true)
     try {
       const {
         title,
@@ -162,8 +162,8 @@ function DrawerCreateItem() {
         }
       }
 
-      
       const res = await axios.post('/product/create-product', myFormData)
+      console.log(res)
       if (res) {
         setLoading(false)
         history.push('/mypage')
@@ -273,7 +273,7 @@ function DrawerCreateItem() {
               style={{ marginRight: 10 }}
               className={classes.AvatarCreateDrawer}
               alt="name"
-              src={user.avatar}
+              src={user?.avatar}
             />
             <div>
               <h4 className={classes.NameAvatar}>
@@ -467,7 +467,7 @@ function DrawerCreateItem() {
             label="Location"
             name="location"
             multiline
-            rows={4}
+            rows={3}
             onChange={onChangeItem}
             InputProps={{
               startAdornment: (

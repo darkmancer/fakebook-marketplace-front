@@ -12,102 +12,99 @@ import {
   Select,
   TextField,
   Toolbar,
-  Typography,
-} from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
-import { condition } from "./CategoryMap";
+  Typography
+} from '@material-ui/core'
+import React, { useContext, useEffect, useState } from 'react'
+import { condition } from './CategoryMap'
 
 import {
   MdAddToPhotos,
   MdCancel,
   MdClose,
   MdEdit,
-} from "react-icons/md";
-import { useParams } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import axios from "../../../config/axios";
-import InputTag from "./InputTag";
-import PhotoPreview from "./PhotoPreview";
-import { useStyles } from "./UseStyleCreatePage";
-import { AuthContext } from "../../../context/AuthContextProvider";
-import PhotoPreviewEdit from "./PhotoPreviewEdit";
+  MdPublic
+} from 'react-icons/md'
+import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import axios from '../../../config/axios'
+import InputTag from './InputTag'
+import PhotoPreview from './PhotoPreview'
+import { useStyles } from './UseStyleCreatePage'
+import { AuthContext } from '../../../context/AuthContextProvider'
+import PhotoPreviewEdit from './PhotoPreviewEdit'
 function ContentEdit() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext)
 
-  const address = localStorage.getItem("Address");
-  const [tags, setTags] = useState([]);
-  const history = useHistory();
-  const classes = useStyles();
-  const { id } = useParams();
+  const address = localStorage.getItem('Address')
+  const [tags, setTags] = useState([])
+  const history = useHistory()
+  const classes = useStyles()
+  const { id } = useParams()
   const handleCloseButton = () => {
-    history.push("/mypage");
-  };
+    history.push('/mypage')
+  }
   const handleDelete = (idx) => () => {
     if (photos.length === 1) {
-      setShowPhotos([]);
-      setPhotos([]);
+      setShowPhotos([])
+      setPhotos([])
     } else {
-      setShowPhotos((prev) =>
-        prev.filter((prev, index) => index !== idx)
-      );
-      setPhotos((prev) =>
-        prev.filter((prev, index) => index !== idx)
-      );
+      setShowPhotos((prev) => prev.filter((prev, index) => index !== idx))
+      setPhotos((prev) => prev.filter((prev, index) => index !== idx))
     }
-  };
-   const onChangeFilePhotos = (e) => {
-     setShowPhotos([...showPhotos])
-     if (photos.length !== 0) {
-       setPhotos((prev) => [...prev, e.target.files[0]])
-       setShowPhotos([
-         ...showPhotos,
-         { post: URL.createObjectURL(e.target.files[0]) }
-       ])
-     } else {
-       setPhotos([e.target.files[0]])
-       setShowPhotos([{ post: URL.createObjectURL(e.target.files[0]) }])
-     }
-   }
-  const [loading, setLoading] = useState(true);
-  const [photos, setPhotos] = useState([]);
-  const [showPhotos, setShowPhotos] = useState([]);
-  const [product, setProduct] = useState(null);
+  }
+  const onChangeFilePhotos = (e) => {
+    setShowPhotos([...showPhotos])
+    if (photos.length !== 0) {
+      setPhotos((prev) => [...prev, e.target.files[0]])
+      setShowPhotos([
+        ...showPhotos,
+        { post: URL.createObjectURL(e.target.files[0]) }
+      ])
+    } else {
+      setPhotos([e.target.files[0]])
+      setShowPhotos([{ post: URL.createObjectURL(e.target.files[0]) }])
+    }
+  }
+  const [loading, setLoading] = useState(true)
+  const [photos, setPhotos] = useState([])
+  const [showPhotos, setShowPhotos] = useState([])
+  const [product, setProduct] = useState(null)
   const [item, setItem] = useState({
-    title: "",
-    price: "",
-    category: "",
-    subCategory: "",
-    condition: "",
-    description: "",
-  });
+    title: '',
+    price: '',
+    category: '',
+    subCategory: '',
+    condition: '',
+    description: ''
+  })
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`/product/${id}`);
+        const res = await axios.get(`/product/${id}`)
         // const file = res.data.product.Photos;
-        await setProduct(res.data.product);
-        await setPhotos(res.data.product.Photos);
-        await setShowPhotos(res.data.product.Photos);
-        setLoading(false);
+        await setProduct(res.data.product)
+        await setPhotos(res.data.product.Photos)
+        await setShowPhotos(res.data.product.Photos)
+        setLoading(false)
       } catch (err) {
-        console.log(`err`, err);
+        console.log(`err`, err)
       }
-    };
-    fetchProduct();
-  }, []);
+    }
+    fetchProduct()
+  }, [])
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`/product/${id}`);
-      
-        setProduct(res.data.product);
-        setLoading(false);
+        const res = await axios.get(`/product/${id}`)
+
+        setProduct(res.data.product)
+        setLoading(false)
       } catch (err) {
-        console.log(`err`, err);
+        console.log(`err`, err)
       }
-    };
-    fetchProduct();
-  }, []);
+    }
+    fetchProduct()
+  }, [])
   const onChangeItem = (e) => {
     let values = e.target.value
     const { name, value } = e.target
@@ -181,31 +178,32 @@ function ContentEdit() {
   }
   const onPublishSubmitEdit = async () => {
     try {
-    const { title, price, condition, description } = product;
-    const myFormData = new FormData();
-      myFormData.append("title", title);
-      myFormData.append("condition", condition);
-      myFormData.append("description", description);
-      myFormData.append("price", price);
+      const { title, price, condition, description } = product
+      const myFormData = new FormData()
+      myFormData.append('title', title)
+      myFormData.append('condition', condition)
+      myFormData.append('description', description)
+      myFormData.append('price', price)
       // myFormData.append("multiImage", photos);
       if (photos.length > 0) {
         for (let i = 0; i < photos.length; i++) {
-          myFormData.append("multiImage", photos[i]);
+          myFormData.append('multiImage', photos[i])
         }
       }
-    
-   
-      if (product.productStatus === "Draft") {
-         myFormData.append('productStatus', 'Available')
-       
+
+      if (product.productStatus === 'Draft') {
+        myFormData.append('productStatus', 'Available')
       }
-      const res = await axios.put(`/product/update-product/${product.id}`, myFormData)
+      const res = await axios.put(
+        `/product/update-product/${product.id}`,
+        myFormData
+      )
       if (res) {
-        setLoading(false);
-        history.push("/mypage");
+        setLoading(false)
+        history.push('/mypage')
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
   const onDraftSubmit = async () => {
@@ -264,10 +262,12 @@ function ContentEdit() {
                 style={{ marginRight: 10 }}
                 className={classes.AvatarCreateDrawer}
                 alt="name"
-                src="https://res.cloudinary.com/dux0yt3qn/image/upload/v1620211563/GroupProject/EZT-c_SUEAQVwX8_oxti1w.jpg"
+                src={user?.avatar}
               />
               <div>
-                <h4 className={classes.NameAvatar}>{user?.firstName}</h4>
+                <h4 className={classes.NameAvatar}>
+                  {user?.firstName} {user?.lastName}
+                </h4>
                 <h5 className={classes.TextStatusAvatar}>
                   Listing to Marketplace
                 </h5>
@@ -490,9 +490,9 @@ function ContentEdit() {
               }
               onClick={onPublishSubmitEdit}
               className={classes.ButtonPublish}
-              endIcon={<MdEdit />}
+              endIcon={<MdPublic />}
             >
-              Edit
+              Publish
             </Button>
           </Box>
         </Paper>
@@ -513,4 +513,4 @@ function ContentEdit() {
   )
 }
 
-export default ContentEdit;
+export default ContentEdit

@@ -207,10 +207,14 @@ export default function SpringModal({
       <Container onClick={() => setOpen(true)}>
         <Avatar alt="name" src={seller?.avatar} className={classes.large} />
         <div>
-          <Typography variant="h6" component="h6">
+          <Typography variant="h6" component="h6" style={{ color: 'white' }}>
             {seller?.firstName} {seller?.lastName} <br />
           </Typography>
-          <Typography variant="caption" component="h8">
+          <Typography
+            variant="caption"
+            component="h8"
+            style={{ color: 'grey' }}
+          >
             Joined Marketplace in {seller?.joinYear.substring(0, 4)}
           </Typography>
         </div>
