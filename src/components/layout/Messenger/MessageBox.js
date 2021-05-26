@@ -80,7 +80,6 @@ function MessageBox(props) {
       const res = await axios.get(`/product/get-seller-product/${productId}`)
       //console.log('res-seller-productId', res.data.product.User)
       setSeller(res.data.product?.User)
-      setIsLoading(false)
     } catch (err) {
       console.log(err)
     }

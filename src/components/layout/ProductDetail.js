@@ -200,7 +200,7 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
         </Drawer>
       </div>
 
-      <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      {/* <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} /> */}
 
       <MessageBox
         seller={seller}
