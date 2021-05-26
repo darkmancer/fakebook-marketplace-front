@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Modal,
   TextField,
@@ -8,26 +8,31 @@ import {
   FormLabel,
   Radio,
   Box,
-  Button,
-} from "@material-ui/core";
+  Button
+} from '@material-ui/core'
 
-import { MuiThemeProvider } from "@material-ui/core";
-import { theme, useStyles, modalStyle } from "./StyleSellItem";
+import { MuiThemeProvider } from '@material-ui/core'
+import { theme, useStyles, modalStyle } from './StyleSellItem'
 
 function SellItemModal(props) {
-  const classes = useStyles();
-  const { openPopup, setOpenPopup } = props;
-  const [value, setValue] = useState("");
+  const classes = useStyles()
+  const { openPopup, setOpenPopup, label, setLabel } = props
+  const [value, setValue] = useState('')
+
+  console.log('label', label)
   const handleChange = (event) => {
-    setValue(event.target.value);
-  };
- 
+    setValue(event.target.value)
+    setLabel(event.target.value)
+  }
+  const handleLabel = (event) => {
+    alert('change label success')
+  }
+
   const body = (
     <Box className={classes.paper} style={modalStyle}>
       <MuiThemeProvider theme={theme}>
-        {" "}
         <FormControl>
-          <FormLabel style={{ color: "white" }}>Label Chat</FormLabel>
+          <FormLabel style={{ color: 'white' }}>Label Chat</FormLabel>
           <RadioGroup
             aria-label="status"
             name="statusGroup"
@@ -67,6 +72,7 @@ function SellItemModal(props) {
               variant="contained"
               color="primary"
               className={classes.button}
+              onClick={(e) => handleLabel(e)}
             >
               OK
             </Button>
@@ -82,12 +88,8 @@ function SellItemModal(props) {
         </FormControl>
       </MuiThemeProvider>
     </Box>
-  );
+  )
 
-  return (
-    // <div className={classes.paper}>
-    <Modal open={openPopup}>{body}</Modal>
-    // </div>
-  );
+  return <Modal open={openPopup}>{body}</Modal>
 }
-export default SellItemModal;
+export default SellItemModal

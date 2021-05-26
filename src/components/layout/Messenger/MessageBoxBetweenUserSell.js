@@ -19,6 +19,8 @@ import SendIcon from '@material-ui/icons/Send'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 import axios from '../../../config/axios'
+import { MessageIncProductContext } from '../../../context/MessageIncProductProvider'
+import MessagesBetweenUserSell from './MessagesBetweenUserSell'
 
 const modalStyle = {
   top: `40%`,
@@ -61,25 +63,42 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function MessageBox(props) {
+//ฝั่งbuy
+function MessageBoxBetweenUserSell(props) {
   const classes = useStyles()
   const [newMessage, setNewMessage] = useState('')
-  const { openChat, setOpenChat, productId } = props
+  const { openChatSell, setOpenChatSell } = props
   const { socket } = useContext(SocketContext)
   const { user } = useContext(AuthContext)
-
   const [seller, setSeller] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [chatUser, setChatUser] = useState([])
+  const {
+    messages,
+    setMessages,
+    newReceiverIdForSell,
+    newReceiverIdForBuy,
+    newProductIdForBuy,
+    newProductIdForSell
+  } = useContext(MessageIncProductContext)
+
+  console.log('newReceiverIdSell', newReceiverIdForSell)
+  console.log('newReceiverIdBuy', newReceiverIdForBuy)
+  console.log('newproductSell', newProductIdForSell)
+  console.log('newproductBuy', newProductIdForBuy)
+  console.log('messages', messages.productId)
   //id ที่รับเข้ามาคือ id.param ของ product
   console.log('seller', seller)
   console.log(user)
 
   const fetchSellerByProductId = async () => {
     try {
-      const res = await axios.get(`/product/get-seller-product/${productId}`)
+      const res = await axios.get(`/profile/${newReceiverIdForSell}`)
       //console.log('res-seller-productId', res.data.product.User)
-      setSeller(res.data.product?.User)
+      console.log('data', res.data.sellerProfile)
+      setSeller(res.data.sellerProfile)
+
+      setIsLoading(false)
     } catch (err) {
       console.log(err)
     }
@@ -91,29 +110,24 @@ function MessageBox(props) {
 
   const handleSendTexts = async (e) => {
     e.preventDefault()
-    socket.emit('join_productId', productId)
+    socket.emit('join_productId', newProductIdForSell)
+
     socket.emit('sendMessage', {
       text: newMessage,
-      productId: productId,
+      productId: newProductIdForSell,
       senderId: user.id,
-      receiverId: seller?.id
+      receiverId: newReceiverIdForSell
     })
-
     try {
-      const res = await axios.post(`/message/${seller?.id}`, {
+      const res = await axios.post(`/message/${newReceiverIdForSell}`, {
         text: newMessage,
-        productId: productId
+        productId: newProductIdForSell
       })
       console.log('res', res)
       setNewMessage('')
-      //setText([...text, res.data.messages.text]);
     } catch (err) {
       console.log(err)
     }
-  }
-
-  const handleOnClose = () => {
-    setOpenChat(false)
   }
 
   const body = (
@@ -128,13 +142,18 @@ function MessageBox(props) {
           {seller?.firstName} {seller?.lastName}
         </Typography>
         <Button color="primary">
-          <CloseIcon onClick={handleOnClose} />
+          <CloseIcon onClick={() => setOpenChatSell(false)} />
         </Button>
       </Box>
 
       <Divider className={classes.dividerColor} />
 
-      <Messages receiverId={seller?.id} seller={seller} productId={productId} />
+      <MessagesBetweenUserSell
+        receiverId={seller?.id}
+        seller={seller}
+        productId={newProductIdForSell}
+      />
+
       <Box className={classes.chatFooter}>
         <TextField
           style={{ overflow: 'hidden' }}
@@ -150,14 +169,14 @@ function MessageBox(props) {
             className: classes.searchInput
           }}
         />
-        <Button onClick={(e) => handleSendTexts(e)} color="primary">
+        <Button onClick={handleSendTexts} color="primary">
           <SendIcon />
         </Button>
       </Box>
     </Paper>
   )
 
-  return <Modal open={openChat}>{body}</Modal>
+  return <Modal open={openChatSell}>{body}</Modal>
 }
 
-export default MessageBox
+export default MessageBoxBetweenUserSell

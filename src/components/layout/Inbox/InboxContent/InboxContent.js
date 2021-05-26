@@ -1,94 +1,107 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "../../../../config/axios";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react'
+import axios from '../../../../config/axios'
+import { useHistory } from 'react-router-dom'
 import {
   Grid,
-  Paper,
-  Tabs,
-  Tab,
   Button,
   Box,
   Divider,
   MenuItem,
   FormControl,
   Select,
-  Typography,
-} from "@material-ui/core";
-import SellItemModal from "../SellItemModal/SellItemModal";
-import MoreIcon from "@material-ui/icons/More";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { useStyles } from "./StylesInboxContent";
-import SellStep from "./SellStep";
-import MessageBox from "../../Messenger/MessageBox";
-import SellItem from "./SellIem";
-import { PayloadContext } from "../../../../context/PayloadContextProvider";
+  Typography
+} from '@material-ui/core'
+import SellItemModal from '../SellItemModal/SellItemModal'
+import { useStyles } from './StylesInboxContent'
+import SellStep from './SellStep'
+import MessageBoxBetweenUser from '../../Messenger/MessageBoxBetweenUser'
+import SellItem from './SellIem'
+import BuyItem from './BuyItem'
+import { AuthContext } from '../../../../context/AuthContextProvider'
+import MessageBoxBetweenUserSell from '../../Messenger/MessageBoxBetweenUserSell'
 
 function InboxContent() {
-  const classes = useStyles();
-  const history = useHistory();
-  const [value, setValue] = React.useState("");
-  const [showSell, setShowSell] = useState(false);
-  const [showBuy, setShowBuy] = useState(false);
-  const [openPopup, setOpenPopup] = useState(false);
-  const [openChat, setOpenChat] = useState(false);
-  const [showStep, setShowStep] = useState(false);
-  const [seller, setSeller] = useState(null);
-  const { payload, setPayload } = useContext(PayloadContext);
-  const [talksUser, setTalksUser] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const classes = useStyles()
+  const [value, setValue] = React.useState('')
+  const [showSell, setShowSell] = useState(false)
+  const [showBuy, setShowBuy] = useState(false)
+  const [openPopup, setOpenPopup] = useState(false)
+  const [openChat, setOpenChat] = useState(false)
+  const [openChatSell, setOpenChatSell] = useState(false)
+  const [showStep, setShowStep] = useState(false)
+  const [seller, setSeller] = useState(null)
+  const { user } = useContext(AuthContext)
+  const [talksUser, setTalksUser] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [chatUser, setChatUser] = useState([])
+  const [label, setLabel] = useState('')
+  const [showLabel, setShowLabel] = useState('')
+  const [chatId, setChatId] = useState([])
 
-  const [list, setList] = React.useState("");
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
-  const handleShowBuy = () => {
-    setShowBuy(true);
-    setShowSell(false);
-  };
-  const handleShowSell = () => {
-    setShowSell(true);
-    setShowBuy(false);
-  };
-
-  // useEffect(() => {
-  //   const fetchSeller = async () => {
-  //     try {
-  //       const res = await axios.get(`/seller/${product.userId}`);
-  //       // const res = await axios.get(`/seller/${id}`);
-
-  //       setSeller(res.data.sellerProfile);
-  //       setIsLoading(false);
-  //     } catch (err) {
-  //       console.log(`err`, err);
-  //     }
-  //   };
-  //   const fetchIsSaved = async () => {
-  //     const res = await axios.get(`/saved/isSaved/${product.id}`);
-  //     setTriggerSaved(res.data.saved);
-  //   };
-  //   fetchSeller();
-  //   fetchIsSaved();
-  // }, [product]);
-
-  
-  const getTalk = async () => {
-    //payload?.id= คนที่ติดเราเป็นทั้งคนติดต่อ ทั้ง เค้าติดต่อ
+  const getArrOfProductIncUserId = async () => {
+    
     try {
-      const res = await axios.get(`/message/gettalk/${payload?.id}`);
-
-      setTalksUser(res.data.talkUsers);
-      setIsLoading(false);
+      const res = await axios.get(`/message/getTalkAndProduct`)
+      console.log('data', res.data)
+      setChatUser(res.data.arr)
+      //setChatId(res.data.arr)
+      setIsLoading(false)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   useEffect(() => {
-    getTalk();
-  }, []);
+    getArrOfProductIncUserId()
+  }, [])
 
-  if (isLoading) return <p>Loading</p>;
+  const arrOfUserProductSelling = chatUser.filter(
+    (i) => i.Product.userId === user?.id
+  )
+
+  let mems = {}
+  let productSelling = []
+  for (let item of arrOfUserProductSelling) {
+    const { chatId } = item
+    if (typeof mems[chatId] === 'undefined') {
+      productSelling.push(item)
+      mems[chatId] = true
+    }
+  }
+  console.log('arrOfSell', productSelling)
+
+  const arrOfUserProductBuying = chatUser.filter(
+    (i) => i.Product.userId !== user?.id
+  )
+
+  let obj = {}
+  let productBuying = []
+  for (let item of arrOfUserProductBuying) {
+    const { chatId } = item
+    if (typeof obj[chatId] === 'undefined') {
+      productBuying.push(item)
+      obj[chatId] = true
+    }
+  }
+  console.log('arrOfBuy', arrOfUserProductBuying)
+  const handleChange = (e) => {
+    setValue(e.target.value)
+  }
+  const handleShowBuy = () => {
+    setShowBuy(true)
+    setShowSell(false)
+  }
+  const handleShowSell = () => {
+    setShowSell(true)
+    setShowBuy(false)
+  }
+  const handleLabel = (e) => {
+    // console.log(e.target)
+    setShowLabel(e.target.value)
+  }
+  console.log('showlabel', showLabel)
+
+  if (isLoading) return <h1>Loading</h1>
   return (
     <Grid
       container
@@ -97,7 +110,7 @@ function InboxContent() {
       alignItems="stretch"
       height={100}
     >
-      <Grid className={classes.root} style={{ minHeight: "100vh" }}>
+      <Grid className={classes.root} style={{ minHeight: '100vh' }}>
         <Box className={classes.paper}>
           <Button color="primary" onClick={() => handleShowSell()}>
             Selling
@@ -119,18 +132,16 @@ function InboxContent() {
                     onChange={handleChange}
                     displayEmpty
                     className={classes.fontColor}
-
-                    //inputProps={{ "aria-label": "Without label" }}
                   >
-                    <MenuItem value={"listing"}>
+                    <MenuItem value={'listing'}>
                       <em>Grouped by listing</em>
                     </MenuItem>
-                    <MenuItem value={"chart"}>Individual Charts</MenuItem>
+                    <MenuItem value={'chart'}>Individual Charts</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
 
-              {value === "chart" ? (
+              {value === 'chart' ? (
                 <>
                   <Divider className={classes.dividerLine} />
                   <Box>
@@ -138,59 +149,95 @@ function InboxContent() {
                       Filter by label
                     </Typography>
 
-                    <Button className={classes.buttonColor}>All</Button>
-                    <Button className={classes.buttonColor}>
+                    <Button
+                      value="all"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
+                      All
+                    </Button>
+                    <Button
+                      value="pending"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
                       Pending Payment
                     </Button>
-                    <Button className={classes.buttonColor}>Paid</Button>
-                    <Button className={classes.buttonColor}>
+                    <Button
+                      value="toBeShipped"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
                       To Be shipped
                     </Button>
-                    <Button className={classes.buttonColor}>Shipped</Button>
-                    <Button className={classes.buttonColor}>
+                    <Button
+                      value="shipped"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
+                      Shipped
+                    </Button>
+                    <Button
+                      value="cashOnDelivery"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
                       Cash on delivery
                     </Button>
-                    <Button className={classes.buttonColor}>Complete</Button>
+                    <Button
+                      value="complete"
+                      onClick={handleLabel}
+                      className={classes.buttonColor}
+                    >
+                      Complete
+                    </Button>
                   </Box>
                 </>
               ) : (
                 <>
                   <Divider className={classes.dividerLine} />
                   <Box>
-                    <Typography variant="body1" className={classes.fontColor}>
-                      <SellItem
-                        seller={seller}
-                        talksUser={talksUser}
-                        setOpenPopup={setOpenPopup}
-                        setOpenChat={setOpenChat}
-                      />
-                    </Typography>
+                    <SellItem
+                      user={user}
+                      seller={seller}
+                      setOpenPopup={setOpenPopup}
+                      setOpenChatSell={setOpenChatSell}
+                      productSelling={productSelling}
+                    />
                   </Box>
                 </>
               )}
               <SellItemModal
                 openPopup={openPopup}
                 setOpenPopup={setOpenPopup}
+                label={label}
+                setLabel={setLabel}
               />
             </Box>
           )}
           {showBuy && (
             <Box>
-              <Button
-                variant="body1"
-                className={classes.buttonColor}
-                onClick={() => setShowStep(showStep === true ? false : true)}
-              >
-                Seller's name: Product title
-              </Button>
+              <BuyItem
+                user={user}
+                seller={seller}
+                talksUser={talksUser}
+                setOpenPopup={setOpenPopup}
+                setOpenChat={setOpenChat}
+                productBuying={productBuying}
+              />
+
               <Box>{showStep && <SellStep />}</Box>
             </Box>
           )}
         </Box>
       </Grid>
 
-      <MessageBox openChat={openChat} setOpenChat={setOpenChat} />
+      <MessageBoxBetweenUser openChat={openChat} setOpenChat={setOpenChat} />
+      <MessageBoxBetweenUserSell
+        openChatSell={openChatSell}
+        setOpenChatSell={setOpenChatSell}
+      />
     </Grid>
-  );
+  )
 }
-export default InboxContent;
+export default InboxContent

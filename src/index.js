@@ -11,6 +11,7 @@ import AccountContextProvider from './context/AccountContextProvider'
 import PriceContextProvider from './context/PriceContextProvider'
 import LocationContextProvider from './context/LocationContextProvider'
 import PayloadContextProvider from './context/PayloadContextProvider'
+import MessageIncProductContextProvider from './context/MessageIncProductProvider'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import GeocodeContextProvider from './context/GeocodeContextProvider'
 const theme = createMuiTheme({
@@ -27,21 +28,23 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <SocketContextProvider>
-      <PayloadContextProvider>
-        <GeocodeContextProvider>
-          <PriceContextProvider>
-            <AccountContextProvider>
-              <AuthContextProvider>
-                <ThemeProvider theme={theme}>
-                  <BrowserRouter>
-                    <App />
-                  </BrowserRouter>
-                </ThemeProvider>
-              </AuthContextProvider>
-            </AccountContextProvider>
-          </PriceContextProvider>
-        </GeocodeContextProvider>
-      </PayloadContextProvider>
+      <MessageIncProductContextProvider>
+        <PayloadContextProvider>
+          <GeocodeContextProvider>
+            <PriceContextProvider>
+              <AccountContextProvider>
+                <AuthContextProvider>
+                  <ThemeProvider theme={theme}>
+                    <BrowserRouter>
+                      <App />
+                    </BrowserRouter>
+                  </ThemeProvider>
+                </AuthContextProvider>
+              </AccountContextProvider>
+            </PriceContextProvider>
+          </GeocodeContextProvider>
+        </PayloadContextProvider>
+      </MessageIncProductContextProvider>
     </SocketContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

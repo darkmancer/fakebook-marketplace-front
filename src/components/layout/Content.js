@@ -19,7 +19,7 @@ function Content() {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`/product/get-all-product`)
-       
+
         setProducts(res.data.products)
       } catch (err) {
         console.log(`err`, err)

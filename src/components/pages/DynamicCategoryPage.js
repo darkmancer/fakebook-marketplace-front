@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function CategoryPage() {
+function DynamicCategoryPage() {
   const { category } = useParams()
 
 
@@ -61,4 +61,4 @@ function CategoryPage() {
   )
 }
 
-export default CategoryPage
+export default DynamicCategoryPage

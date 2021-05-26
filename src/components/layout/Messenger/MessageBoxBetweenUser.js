@@ -19,6 +19,8 @@ import SendIcon from '@material-ui/icons/Send'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 import axios from '../../../config/axios'
+import MessagesBetweenUser from './MessagesBetweenUser'
+import { MessageIncProductContext } from '../../../context/MessageIncProductProvider'
 
 const modalStyle = {
   top: `40%`,
@@ -61,25 +63,42 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function MessageBox(props) {
+//ฝั่งbuy
+function MessageBoxBetweenUser(props) {
   const classes = useStyles()
   const [newMessage, setNewMessage] = useState('')
   const { openChat, setOpenChat, productId } = props
   const { socket } = useContext(SocketContext)
   const { user } = useContext(AuthContext)
-
   const [seller, setSeller] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [chatUser, setChatUser] = useState([])
+  const {
+    messages,
+    setMessages,
+    newReceiverIdForSell,
+    newReceiverIdForBuy,
+    newProductIdForBuy,
+    newProductIdForSell
+  } = useContext(MessageIncProductContext)
+
+  console.log('newReceiverIdSell', newReceiverIdForSell)
+  console.log('newReceiverIdBuy', newReceiverIdForBuy)
+  console.log('newproductSell', newProductIdForSell)
+  console.log('newproductBuy', newProductIdForBuy)
+  console.log('messages', messages.productId)
   //id ที่รับเข้ามาคือ id.param ของ product
   console.log('seller', seller)
   console.log(user)
 
   const fetchSellerByProductId = async () => {
     try {
-      const res = await axios.get(`/product/get-seller-product/${productId}`)
+      const res = await axios.get(`/profile/${newReceiverIdForBuy}`)
       //console.log('res-seller-productId', res.data.product.User)
-      setSeller(res.data.product?.User)
+      console.log('data', res.data.sellerProfile)
+      setSeller(res.data.sellerProfile)
+
+      setIsLoading(false)
     } catch (err) {
       console.log(err)
     }
@@ -91,22 +110,21 @@ function MessageBox(props) {
 
   const handleSendTexts = async (e) => {
     e.preventDefault()
-    socket.emit('join_productId', productId)
+    socket.emit('join_productId', newProductIdForBuy)
+
     socket.emit('sendMessage', {
       text: newMessage,
-      productId: productId,
+      productId: newProductIdForBuy,
       senderId: user.id,
-      receiverId: seller?.id
+      receiverId: newReceiverIdForBuy
     })
-
     try {
-      const res = await axios.post(`/message/${seller?.id}`, {
+      const res = await axios.post(`/message/${newReceiverIdForBuy}`, {
         text: newMessage,
-        productId: productId
+        productId: newProductIdForBuy
       })
       console.log('res', res)
       setNewMessage('')
-      //setText([...text, res.data.messages.text]);
     } catch (err) {
       console.log(err)
     }
@@ -121,8 +139,8 @@ function MessageBox(props) {
       <Box className={classes.chatHeader}>
         <Avatar
           alt="receiver-profile"
-          style={{ margin: '10px' }}
           src={seller?.avatar}
+          style={{ margin: '10px' }}
         />
         <Typography style={{ margin: '15px' }}>
           {seller?.firstName} {seller?.lastName}
@@ -134,7 +152,12 @@ function MessageBox(props) {
 
       <Divider className={classes.dividerColor} />
 
-      <Messages receiverId={seller?.id} seller={seller} productId={productId} />
+      <MessagesBetweenUser
+        receiverId={seller?.id}
+        seller={seller}
+        productId={newProductIdForBuy}
+      />
+
       <Box className={classes.chatFooter}>
         <TextField
           style={{ overflow: 'hidden' }}
@@ -160,4 +183,4 @@ function MessageBox(props) {
   return <Modal open={openChat}>{body}</Modal>
 }
 
-export default MessageBox
+export default MessageBoxBetweenUser

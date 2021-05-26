@@ -114,7 +114,7 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
                 <Typography variant="h9" component="h9">
                   {product.category}
                   <NavigateNextIcon style={{ height: '12px' }} />
-                  {product.subCategory}{' '}
+                  {product.subCategory}
                 </Typography>
               </ListItem>
             </List>
@@ -202,7 +202,7 @@ function ProductDetail({ product, trigger, setTrigger, id }) {
         </Drawer>
       </div>
 
-      <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      {/* <CommerceProfileModal openPopup={openPopup} setOpenPopup={setOpenPopup} /> */}
 
       <MessageBox
         seller={seller}

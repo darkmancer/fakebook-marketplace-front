@@ -7,28 +7,25 @@ import MessageIcon from '@material-ui/icons/Message'
 import { Image } from '@material-ui/icons'
 import { useStyles } from './StylesInboxContent'
 import LensIcon from '@material-ui/icons/Lens'
-import { AuthContext } from '../../../../context/AuthContextProvider'
 import { MessageIncProductContext } from '../../../../context/MessageIncProductProvider'
 
-function SellItem({
+function BuyItem({
   talksUser,
   setOpenPopup,
-  setOpenChatSell,
+  setOpenChat,
   seller,
-
-  productSelling
+  user,
+  productBuying
 }) {
   const classes = useStyles()
-  const [receiverId, setReceiverId] = useState('')
-  const { user } = useContext(AuthContext)
   const {
     messages,
     setMessages,
-    setNewReceiverIdForSell,
-    setNewProductIdForSell
+    setNewReceiverIdForBuy,
+    setNewProductIdForBuy
   } = useContext(MessageIncProductContext)
-  // console.log('receiverId', receiverId)
-  // console.log('productSelling', productSelling)
+
+  console.log('productBuy', productBuying)
 
   const onHandleClick = async (i) => {
     let newId =
@@ -37,48 +34,44 @@ function SellItem({
         : null || i.senderId !== user?.id
         ? i.senderId
         : null
-    setNewReceiverIdForSell(newId)
-    setNewProductIdForSell(i.productId)
+    console.log('newId', newId) //newId = receiverId in controller
+    console.log('product', i.productId)
 
-    console.log('newIdSell', newId)
-    console.log('productSell', i.productId)
-
+    setNewProductIdForBuy(i.productId)
+    setNewReceiverIdForBuy(newId)
     try {
       const res = await axios.get(
         `/message/getMessageWithProduct/${newId}/${i.productId}`
       )
       setMessages(res.data.messages)
-      setOpenChatSell(true)
+      setOpenChat(true)
     } catch (err) {
       console.log(err)
     }
   }
-
-  console.log('name', productSelling)
   return (
     <>
-      {productSelling
+      {productBuying
         .slice(0)
         .reverse()
         .map((i, index) => (
           <>
-            <Box button className={classes.paperSelling} key={index}>
+            <Box className={classes.paperSelling} key={index}>
               <Box className={classes.title}>
                 <Avatar
                   variant="square"
+                  alt="buy-pic"
                   style={{ width: '100px', height: '100px' }}
-                  alt="selling-pic"
-                  src={i?.Product.Photos[0]?.post}
+                  src={i.Product?.Photos[0]?.post}
                 />
-
-                {i?.Receiver.id !== i?.Product.userId ? (
+                {i.Receiver.id === i.Product.userId ? (
                   <Typography className={classes.text} variant="body1">
-                    {i?.Receiver?.firstName}
+                    {i.Receiver.firstName}
                   </Typography>
                 ) : null}
-                {i?.Sender.id !== i?.Product.userId ? (
+                {i.Sender.id === i.Product.userId ? (
                   <Typography className={classes.text} variant="body1">
-                    {i?.Sender?.firstName}
+                    {i.Sender.firstName}
                   </Typography>
                 ) : null}
                 <LensIcon
@@ -86,9 +79,10 @@ function SellItem({
                   style={{ color: 'white', margin: '8px' }}
                 />
                 <Typography className={classes.text} variant="body1">
-                  {i?.Product.title}
+                  {i.Product.title}
                 </Typography>
               </Box>
+
               <Box>
                 <Button
                   button
@@ -98,8 +92,8 @@ function SellItem({
                   <MessageIcon />
                 </Button>
                 <Button
-                  style={{ color: 'grey' }}
                   button
+                  style={{ color: 'grey' }}
                   onClick={() => setOpenPopup(true)}
                 >
                   <MoreHorizIcon />
@@ -111,4 +105,4 @@ function SellItem({
     </>
   )
 }
-export default SellItem
+export default BuyItem

@@ -1,47 +1,47 @@
-import React from "react";
-import SideBar from "../layout/SideBar";
-import InboxContent from "../layout/Inbox/InboxContent/InboxContent";
-import Header from "../layout/Header";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react'
+import SideBar from '../layout/SideBar'
+import InboxContent from '../layout/Inbox/InboxContent/InboxContent'
+import Header from '../layout/Header'
+import { makeStyles } from '@material-ui/core/styles'
 
-import { Paper, Grid, Box } from "@material-ui/core";
+import { Paper, Grid, Box } from '@material-ui/core'
 
-const drawerWidth = 360;
+const drawerWidth = 360
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    backgroundColor: "#18191a",
+    display: 'flex',
+    backgroundColor: '#18191a'
   },
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
-      flexShrink: 0,
+      flexShrink: 0
     },
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
   //ถ้า sm ขึ้นไปจะทำอะไร
   content: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexGrow: 1,
-      padding: theme.spacing(2),
+      padding: theme.spacing(2)
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       flexShrink: 0,
-      padding: theme.spacing(1),
-    },
+      padding: theme.spacing(1)
+    }
   },
   appBar: {
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
-  },
-}));
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    }
+  }
+}))
 
 function InboxPage() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>
@@ -55,7 +55,7 @@ function InboxPage() {
         <InboxContent />
       </main>
     </div>
-  );
+  )
 }
 
-export default InboxPage;
+export default InboxPage
