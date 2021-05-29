@@ -24,13 +24,13 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
   //   return address
   // } 
  
-  // React.useEffect(() => {
-  //   const setAdd = async () => {
-  //     const loName = await getAddress(product.location)
-  //     setAddress(loName)
-  //   }
-  //   setAdd()
-  // }, [])
+  React.useEffect(() => {
+    const setAdd = async () => {
+      const loName = await getAddress(product.location)
+      setAddress(loName)
+    }
+    setAdd()
+  }, [])
 
   if (size === "mini") {
     return (
@@ -64,7 +64,7 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
           {product?.title}
         </Typography>
         <Typography variant="caption" component="p">
-          {/* {address} */}
+          {address}
         </Typography>
       </div>
     )
@@ -91,7 +91,7 @@ function ProductCard({ product, size, setOpen, setTrigger, trigger }) {
           {product?.title}{" "}
         </Typography>
         <Typography variant="subtitle1" component="p" style={{ color: "gray" }}>
-         {/* {address} */}
+         {address}
         </Typography>
       </div>
     );

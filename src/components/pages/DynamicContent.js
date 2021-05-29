@@ -13,6 +13,7 @@ import { PriceContext } from '../../context/PriceContextProvider'
 const useForceUpdate = () => useState()[1]
 
 function Content({ category }) {
+  //ชื่อไม่ตรงกับชื่อคอมโพเน้น
   const [products, setProducts] = useState([])
   const classes = useStylesContent()
   const { priceMin, priceMax, condition, search, sort } =
@@ -21,34 +22,35 @@ function Content({ category }) {
     useContext(GeocodeContext)
 
   const filterProducts = (products) => {
+    // ชื่อซ้ำใช้ Tool
     return products
       ?.filter((product) => {
-        if (!condition || condition === 'All') return product
+        if (!condition || condition === 'All') return product //test ไม่มีคอนดิชั่นหรือเปนออลต้องได้เหมือนเดิม เงื่อนไขสองถ้าใส่คอนดิชั่นและไม่มีเสริชต้องได้โปรดัคนั้นเท่านั้น สามไม่มีคอนดิชั่นแต่มีเสริช สี่มีทั้งคู่
 
         return product.condition === condition
       })
       ?.filter((product) => {
-        if (!search) return product
+        if (!search) return product //this is early return
         if (
           product.title?.toLowerCase().includes(search.toLowerCase()) ||
-          product.optional?.toLowerCase().includes(search.toLowerCase())
+          product.optional?.toLowerCase().includes(search.toLowerCase()) // indexing แกะเอามาเทส
         ) {
           return product
         }
       })
   }
-  // const locationFilter = async (products) => {
-  //   return products?.filter((product) => {
-  //     if (calcDistance(product.location, geocode) <= +radius) return product
-  //   })
-  // }
+  const locationFilter = async (products) => {
+    return products?.filter((product) => {
+      if (calcDistance(product.location, geocode) <= +radius) return product
+    })
+  }
   const fetchProduct = async () => {
     try {
       const res = await axios.get(`/product/get-by-category/${category}`)
 
       const filteredProducts = filterProducts(res.data.products)
-      // const filteredProductsByLocation = await locationFilter(filteredProducts)
-      setProducts(filteredProducts)
+      const filteredProductsByLocation = await locationFilter(filteredProducts)
+      setProducts(filteredProductsByLocation)
     } catch (err) {
       console.log(`err`, err)
     }
@@ -59,11 +61,11 @@ function Content({ category }) {
 
       if (res.data.products) {
         const filteredProducts = filterProducts(res.data.products)
-        // const filteredProductsByLocation = await locationFilter(
-        //   filteredProducts
-        // )
-        if (filteredProducts) {
-          setProducts(filteredProducts)
+        const filteredProductsByLocation = await locationFilter(
+          filteredProducts
+        )
+        if (filteredProductsByLocation) {
+          setProducts(filteredProductsByLocation)
         }
       } else {
         setProducts(res.data.products)
@@ -81,13 +83,47 @@ function Content({ category }) {
     }
   }, [category, condition, search, radius, address])
 
+  const priceFilterRender = () => {
+    if (!priceMin && !priceMax)
+      return products?.map((product) => (
+        <Grid item xs={3}>
+          <ProductCard product={product} />
+        </Grid>
+      ))
+    else if (priceMax && priceMin)
+      return products
+        ?.filter(
+          (product) => +product.price <= priceMax && +product.price >= priceMin
+        )
+        .map((product) => (
+          <Grid item xs={3}>
+            <ProductCard product={product} />
+          </Grid>
+        ))
+    else if (priceMax)
+      return products
+        ?.filter((product) => +product.price <= priceMax)
+        .map((product) => (
+          <Grid item xs={3}>
+            <ProductCard product={product} />
+          </Grid>
+        ))
+    else if (priceMin)
+      return products
+        ?.filter((product) => +product.price >= priceMin)
+        .map((product) => (
+          <Grid item xs={3}>
+            <ProductCard product={product} />
+          </Grid>
+        ))
+    else return null
+  }
+
   return (
     <div>
       <Box>
         <Box className={classes.containerText}>
-          <h2 className={classes.text}>
-            {category ? `${category}` : "Today's Pick"}
-          </h2>
+          <h2 className={classes.text}>{category || "Today's Pick"}</h2>
           <Typography style={{ color: '#2D88FF' }}>
             <RoomIcon />
             {address} {radius}km
@@ -100,7 +136,18 @@ function Content({ category }) {
               justify={products.length < 4 ? 'space-evenly' : 'flex-start'}
               spacing={3}
             >
-              {!priceMin && !priceMax
+              {priceFilterRender()}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
+  )
+}
+export default Content
+
+{
+  /* {!priceMin && !priceMax //แยกออกมาเป็นRender Functionแล้ว ใช้Early Return คืน เปลี่ยนเปนฟังชั่น
                 ? products?.map((product) => (
                     <Grid item xs={3}>
                       <ProductCard product={product} />
@@ -133,12 +180,5 @@ function Content({ category }) {
                         <ProductCard product={product} />
                       </Grid>
                     ))
-                : null}
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
-    </div>
-  )
+                : null} */
 }
-export default Content
